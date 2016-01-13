@@ -1,0 +1,37 @@
+{
+    "zh-TW": {
+        "enter_user_email": "請填寫您的帳號或電子郵件。",
+        "enter_password":"請填寫您的密碼。",
+        "login_fail":"登入失敗！請重新輸入帳號/電子郵件, 與密碼。",
+        "enter_mail_reset_password":"請輸入您的電子郵件地址以重設密碼。",
+        "email_format_error":"電子郵件格式錯誤！",
+        "email_not_found":"沒有使用這個電子郵件的帳號",
+        "sending_wait":"發信中，請稍候",
+        "feedback_message":"密碼變更步驟已向 hh.idbg.test@gmail.com 寄出，有些位址送達需時，建議您於5分鐘後到信箱查看。",
+        "enter_name":"請輸入稱呼",
+        "enter_correct_format":"請輸入正確的信箱格式",
+        "enter_mail":"請輸入信箱",
+        "enter_comments":"請輸入您的意見",
+        "success_reply_soon":"傳送完成，我們將盡快回覆。"
+    
+    },  
+    "en-us":{
+        "enter_user_email":"Enter your username or email, please.",
+        "enter_password":"Enter your Password, please.",
+        "login_fail":"Login failed! Please re-enter id or email address, and password.",
+        "enter_mail_reset_password":"Please enter your Email to reset password",
+        "email_format_error":"Email format error！",
+        "email_not_found":"This Email is not found at Justup",
+        "sending_wait":"Sending, please wait",
+        "feedback_message":"Resetting mail has been sent to hh.idbg.test@gmail.com，and it will take some time.We recommend that you check the mailbox after few minutes.",
+        "enter_name":"Please enter your name",
+        "enter_correct_format":"Please enter the correct format",
+        "enter_mail":"Please enter the mail",
+        "enter_comments":"Please enter your comments",
+        "success_reply_soon":"Success, we will reply as soon as possible."
+       
+    }
+
+        
+
+}

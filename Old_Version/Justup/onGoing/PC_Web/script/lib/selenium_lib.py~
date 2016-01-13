@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+import requests,json,traceback,time,sys
+import xml.etree.cElementTree as ET
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+
+
+def Get_Content_Length(driver,class_name):
+
+	#get list len
+	content_list = driver.find_elements_by_class_name(class_name)
+	content_list_length = len(content_list)
+
+	return content_list_length
+
+def ScrollToBotton(driver,class_name):
+
+	#get list len
+	time.sleep(1)
+	content_list_length_before = Get_Content_Length(driver,class_name)
+
+	continued = False
+
+	if content_list_length_before > 0:
+
+		action = webdriver.ActionChains(driver)
+		action.move_to_element(driver.find_element_by_id('select0')).click()
+		action.move_to_element(driver.find_element_by_id('select0')).click()
+		time.sleep(1)
+
+		for i in range(1):
+			action.send_keys(Keys.END).perform()
+		time.sleep(3)
+
+		content_list_length_after = Get_Content_Length(driver,class_name)
+
+		#scrollTobotton
+		if content_list_length_before != content_list_length_after:
+			continued = True
+
+		while continued:
+			print 'while'
+
+			content_list_length_before = Get_Content_Length(driver,class_name)
+
+			for i in range(1):
+				
+				time.sleep(1)
+				action.send_keys(Keys.END).perform()
+	    	
+	    		time.sleep(3)
+
+		    	content_list_length_after = Get_Content_Length(driver,class_name)
+		    	print content_list_length_before
+		    	print content_list_length_after
+		    	if content_list_length_before == content_list_length_after:
+					continued = False
+
+	   	
+	   	print 1
+	   	for i in range(3):
+	   		time.sleep(1)
+	   		action.send_keys(Keys.END).perform()
+
+	   	print Get_Content_Length(driver,class_name)

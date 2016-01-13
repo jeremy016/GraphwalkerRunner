@@ -1,0 +1,10 @@
+('/home/jeremy/raptor/git/justup/Graphwalker/Test/tool/Run_GraphWalker/build/GW/setuptools-16.0-py2.7.egg',
+ None,
+ set(['*.py', '*.pyc', '*.pyd', '*.pyo', '*.so', 'EGG-INFO']),
+ 'DATA',
+ [('setuptools/script (dev).tmpl',
+   '/home/jeremy/raptor/git/justup/Graphwalker/Test/tool/Run_GraphWalker/build/GW/setuptools-16.0-py2.7.egg/setuptools/script (dev).tmpl',
+   'DATA'),
+  ('setuptools/script.tmpl',
+   '/home/jeremy/raptor/git/justup/Graphwalker/Test/tool/Run_GraphWalker/build/GW/setuptools-16.0-py2.7.egg/setuptools/script.tmpl',
+   'DATA')])
