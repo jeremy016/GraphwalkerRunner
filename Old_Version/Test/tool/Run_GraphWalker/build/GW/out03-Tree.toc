@@ -1,5 +1,0 @@
-('/home/jeremy/raptor/git/justup/Graphwalker/Test/tool/Run_GraphWalker/build/GW/pyasn1-0.1.8-py2.7.egg',
- None,
- set(['*.py', '*.pyc', '*.pyd', '*.pyo', '*.so', 'EGG-INFO']),
- 'DATA',
- [])

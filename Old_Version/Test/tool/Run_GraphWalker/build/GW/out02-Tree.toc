@@ -1,7 +1,0 @@
-('/usr/local/lib/python2.7/dist-packages/requests-2.7.0-py2.7.egg',
- None,
- set(['*.py', '*.pyc', '*.pyd', '*.pyo', '*.so', 'EGG-INFO']),
- 'DATA',
- [('requests/cacert.pem',
-   '/usr/local/lib/python2.7/dist-packages/requests-2.7.0-py2.7.egg/requests/cacert.pem',
-   'DATA')])
