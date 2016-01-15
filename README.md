@@ -12,7 +12,7 @@ Download URL:https://justup.9ifriend.com/share.html?id=d9f7f9ad-556d-4a1e-bdb6-6
   2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
   3. 下載graphwalker-cli-SNAPSHOT.jar
 
-Command：
+  Command：
     $ sudo ./Graphwalker_Runner
 
 
