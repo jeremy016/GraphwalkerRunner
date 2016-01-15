@@ -1,5 +1,5 @@
 # GraphwalkerRunner
-
+    說明：以Graphwalker的核心架構下，增添 1.圖形合併 2. 圖形完整性驗證 3. Grapgwalker運行 4. 錯誤續跑機制 ...等功能的整合工具。
 # Install 
 
 1. 下載執行檔:下載Graphwalker_Runner(執行檔)
