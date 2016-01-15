@@ -3,15 +3,18 @@
 Install 
 
 1. 下載執行檔:下載Graphwalker_Runner(執行檔)
-  download URL：https://justup.9ifriend.com/share.html?id=d9f7f9ad-556d-4a1e-bdb6-6f34ddc059d9
+
+Download URL:https://justup.9ifriend.com/share.html?id=d9f7f9ad-556d-4a1e-bdb6-6f34ddc059d9
 
 2. 建立Graphwalker Runner環境
-  Step:
-    a. clone graphwalker工具 (from github)
-    b. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
-    c. 下載graphwalker-cli-SNAPSHOT.jar
-  Command：
+
+  1. clone graphwalker工具 (from github)
+  2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
+  3. 下載graphwalker-cli-SNAPSHOT.jar
+
+Command：
     $ sudo ./Graphwalker_Runner
+
 
 How to Run：
 
