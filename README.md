@@ -1,6 +1,6 @@
 # GraphwalkerRunner
 
-Install 
+# Install 
 
 1. 下載執行檔:下載Graphwalker_Runner(執行檔)
 
@@ -16,7 +16,7 @@ Install
 Install command：$ sudo ./Graphwalker_Runner
 
 
-How to Run：
+# How to Run：
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
@@ -26,3 +26,6 @@ How to Run：
     -c, --check           Check graphical integrity
     -r, --run             running graphwalker
 
+##### merge graph
+
+    example：./Graphwalker_Runner -m 'graphml folder path'
