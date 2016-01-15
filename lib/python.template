@@ -1,7 +1,7 @@
 HEADER<{{
 # -*- coding: utf-8 -*-
 import requests,json,traceback,time,sys,os
-import lib.GraphFun as GraphFun
+import GraphFun as GraphFun
 import script as RunFun
 
 global temp

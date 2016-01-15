@@ -333,16 +333,16 @@ class GraphFun(object):
 
     def Count_Walked(self, stop_condition="random(edge_coverage(100))"):
         Walked_list = []
-        path_result = os.popen("java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-3.4.0-SNAPSHOT.jar offline --json -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \""+stop_condition+"\"").read()
+        path_result = os.popen("java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar offline --json -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \""+stop_condition+"\"").read()
         
         return path_result
 
 
 
-    def kill_Process(self,grep_name='graphwalker-cli-3.4.0-SNAPSHOT.jar'):
+    def kill_Process(self,grep_name='graphwalker-cli-SNAPSHOT.jar'):
 
         #kill process---------------- 
-        # result = os.popen("ps -ef |grep 'graphwalker-cli-3.4.0-SNAPSHOT.jar' | awk '{print $2,$8}'").read()
+        # result = os.popen("ps -ef |grep 'graphwalker-cli-SNAPSHOT.jar' | awk '{print $2,$8}'").read()
         result = os.popen("ps -ef |grep '"+grep_name+"' | awk '{print $2,$8}'").read()
 
         for i in result.split('\n'):
@@ -360,7 +360,7 @@ class GraphFun(object):
         #Run websocket----------------
         print 'Run websocket...'
                     
-        pid = os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-3.4.0-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"random(edge_coverage(100))\" &')
+        pid = os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"random(edge_coverage(100))\" &')
 
         time.sleep(5)
 
@@ -457,7 +457,7 @@ class GraphFun(object):
 
         print 'Connection aborted....'
 
-        command_line = "java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-3.4.0-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"random(edge_coverage(100))\""
+        command_line = "java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"random(edge_coverage(100))\""
 
         args = shlex.split(command_line)
 
@@ -539,7 +539,7 @@ class GraphFun(object):
 
         self.kill_Process() 
 
-        os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-3.4.0-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &') 
+        os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &') 
         time.sleep(5)
 
   
