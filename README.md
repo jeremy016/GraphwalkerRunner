@@ -26,6 +26,9 @@ Install command：$ sudo ./Graphwalker_Runner
     -c, --check           Check graphical integrity
     -r, --run             running graphwalker
 
-##### merge graph
-
+#### merge graph
     example：./Graphwalker_Runner -m 'graphml folder path'
+#### Check graphical integrity
+    example：./Graphwalker_Runner -c
+#### running graphwalker
+    example：./Graphwalker_Runner -r
