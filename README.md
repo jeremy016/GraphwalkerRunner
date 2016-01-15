@@ -37,3 +37,6 @@ Install command：$ sudo ./Graphwalker_Runner
     example：./Graphwalker_Runner -c
 #### running graphwalker
     example：./Graphwalker_Runner -r
+
+# Reference
+    graphwalker：http://graphwalker.org/
