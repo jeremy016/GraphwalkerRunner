@@ -352,6 +352,10 @@ class GraphFun(object):
             elif 'python' in i:
                 print 'kill pid : '+i.split(' ')[0]
                 os.popen("kill -9 "+i.split(' ')[0])
+            elif 'Graphwalker_Runner' in i:
+                print 'kill pid : '+i.split(' ')[0]
+                os.popen("kill -9 "+i.split(' ')[0])
+
         
         time.sleep(1)
 
@@ -656,6 +660,6 @@ class GraphFun(object):
         tree.write("Result.xml", 'UTF-8', 'True')
         
         #kill service
-        self.kill_Process('Graphwalker_Runner.py')
+        self.kill_Process('Graphwalker_Runner')
 
 
