@@ -42,9 +42,32 @@ os.popen('cp merged.graphml /usr/local/GraphwalkerRunner/lib/merged_mark.graphml
 print 'Get average count...'
 Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
 
-while(NoneError):
+test_count=0
 
+
+if not os.path.exists(sys.argv[1]+'/Screenshot'):
+    os.popen('mkdir '+sys.argv[1]+'/Screenshot')
+else:
+    os.popen("rm -rf "+sys.argv[1]+"/Screenshot")
+    os.popen('mkdir '+sys.argv[1]+'/Screenshot')
+
+
+while(NoneError):
+    step_count=0
+
+    if test_count==0:
+        command =  'The\ '+str(test_count+1)+'st\ times\ testing'
+    elif test_count==1:
+        command =  'The\ '+str(test_count+1)+'nd\ times\ testing'
+    elif test_count==2:
+        command =  'The\ '+str(test_count+1)+'rd\ times\ testing'
+    else:
+        command =  'The\ '+str(test_count+1)+'th\ times\ testing'
+
+    os.popen('mkdir '+sys.argv[1]+'/Screenshot/'+str(command))
     
+    test_count+=1
+
     print '\nRun Testing...\n'
     GF.kill_Process() 
 
@@ -78,13 +101,28 @@ while(NoneError):
                 try:
                     eval( "RunFun."+step + "()" )
                     Stop-=1
-            
+
+                    if sys.argv[2] == 'mobile':
+                        os.system("adb shell screencap -p | sed 's/\r$//' > "+sys.argv[1]+"/Screenshot/"+command+"/screen-" + str(step_count) + "-" + step + ".png")
+                    else:
+                        os.popen('import -display :0 -window root '+sys.argv[1]+'/Screenshot/'+command+'/screen-' + str(step_count) + '-' + step + '.png') 
+                    
+                    step_count+=1
+
                 #Fun error
                 except Exception as e:
                     print e
                     #Fun error Handling
                     Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list)
                     break
+
+        # integrate screen capture code to templete
+        if sys.argv[2] == 'mobile':
+            os.system("adb shell screencap -p | sed 's/\r$//' > "+sys.argv[1]+"/Screenshot/"+command+"/screen_final.png")
+        else:
+            os.popen('import -display :0 -window root '+sys.argv[1]+'/Screenshot/'+command+'/screen_final.png') 
+        # integrate cleanup code to templete
+        #RunFun.temp['driver'].quit()
 
     # Step(HasNext) occured error
     except Exception as e:

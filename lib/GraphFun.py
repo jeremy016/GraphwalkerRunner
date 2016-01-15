@@ -412,18 +412,21 @@ class GraphFun(object):
 
         return Max,Min,Stop
 
-    def Screenshot(self,display_num,step):
+    def Screenshot(self, display_num, step):
 
         print 'Save Screenshot...'
 
-        os.popen('import -display :'+str(display_num)+' -window root Screenshot/'+step+'.png') 
+        if not os.path.exists(c_locate+'/Screenshot'):
+            os.popen('mkdir '+c_locate+'/Screenshot') 
+
+        os.popen('import -display :'+str(display_num)+' -window root '+c_locate+'/Screenshot/'+step+'.png') 
 
 
     def BLOCKED_Exception_Action(self, Error_Type, e, BLOCKED, Max, Min,step, NoneError ,Test_result):
 
         print '\nStep('+Error_Type+') occured error:\n'+str(e)+'\n'
 
-        self.Screenshot(0,step)
+        #self.Screenshot(0,step)
 
         #add new key
         if not BLOCKED.has_key(Error_Type):
@@ -443,7 +446,7 @@ class GraphFun(object):
 
         print '\nAction error on '+str(step)+'\nError message:\n'+str(sys.exc_info())+'\n'
 
-        self.Screenshot(0,step)
+        #self.Screenshot(0,step)
 
         Stop = Max + Min * 2
         NoneError = not NoneError
