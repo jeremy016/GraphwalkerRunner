@@ -3,10 +3,11 @@
     增添功能： 1.圖形合併 2. 圖形完整性驗證 3. Grapgwalker運行 4. 錯誤續跑機制
     
 注：What is GraphWalker?
+
     It's a Model-Based testing tool built in Java. 
-    
     It reads models in the shape of finite-state diagrams, or directed graphs, and generate tests from the models, either 
     offline or online.
+    
 # Install 
 
 1. 下載執行檔:下載Graphwalker_Runner(執行檔)
