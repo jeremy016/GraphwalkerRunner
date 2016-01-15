@@ -10,7 +10,7 @@
 
 1. 下載執行檔:下載Graphwalker_Runner(執行檔)
 
-    Download URL:https://justup.9ifriend.com/share.html?id=d9f7f9ad-556d-4a1e-bdb6-6f34ddc059d9
+    Download URL:https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4
 
 2. 建立Graphwalker Runner環境
 
