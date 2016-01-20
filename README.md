@@ -9,8 +9,9 @@
 # Install 
 
 1. 下載執行檔:下載Graphwalker_Runner(執行檔)
-
-    Download URL:https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4
+    下載Graphwalker_Runner.py
+    OR
+    執行檔Download URL:https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4
 
 2. 建立Graphwalker Runner環境
 
