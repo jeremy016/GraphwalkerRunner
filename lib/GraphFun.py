@@ -359,12 +359,12 @@ class GraphFun(object):
         
         time.sleep(1)
 
-    def Run_Websocket(self,blocked_exist):
+    def Run_Websocket(self,stop_condition='random(edge_coverage(100))'):
 
         #Run websocket----------------
         print 'Run websocket...'
-                    
-        pid = os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"random(edge_coverage(100))\" &')
+        print  stop_condition
+        pid = os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"'+stop_condition+'\" &')
 
         time.sleep(5)
 
@@ -460,11 +460,11 @@ class GraphFun(object):
 
         return Stop,NoneError,Test_result,error_list
 
-    def Connection_Aborted(self,e):
+    def Connection_Aborted(self,e,stop_condition='random(edge_coverage(100))'):
 
         print 'Connection aborted....'
 
-        command_line = "java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"random(edge_coverage(100))\""
+        command_line = "java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \""+stop_condition+"\""
 
         args = shlex.split(command_line)
 
