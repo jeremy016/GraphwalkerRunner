@@ -39,8 +39,7 @@ GF = GraphFun.GraphFun()
 os.popen('cp merged.graphml /usr/local/GraphwalkerRunner/lib/merged_mark.graphml')
 
 print 'Get average count...'
-# Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
-Max,Min,Stop = 20,80,120
+Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
 test_count=0
 
 argv = sys.argv[3] if len(sys.argv) > 3 else ''

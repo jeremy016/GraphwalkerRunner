@@ -357,13 +357,11 @@ class GraphFun(object):
                 os.popen("kill -9 "+i.split(' ')[0])
 
         
-        time.sleep(1)
 
     def Run_Websocket(self,stop_condition='random(edge_coverage(100))'):
 
         #Run websocket----------------
         print 'Run websocket...'
-        print  stop_condition
         pid = os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \"'+stop_condition+'\" &')
 
         time.sleep(5)
@@ -480,14 +478,13 @@ class GraphFun(object):
             return root_cause,step
 
     def interrupt(self):
-        global Interrupt_value 
-        Interrupt_value=False
+        
         thread.interrupt_main()
         
 
     def timeout(self,fun_name,c_locate,timeout=300):
 
-        global Interrupt_value,current_locate
+        global current_locate
         current_locate = c_locate
 
         try:
@@ -499,22 +496,11 @@ class GraphFun(object):
 
         except KeyboardInterrupt as e:
             print 'KeyboardInterrupt'
-            if Interrupt_value:
-                print 'KeyboardInterrupt'
-                self.kill_Process('check_graphical_integrity.py')
-                self.kill_Process('Get_average_count.py')
-                self.kill_Process('Graphwalker_Runner.py')
-                self.kill_Process()
-            else:
-                Interrupt_value=True
-                print fun_name + ' is timeout'
+            print '\n-------------------------\nPlease click enter to end...\n-------------------------\n'
+            self.kill_Process('Runner.py')
 
-        except Exception as e:
-            print 'error message:',e
-            self.kill_Process('check_graphical_integrity.py')
-            self.kill_Process('Get_average_count.py')
-            self.kill_Process('Graphwalker_Runner.py')
-            self.kill_Process()
+            
+
 
 
     def CheckGraphicalIntegrity(self):
@@ -567,7 +553,7 @@ class GraphFun(object):
                 
                     func_list.remove(result)
                     
-                error_file = open(current_locate+'/error_point_list.txt', 'w')
+                error_file = open(current_locate+'/Not_visited_points.txt', 'w')
                 error_file.write(str(func_list))
                 error_file.close()
 
@@ -578,19 +564,28 @@ class GraphFun(object):
                 else:
                     count=0
                 if count == fun_list_len * fun_list_len:
-                    print "\n=============================="
-                    print 'count = length * length '
-                    print "=============================="
+                    print "\n========================================"
+                    print 'Visited incomplete graphics'
+                    print 'Stop Condition is (length * length) Step'
+                    print "=========================================="
                     break
+        
+        if count < fun_list_len * fun_list_len:
+            print "\n=============================="
+            print 'Visited complete graphics'
+            print "=============================="
+
                     
         if func_list:
-            print '\nerror point : '
+            print '\nNot visited points : '
             print func_list
-            error_file = open(current_locate+'/error_point_list.txt', 'w')
+            print '\nOutput log file : Not_visited_points.txt'
+            print 'log file path : '+current_locate+'/Not_visited_points.txt'
+            error_file = open(current_locate+'/Not_visited_points.txt', 'w')
             error_file.write(str(func_list))
             error_file.close()
         else:
-            os.popen('rm '+current_locate+'/error_point_list.txt')            
+            os.popen('rm '+current_locate+'/Not_visited_points.txt')            
 
         # os.popen('rm /usr/local/GraphwalkerRunner/lib/script_test.py /usr/local/GraphwalkerRunner/lib/script_test.pyc')
         
