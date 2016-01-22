@@ -48,8 +48,11 @@ current_locate = os.popen('pwd').read().strip('\n')
 if args.version:
 	with open('/usr/local/GraphwalkerRunner/version.json') as f:
 		contents = json.loads(f.read())
-		for i in contents:
-			print i,':',contents[i]
+		print '\n Version:',contents['Version']
+		print ' Change log：'
+		for i in contents['Change log']:
+			print '   ',contents['Change log'].index(i)+1,'：',i
+
 
 
 #init environment [-i]
