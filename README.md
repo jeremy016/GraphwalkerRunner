@@ -27,15 +27,15 @@ Install command：$ sudo ./Graphwalker_Runner
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
-     -h, --help            show this help message and exit
-     -i, --init            Init graphwalker environment
-     -u, --update          update graphwalker source code
-     -m, --model MODEL     merge graph ,please input graph folder
-     -c, --check           Check graphical integrity, output log file(Not_visited_points.txt)
-     -r, --run             running graphwalker
-     -s, --shot SHOT       Screenshot when error occured, input pc or mobile
-     -S, --Stop STOP       Set stop condition
-     -v, --version         show version number
+        -h, --help              show this help message and exit
+        -i, --init              Init graphwalker environment
+        -u, --update            update graphwalker source code
+        -m, --model MODEL       merge graph ,please input graph folder
+        -c, --check             Check graphical integrity, output Not visited points file (Not_visited_points.txt)
+        -r, --run               running graphwalker
+        -s, --shot SHOT         Screenshot when error occured, input [pc] or [mobile]
+        -S, --Stop STOP         Set stop condition
+        -v, --version VERSION   show version number, input [new] or [all]
 
 #### init environment
 
