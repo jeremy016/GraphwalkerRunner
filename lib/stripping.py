@@ -27,7 +27,7 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 	        	script_fun_list.append(line[4:-5])
 
 
-	all_fun_str = ''
+	all_fun_str = '\n\n'
 else:
 
 	all_fun_str = '# -*- coding: utf-8 -*- \n\nglobal temp\ntemp={}\n\n\n'
@@ -56,11 +56,16 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 
 		removed_func_str =  'def'.join(temp)
 
-#write fun file
-write_file = open(sys.argv[1]+'/script.py','w')
+else:
 
-write_file.write(removed_func_str)
-write_file.close()		
+
+	removed_func_str = '# -*- coding: utf-8 -*- \n\nglobal temp\ntemp={}\n\n\n'
+	
+	#write fun file
+	write_file = open(sys.argv[1]+'/script.py','w')
+
+	write_file.write(removed_func_str)
+	write_file.close()		
 
 
 #add new func
