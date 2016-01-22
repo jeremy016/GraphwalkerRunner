@@ -31,7 +31,7 @@ Install command：$ sudo ./Graphwalker_Runner
         -i, --init              Init graphwalker environment
         -u, --update            update graphwalker source code
         -m, --model MODEL       merge graph ,please input graph folder
-        -c, --check             Check graphical integrity, output Not visited points file (Not_visited_points.txt)
+        -c, --check             Check graphical integrity, output log file (Not_visited_points.txt)
         -r, --run               running graphwalker
         -s, --shot SHOT         Screenshot when error occured, input [pc] or [mobile]
         -S, --Stop STOP         Set stop condition
