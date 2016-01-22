@@ -44,7 +44,7 @@ del_function = list(set(script_fun_list) ^ set(intersection))
 
 #def func
 if os.path.exists(sys.argv[1]+'/script.py'):
-
+	removed_func_str = ''
 	with open(sys.argv[1]+'/script.py', 'r') as file:
 
 		temp = file.read().split('def')
@@ -52,7 +52,9 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 		for i in temp:
 			
 			if i[1:i.find('()')] in del_function:
+			
 				temp.remove(i)
+
 
 		removed_func_str =  'def'.join(temp)
 
@@ -61,11 +63,11 @@ else:
 
 	removed_func_str = '# -*- coding: utf-8 -*- \n\nglobal temp\ntemp={}\n\n\n'
 	
-	#write fun file
-	write_file = open(sys.argv[1]+'/script.py','w')
+#write fun file
+write_file = open(sys.argv[1]+'/script.py','w')
 
-	write_file.write(removed_func_str)
-	write_file.close()		
+write_file.write(removed_func_str)
+write_file.close()		
 
 
 #add new func
