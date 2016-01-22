@@ -55,7 +55,7 @@ Install command：$ sudo ./Graphwalker_Runner
 #### Check graphical integrity
 
     說明：確認script.py內所有的function是否均被執行到。
-        True：全部已執行：False：有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2
+         True：全部已執行：False：有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2
     example：Graphwalker_Runner -c
 #### running graphwalker
 
