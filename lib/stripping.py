@@ -34,9 +34,37 @@ else:
 
 
 
-intersection = list(set(fun_list) ^ set(script_fun_list))
+difference_sets =  list(set(fun_list) ^ set(script_fun_list))
+intersection = list(set(fun_list) & set(script_fun_list))
 
-for i in intersection:
+new_function = list(set(fun_list) ^ set(intersection))
+
+del_function = list(set(script_fun_list) ^ set(intersection))
+
+
+#def func
+if os.path.exists(sys.argv[1]+'/script.py'):
+
+	with open(sys.argv[1]+'/script.py', 'r') as file:
+
+		temp = file.read().split('def')
+		
+		for i in temp:
+			
+			if i[1:i.find('()')] in del_function:
+				temp.remove(i)
+
+		removed_func_str =  'def'.join(temp)
+
+#write fun file
+write_file = open(sys.argv[1]+'/script.py','w')
+
+write_file.write(removed_func_str)
+write_file.close()		
+
+
+#add new func
+for i in new_function:
 	
 	fun_str = Template('def $LABEL() :\n    print "$LABEL"\n    global temp\n    return "$LABEL"\n\n\n\n')
 	
@@ -47,6 +75,7 @@ write_file = open(sys.argv[1]+'/script.py','a')
 
 write_file.write(all_fun_str)
 write_file.close()
+
 
 #open merged.py
 write_file = open(sys.argv[1]+'/merged.py','r')

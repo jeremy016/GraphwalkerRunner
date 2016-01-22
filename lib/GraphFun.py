@@ -503,99 +503,107 @@ class GraphFun(object):
             print 'KeyboardInterrupt'
             print '\n-------------------------\nPlease click enter to end...\n-------------------------\n'
             self.kill_Process('Runner.py')
+            self.kill_Process('')
 
             
 
 
 
     def CheckGraphicalIntegrity(self):
+
         global current_locate
         print 'CheckGraphicalIntegrity'
         # read file & get fun name & write to file
-        func_list = []
-        count=0
-        w_file = open('/usr/local/GraphwalkerRunner/lib/script_test.py', 'w')
-        with open(current_locate+'/script.py', 'r') as file:
-         
-            for line in file:
-                if re.match('^#',line):
-                    continue
-                elif 'def ' in line:
-                    func_list.append(line[4:-5])
-                    w_file.write(line)
-                    w_file.write('\n')
-                    w_file.write('  return "'+str(line[4:-5])+'"')
-                    w_file.write('\n')
-        w_file.close()
-   
-        fun_list_len = len(func_list)
+        try:
+            func_list = []
+            count=0
+            w_file = open('/usr/local/GraphwalkerRunner/lib/script_test.py', 'w')
+            with open(current_locate+'/script.py', 'r') as file:
+             
+                for line in file:
+                    if re.match('^#',line):
+                        continue
+                    elif 'def ' in line:
+                        func_list.append(line[4:-5])
+                        w_file.write(line)
+                        w_file.write('\n')
+                        w_file.write('  return "'+str(line[4:-5])+'"')
+                        w_file.write('\n')
+            w_file.close()
+       
+            fun_list_len = len(func_list)
 
-        #Cheching Graphical Integrity
-        print 'Cheching...'
+            #Cheching Graphical Integrity
+            print 'Cheching...'
 
-        import script_test as RunFun
+            import script_test as RunFun
 
-        self.kill_Process() 
+            self.kill_Process() 
 
-        os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &') 
-        time.sleep(5)
+            os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &') 
+            time.sleep(5)
 
-  
+      
 
-        gw_url = 'http://localhost:8887/graphwalker'
+            gw_url = 'http://localhost:8887/graphwalker'
 
-        while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' :
-    
-            step = requests.get(gw_url+'/getNext').json()['CurrentElementName']
+            while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' :
+        
+                step = requests.get(gw_url+'/getNext').json()['CurrentElementName']
 
-            if step != '' :
+                if step != '' :
 
-                result = eval( "RunFun."+ step + "()" )
-                
-                len_before = len(func_list)
-
-                if result in func_list:
-                
-                    func_list.remove(result)
+                    result = eval( "RunFun."+ step + "()" )
                     
+                    len_before = len(func_list)
+
+                    if result in func_list:
+                    
+                        func_list.remove(result)
+                        
+                    error_file = open(current_locate+'/Not_visited_points.txt', 'w')
+                    error_file.write(str(func_list))
+                    error_file.close()
+
+                    len_after = len(func_list)
+
+                    if len_before == len_after:
+                        count+=1
+                    else:
+                        count=0
+                    if count == fun_list_len * fun_list_len:
+                        print "\n========================================"
+                        print 'Visited incomplete graphics'
+                        print 'Stop Condition is (length * length) Step'
+                        print "=========================================="
+                        break
+            
+            if count < fun_list_len * fun_list_len:
+                print "\n=============================="
+                print 'Visited complete graphics'
+                print "=============================="
+
+                        
+            if func_list:
+                print '\nNot visited points : '
+                print func_list
+                print '\nOutput log file : Not_visited_points.txt'
+                print 'log file path : '+current_locate+'/Not_visited_points.txt'
                 error_file = open(current_locate+'/Not_visited_points.txt', 'w')
                 error_file.write(str(func_list))
                 error_file.close()
+            else:
+                os.popen('rm '+current_locate+'/Not_visited_points.txt')            
 
-                len_after = len(func_list)
+            # os.popen('rm /usr/local/GraphwalkerRunner/lib/script_test.py /usr/local/GraphwalkerRunner/lib/script_test.pyc')
+            
+            return func_list if func_list else True
 
-                if len_before == len_after:
-                    count+=1
-                else:
-                    count=0
-                if count == fun_list_len * fun_list_len:
-                    print "\n========================================"
-                    print 'Visited incomplete graphics'
-                    print 'Stop Condition is (length * length) Step'
-                    print "=========================================="
-                    break
-        
-        if count < fun_list_len * fun_list_len:
-            print "\n=============================="
-            print 'Visited complete graphics'
-            print "=============================="
-
-                    
-        if func_list:
-            print '\nNot visited points : '
-            print func_list
-            print '\nOutput log file : Not_visited_points.txt'
-            print 'log file path : '+current_locate+'/Not_visited_points.txt'
-            error_file = open(current_locate+'/Not_visited_points.txt', 'w')
-            error_file.write(str(func_list))
-            error_file.close()
-        else:
-            os.popen('rm '+current_locate+'/Not_visited_points.txt')            
-
-        # os.popen('rm /usr/local/GraphwalkerRunner/lib/script_test.py /usr/local/GraphwalkerRunner/lib/script_test.pyc')
-        
-        return func_list if func_list else True
-
+        except Exception as e:
+            print '\n-------------------------\nException\n-------------------------\n'
+            self.kill_Process()
+            return e 
+     
 
     def Generate_XML(self, complete_value, error_list, pass_dic, BLOCKED):
 
