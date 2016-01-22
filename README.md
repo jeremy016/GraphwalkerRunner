@@ -26,18 +26,27 @@ Install command：$ sudo ./Graphwalker_Runner
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
-    -h, --help            show this help message and exit
-    -u UPDATE, --update UPDATE update graphwalker source code
-    -m MODEL, --model MODEL merge graph ,please input graph folder
-    -c, --check           Check graphical integrity
-    -r, --run             running graphwalker
+     -h, --help            show this help message and exit
+     -i, --init            Init graphwalker environment
+     -u, --update          update graphwalker source code
+     -m, --model MODEL     merge graph ,please input graph folder
+     -c, --check           Check graphical integrity, output Not visited points file (Not_visited_points.txt)
+     -r, --run             running graphwalker
+     -s, --shot SHOT       Screenshot when error occured, input pc or mobile
+     -S, --Stop STOP       Set stop condition
+     -v, --version         show version number
 
+#### init environment：重新建置環境
+    example：Graphwalker_Runner -i
+#### update code：從github拉新的code
+    example：Graphwalker_Runner -u
 #### merge graph
-    example：./Graphwalker_Runner -m 'graphml folder path'
+    example：Graphwalker_Runner -m 'graphml folder path'
 #### Check graphical integrity
-    example：./Graphwalker_Runner -c
+    example：Graphwalker_Runner -c
 #### running graphwalker
-    example：./Graphwalker_Runner -r
+    example：Graphwalker_Runner -r
+#### 
 
 # Reference
     graphwalker：http://graphwalker.org/
