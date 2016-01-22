@@ -40,6 +40,10 @@ Install command：$ sudo ./Graphwalker_Runner
 
     說明：重新建置環境
     example：Graphwalker_Runner -i
+#### Version
+
+    說明：查詢版本，回傳"版號","Change note"
+    example：Graphwalker_Runner -v
 #### update code
 
     說明：從github拉新的code
@@ -54,8 +58,16 @@ Install command：$ sudo ./Graphwalker_Runner
     example：Graphwalker_Runner -c
 #### running graphwalker
 
+    說明：執行Graphewalker測試
     example：Graphwalker_Runner -r
-#### 
+#### Screenshot when testing
+
+    說明：執行Graphewalker測試與錯誤發生時照下當前畫面，參數：pc or mobile
+    example：Graphwalker_Runner -s pc(mobile)
+#### Set stop condition
+
+    說明：設置停止條件，預設為"random(edge_coverage(100))"
+    example：Graphwalker_Runner -S "random(edge_coverage(100))"
 
 # Reference
 
