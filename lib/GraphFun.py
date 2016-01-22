@@ -249,22 +249,22 @@ class GraphFun(object):
         node_count = 0
         edge_count = 0
         graph_list = []
-        match_dict = {}
         label_dict = {}
         all_node = []
         all_edge = []
         node_list_final = []
         edge_list_final = []
-   
+        
         #read all graph
         for graph_item in graphe_name:
+            match_dict = {}
 
             #read graph 
             graph = self.read_graphml(graph_path,graph_item)
 
             #取得所有節點id
             for node_id in graph[0]:
-   
+                
                 #add replace dict
                 match_dict[node_id[0]] = 'n'+str(node_count)
 
@@ -277,20 +277,24 @@ class GraphFun(object):
                 
             #取得所有邊id
             for edge_id in graph[1]:
-                
+            
                 #替換邊名稱 
                 graph[1] = self.find_Next_Floor(edge_id[0], '"e'+str(edge_count), graph[1])
-                
+               
                 #替換節點id序號
                 if match_dict.has_key(edge_id[2]):
-                    graph[1] = self.find_Next_Floor(edge_id[2], match_dict[edge_id[2]], graph[1])
+
+                    graph[1] = self.find_Next_Floor(edge_id[2], 'pre_'+str(match_dict[edge_id[2]]), graph[1])
+
                 if match_dict.has_key(edge_id[3]):
-                    graph[1] = self.find_Next_Floor(edge_id[3], match_dict[edge_id[3]], graph[1])
+    
+                    graph[1] = self.find_Next_Floor(edge_id[3], 'pre_'+str(match_dict[edge_id[3]]), graph[1])
 
                 #疊加邊id序號
                 edge_count+=1
             
             graph_list.append(graph)
+
 
         #結合所有的節點和邊
         
@@ -299,6 +303,7 @@ class GraphFun(object):
             all_edge+=graph_item[1]
         graph_all=[all_node,all_edge]
         
+
         #replace 'pre' node name
         graph_all = self.find_pre_replace(graph_all)
 
