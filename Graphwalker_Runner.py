@@ -31,11 +31,11 @@ parser.add_argument("-c", "--check", help="Check graphical integrity, output Not
 # Running graphwalker
 parser.add_argument("-r", "--run", help="running graphwalker",action="store_true") 
 # Screenshot
-parser.add_argument("-s", "--shot", help="Screenshot when error occured, input pc or mobile") 
+parser.add_argument("-s", "--shot", help="Screenshot when error occured, input [pc] or [mobile]") 
 # Stop Condition
 parser.add_argument("-S", "--Stop", help="Set stop condition",default="random(edge_coverage(100))") 
 # Version
-parser.add_argument("-v", "--version", help="show version number",action="store_true") 
+parser.add_argument("-v", "--version", help="show version number, input [new] or [all]")
 
 
 # 解析參數
@@ -46,12 +46,23 @@ current_locate = os.popen('pwd').read().strip('\n')
 
 # show version
 if args.version:
+		
 	with open('/usr/local/GraphwalkerRunner/version.json') as f:
 		contents = json.loads(f.read())
-		print '\n Version:',contents['Version']
+
+		
+		print '\n Current Version:',contents['latest']['Version']
 		print ' Change log：'
-		for i in contents['Change log']:
-			print '   ',contents['Change log'].index(i)+1,'：',i
+		for i in contents['latest']['Change log']:
+			print '   ',contents['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+
+		if args.version == 'all':
+
+			for i in contents['old']:
+				print '\n Version:',i['Version']
+				print ' Change log：'
+				for ii in i['Change log']:
+					print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
 
 
 
