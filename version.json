@@ -1,4 +1,4 @@
-{
-	"Version":"1.0.0",
-	"Change log":["修復合圖問題","新增版本與更新細節清單"]
+{	
+	"Version":"1.0.1",
+	"Change log":["script.py合併時，移除不存在的function"]
 }
