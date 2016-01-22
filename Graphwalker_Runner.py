@@ -34,6 +34,8 @@ parser.add_argument("-r", "--run", help="running graphwalker",action="store_true
 parser.add_argument("-s", "--shot", help="Screenshot when error occured, input pc or mobile") 
 # Stop Condition
 parser.add_argument("-S", "--Stop", help="Set stop condition",default="random(edge_coverage(100))") 
+# Version
+parser.add_argument("-v", "--version", help="show version number",action="store_true") 
 
 
 # 解析參數
@@ -42,6 +44,12 @@ args = parser.parse_args()
 #get current location
 current_locate = os.popen('pwd').read().strip('\n')
 
+# show version
+if args.version:
+	with open('/usr/local/GraphwalkerRunner/version.json') as f:
+		contents = json.loads(f.read())
+		for i in contents:
+			print i,':',contents[i]
 
 
 #init environment [-i]
