@@ -30,27 +30,28 @@ Install command：$ sudo ./Graphwalker_Runner
         -S, --Stop STOP         Set stop condition
         -v, --version VERSION   show version number, input [new] or [all]
 
-#### init environment
+#### Init environment
 
     說明：重新建置環境。
     建立Graphwalker Runner環境的流程說明：
         1. clone graphwalker工具 (from github)
         2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
         3. 下載graphwalker-cli-SNAPSHOT.jar
-    ps：
+        
+        ps：
         如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
-        URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
+        Download URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e
         
     example：Graphwalker_Runner -i
 #### Version
 
     說明：查詢版本，回傳"版號","Change note"。
     example：Graphwalker_Runner -v new[all]
-#### update code
+#### Update code
 
     說明：從github拉新的code。
     example：Graphwalker_Runner -u
-#### merge graph
+#### Merge graph
 
     說明：合併資料夾內所有Graphml子圖。
     example：Graphwalker_Runner -m 'graphml folder path'
@@ -59,7 +60,7 @@ Install command：$ sudo ./Graphwalker_Runner
     說明：確認script.py內所有的function是否均被執行到。
          True：全部已執行 ; False：有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2。
     example：Graphwalker_Runner -c
-#### running graphwalker
+#### Running graphwalker
 
     說明：執行Graphewalker測試。
     example：Graphwalker_Runner -r
