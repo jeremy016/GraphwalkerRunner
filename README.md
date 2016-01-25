@@ -27,15 +27,21 @@
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
-        -h, --help              show this help message and exit
-        -i, --init              Init graphwalker environment
-        -u, --update            update graphwalker source code
-        -m, --model MODEL       merge graph ,please input graph folder
-        -c, --check             Check graphical integrity, output log file (Not_visited_points.txt)
-        -r, --run               running graphwalker
-        -s, --shot SHOT         Screenshot when error occured, input [pc] or [mobile]
-        -S, --Stop STOP         Set stop condition
-        -v, --version VERSION   show version number, input [new] or [all]
+        -h , --help     Show this help message and exit
+        -i , --init     Init graphwalker environment
+        -u , --update   Update graphwalker source code
+        -m , --model    It's will merge graphml files in folder ,
+                        example：Graphwalker_Runner -m 'folder path'
+        -c , --check    Check graphical integrity, output Not visited points file
+        -r , --run      Running graphwalker
+        -s , --shot     Screenshot when graphwalker running, parameter: 'pc' or 'mobile'
+                        example：Graphwalker_Runner -s pc[mobile]
+        -S , --Stop     Set stop condition, default parameter：'random(edge_coverage(100))'
+                        example：Graphwalker_Runner -S 'random(edge_coverage(100))'
+        -v , --version  Show version number and change notes
+                        parameter:'new' (show lastest info) or 'all' (show all versioninfo)
+                        example: Graphwalker_Runner -v new[all]
+
 
 #### Init environment
 
