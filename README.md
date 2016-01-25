@@ -50,8 +50,7 @@
         1. clone graphwalker工具 (from github)
         2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
         3. 下載graphwalker-cli-SNAPSHOT.jar
-        註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
-            Download URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e
+        註：如果下載失敗，請手動[下載](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)，並放置在：/usr/local/GraphwalkerRunner/lib。
         
     example：Graphwalker_Runner -i
 #### Version
@@ -81,8 +80,10 @@
     example：Graphwalker_Runner -s pc(mobile)
 #### Set stop condition
 
-    說明：設置停止條件，預設為"random(edge_coverage(100))"，詳細停止條件請參考下方Reference。
+    說明：設置停止條件，預設為"random(edge_coverage(100))"。
     example：Graphwalker_Runner -S "random(edge_coverage(100))"
+    
+    [停止條件文件](http://graphwalker.org/docs/path_generators_and_stop_conditions)
 
 # Reference
 
