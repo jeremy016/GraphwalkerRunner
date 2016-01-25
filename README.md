@@ -53,9 +53,6 @@
         註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
         
     example：Graphwalker_Runner -i
-    
-註：[graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
-
 #### Version
 
     說明：查詢版本，回傳"版號","Change note"。
@@ -91,3 +88,4 @@
 # Reference
 
     graphwalker：http://graphwalker.org/
+    下載[graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
