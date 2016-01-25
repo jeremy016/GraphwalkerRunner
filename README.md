@@ -10,13 +10,16 @@
 # Install 
 
 1. 下載執行檔並執行:
-    說明：從下方URL下載Ubuntu executable，執行方式可參考下方"Init environment"的範例
+    說明：從下方URL下載Ubuntu executable，下載執行檔不需要另外安裝lib，安裝指令於下方"Install command"中，執行完後，即可於全域執行。
     Dowmload：https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4
     
-    註：備用執行程式：Graphwalker_Runner.py
+    註：備用執行程式：Graphwalker_Runner.py，此方式需要安裝所需的lib。
 
-Install command：$ sudo ./Graphwalker_Runner
-
+Install command：
+    $ sudo ./Graphwalker_Runner --- 首次建立
+    $ sudo ./Graphwalker_Runner -i --- 已存在Grapgwalker目錄
+全域執行：
+    $ Graphwalker [arguments]
 
 # How to Run：
 
@@ -39,7 +42,6 @@ Install command：$ sudo ./Graphwalker_Runner
         1. clone graphwalker工具 (from github)
         2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
         3. 下載graphwalker-cli-SNAPSHOT.jar
-        4. 請直接於
         註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
             Download URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e
         
