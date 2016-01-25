@@ -50,9 +50,11 @@
         1. clone graphwalker工具 (from github)
         2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
         3. 下載graphwalker-cli-SNAPSHOT.jar
-        註：如果下載失敗，請手動[下載](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)，並放置在：/usr/local/GraphwalkerRunner/lib。
+        註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
         
     example：Graphwalker_Runner -i
+    
+    註：[graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
 #### Version
 
     說明：查詢版本，回傳"版號","Change note"。
