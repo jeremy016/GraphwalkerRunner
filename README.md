@@ -9,47 +9,59 @@
     
 # Install 
 
-1. 下載執行檔:下載Graphwalker_Runner(執行檔)
-    1. .py：下載Graphwalker_Runner.py
-    2. exe：https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4
+### 下載執行檔並執行
 
-2. 建立Graphwalker Runner環境
+說明：此執行檔為單個可執行的程式，不需要另外安裝所需library，安裝指令如下方"Install command"中，執行完後，即可於全域執行。
 
-    Step：
-    1. clone graphwalker工具 (from github)
-    2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
-    3. 下載graphwalker-cli-SNAPSHOT.jar    (ps：如果下載失敗，請手動下載，URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e，並放置在：/usr/local/GraphwalkerRunner/lib)
+*   下載：[Ubuntu executable](https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4)
+    
+    註：備用執行程式：Graphwalker_Runner.py，此方式需要安裝所需的lib。
 
-Install command：$ sudo ./Graphwalker_Runner
-
+### Install command
+*    `$ sudo ./Graphwalker_Runner`
+    
+### 全域執行：
+*   `Graphwalker [arguments]`
 
 # How to Run：
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
-        -h, --help              show this help message and exit
-        -i, --init              Init graphwalker environment
-        -u, --update            update graphwalker source code
-        -m, --model MODEL       merge graph ,please input graph folder
-        -c, --check             Check graphical integrity, output log file (Not_visited_points.txt)
-        -r, --run               running graphwalker
-        -s, --shot SHOT         Screenshot when error occured, input [pc] or [mobile]
-        -S, --Stop STOP         Set stop condition
-        -v, --version VERSION   show version number, input [new] or [all]
+        -h , --help     Show this help message and exit
+        -i , --init     Init graphwalker environment
+        -u , --update   Update graphwalker source code
+        -m , --model    It's will merge graphml files in folder ,
+                        example：Graphwalker_Runner -m 'folder path'
+        -c , --check    Check graphical integrity, output Not visited points file
+        -r , --run      Running graphwalker
+        -s , --shot     Screenshot when graphwalker running, parameter: 'pc' or 'mobile'
+                        example：Graphwalker_Runner -s pc[mobile]
+        -S , --Stop     Set stop condition, default parameter：'random(edge_coverage(100))'
+                        example：Graphwalker_Runner -S 'random(edge_coverage(100))'
+        -v , --version  Show version number and change notes
+                        parameter:'new' (show lastest info) or 'all' (show all versioninfo)
+                        example: Graphwalker_Runner -v new[all]
 
-#### init environment
+
+#### Init environment
 
     說明：重新建置環境。
+    建立Graphwalker Runner環境的流程說明：
+        1. clone graphwalker工具 (from github)
+        2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
+        3. 下載graphwalker-cli-SNAPSHOT.jar
+        註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
+        
     example：Graphwalker_Runner -i
 #### Version
 
     說明：查詢版本，回傳"版號","Change note"。
-    example：Graphwalker_Runner -v
-#### update code
+    example：Graphwalker_Runner -v new[all]
+#### Update code
 
     說明：從github拉新的code。
     example：Graphwalker_Runner -u
-#### merge graph
+#### Merge graph
 
     說明：合併資料夾內所有Graphml子圖。
     example：Graphwalker_Runner -m 'graphml folder path'
@@ -58,7 +70,7 @@ Install command：$ sudo ./Graphwalker_Runner
     說明：確認script.py內所有的function是否均被執行到。
          True：全部已執行 ; False：有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2。
     example：Graphwalker_Runner -c
-#### running graphwalker
+#### Running graphwalker
 
     說明：執行Graphewalker測試。
     example：Graphwalker_Runner -r
@@ -68,9 +80,12 @@ Install command：$ sudo ./Graphwalker_Runner
     example：Graphwalker_Runner -s pc(mobile)
 #### Set stop condition
 
-    說明：設置停止條件，預設為"random(edge_coverage(100))"。
+    說明：設置停止條件，預設為"random(edge_coverage(100))"，更多用法請參考下方"Stop conditions Documentation"。
     example：Graphwalker_Runner -S "random(edge_coverage(100))"
+
 
 # Reference
 
-    graphwalker：http://graphwalker.org/
+*   [Graphwalker官網](http://graphwalker.org/)
+*   下載 [graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
+*   [Stop conditions Documentation](http://graphwalker.org/docs/path_generators_and_stop_conditions)
