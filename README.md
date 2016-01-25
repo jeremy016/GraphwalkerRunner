@@ -33,11 +33,11 @@ Install command：$ sudo ./Graphwalker_Runner
 #### init environment
 
     說明：重新建置環境。
-        建立Graphwalker Runner環境的流程說明：
-            1. clone graphwalker工具 (from github)
-            2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
-            3. 下載graphwalker-cli-SNAPSHOT.jar
-    (ps：如果下載失敗，請手動下載，URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e，並放置在：/usr/local/GraphwalkerRunner/lib)
+    建立Graphwalker Runner環境的流程說明：
+        1. clone graphwalker工具 (from github)
+        2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
+        3. 下載graphwalker-cli-SNAPSHOT.jar(ps：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib)
+        (URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
     example：Graphwalker_Runner -i
 #### Version
 
