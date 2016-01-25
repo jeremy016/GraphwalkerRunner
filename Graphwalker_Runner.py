@@ -23,19 +23,19 @@ parser = argparse.ArgumentParser(description='Graphwalker Runner')
 # init
 parser.add_argument("-i", "--init", help="Init graphwalker environment",action="store_true") 
 # 更新code
-parser.add_argument("-u", "--update", help="update graphwalker source code",action="store_true")
+parser.add_argument("-u", "--update", help="Update graphwalker source code",action="store_true")
 # Merge all graph
-parser.add_argument("-m", "--model", help="merge graph ,please input graph folder") 
+parser.add_argument("-m", "--model", help="It's will merge graphml files in folder , example:Graphwalker_Runner -m 'folder path'") 
 # Check graphical integrity
 parser.add_argument("-c", "--check", help="Check graphical integrity, output Not visited points file (Not_visited_points.txt) ",action="store_true") 
 # Running graphwalker
-parser.add_argument("-r", "--run", help="running graphwalker",action="store_true") 
+parser.add_argument("-r", "--run", help="Running graphwalker",action="store_true") 
 # Screenshot
-parser.add_argument("-s", "--shot", help="Screenshot when error occured, input [pc] or [mobile]") 
+parser.add_argument("-s", "--shot", help="Screenshot when graphwalker running, parameter: 'pc' or 'mobile' , example: Graphwalker_Runner -s pc[mobile]") 
 # Stop Condition
-parser.add_argument("-S", "--Stop", help="Set stop condition",default="random(edge_coverage(100))") 
+parser.add_argument("-S", "--Stop", help="Set stop condition, default parameter: 'random(edge_coverage(100))' , example: Graphwalker_Runner -S 'random(edge_coverage(100))'",default="random(edge_coverage(100))") 
 # Version
-parser.add_argument("-v", "--version", help="show version number, input [new] or [all]")
+parser.add_argument("-v", "--version", help="Show version number and change notes , parameter: 'new' (show lastest info) or 'all' (show all version info) , example: Graphwalker_Runner -v new[all]")
 
 
 # 解析參數

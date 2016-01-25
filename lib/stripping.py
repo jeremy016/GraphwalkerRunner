@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-import sys,os
+import sys,os,re
 from string import Template
 
 
@@ -14,7 +14,8 @@ with open(sys.argv[1]+'/merged.py', 'r') as file:
     for line in file:
 
         if 'def ' in line:
-        	fun_list.append(line[4:-5])
+
+        	fun_list.append(line[4:line.find('()')])
 
 #read script function
 if os.path.exists(sys.argv[1]+'/script.py'):
@@ -23,8 +24,9 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 
 	    for line in file:
 
-	        if 'def ' in line:
-	        	script_fun_list.append(line[4:-5])
+	        if 'def ' in line :
+	        	
+	        	script_fun_list.append(line[4:line.find('()')])
 
 
 	all_fun_str = '\n\n'
@@ -52,7 +54,7 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 		for i in temp:
 			
 			if i[1:i.find('()')] in del_function:
-			
+				
 				temp.remove(i)
 
 
@@ -61,7 +63,7 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 else:
 
 
-	removed_func_str = '# -*- coding: utf-8 -*- \n\nglobal temp\ntemp={}\n\n\n'
+	removed_func_str = ''
 	
 #write fun file
 write_file = open(sys.argv[1]+'/script.py','w')
