@@ -56,7 +56,7 @@
 #### Version
 
     說明：查詢版本，回傳"版號"與"Change note"。
-    參數: new (顯示最新版本的資訊) or all (顯示所有版本資訊) 。
+          參數: new (顯示最新版本的資訊) or all (顯示所有版本資訊) 。
     example：Graphwalker_Runner -v new[all]
 #### Update code
 
@@ -69,7 +69,7 @@
 #### Check graphical integrity
 
     說明：確認script.py內所有的function是否均被執行到。
-    回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
+          回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
     example：Graphwalker_Runner -c
 #### Running graphwalker
 
@@ -78,15 +78,14 @@
 #### Screenshot when testing
 
     說明：執行Graphewalker測試與錯誤發生時照下當前畫面
-    參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
+          參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
     example：Graphwalker_Runner -s pc(mobile)
 #### Set stop condition
 
     說明：設置停止條件，預設為"random(edge_coverage(100))"。
+          更多停止條件用法請參考下方"Stop conditions Documentation"
     example：Graphwalker_Runner -S "random(edge_coverage(100))"
     
-    更多停止條件用法請參考下方"Stop conditions Documentation"
-
 
 # Reference
 
