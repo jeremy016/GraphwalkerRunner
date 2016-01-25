@@ -87,8 +87,9 @@
     example：Graphwalker_Runner -S "random(edge_coverage(100))"
     
 # Q&A
-1.      Q：TypeError: argument of type 'NoneType' is not iterable >>
-        A：此錯誤為有頂點或邊沒有命名(常見的錯誤：多拉了一條線)
+
+    Q：TypeError: argument of type 'NoneType' is not iterable >>
+    A：此錯誤為有頂點或邊沒有命名(常見的錯誤：多拉了一條線)
 
 # Reference
 
