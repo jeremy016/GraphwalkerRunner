@@ -55,7 +55,7 @@
     example：Graphwalker_Runner -i
 #### Version
 
-    說明：查詢版本，回傳"版號","Change note"。
+    說明：查詢版本，回傳"版號"與"Change note"，參數: new (顯示最新版本的資訊) or all (顯示所有版本資訊) 。
     example：Graphwalker_Runner -v new[all]
 #### Update code
 
