@@ -13,13 +13,6 @@
     1. .py：下載Graphwalker_Runner.py
     2. exe：https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4
 
-2. 建立Graphwalker Runner環境
-
-    Step：
-    1. clone graphwalker工具 (from github)
-    2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
-    3. 下載graphwalker-cli-SNAPSHOT.jar    (ps：如果下載失敗，請手動下載，URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e，並放置在：/usr/local/GraphwalkerRunner/lib)
-
 Install command：$ sudo ./Graphwalker_Runner
 
 
@@ -40,6 +33,10 @@ Install command：$ sudo ./Graphwalker_Runner
 #### init environment
 
     說明：重新建置環境。
+        建立Graphwalker Runner環境的流程說明：
+            1. clone graphwalker工具 (from github)
+            2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
+            3. 下載graphwalker-cli-SNAPSHOT.jar                (ps：如果下載失敗，請手動下載，URL：https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e，並放置在：/usr/local/GraphwalkerRunner/lib)
     example：Graphwalker_Runner -i
 #### Version
 
