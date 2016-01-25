@@ -44,7 +44,7 @@ Install command：$ sudo ./Graphwalker_Runner
 #### Version
 
     說明：查詢版本，回傳"版號","Change note"。
-    example：Graphwalker_Runner -v
+    example：Graphwalker_Runner -v new[all]
 #### update code
 
     說明：從github拉新的code。
