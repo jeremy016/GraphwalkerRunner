@@ -81,7 +81,7 @@
     example：Graphwalker_Runner -s pc(mobile)
 #### Set stop condition
 
-    說明：設置停止條件，預設為"random(edge_coverage(100))"。
+    說明：設置停止條件，預設為"random(edge_coverage(100))"，詳細停止條件請參考下方Reference。
     example：Graphwalker_Runner -S "random(edge_coverage(100))"
 
 # Reference
