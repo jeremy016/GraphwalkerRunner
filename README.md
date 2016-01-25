@@ -82,10 +82,10 @@
 
     說明：設置停止條件，預設為"random(edge_coverage(100))"。
     example：Graphwalker_Runner -S "random(edge_coverage(100))"
-    
-    [停止條件文件](http://graphwalker.org/docs/path_generators_and_stop_conditions)
+
 
 # Reference
 
-*   [graphwalker官網](http://graphwalker.org/)
+*   [Graphwalker官網](http://graphwalker.org/)
 *   下載 [graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
+*   [Stop conditions Documentation ](http://graphwalker.org/docs/path_generators_and_stop_conditions)
