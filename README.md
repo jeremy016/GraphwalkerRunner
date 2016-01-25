@@ -54,7 +54,8 @@
         
     example：Graphwalker_Runner -i
     
-    註：[graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
+註：[graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
+
 #### Version
 
     說明：查詢版本，回傳"版號","Change note"。
