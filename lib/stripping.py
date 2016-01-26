@@ -2,11 +2,15 @@
 import sys,os,re
 from string import Template
 
-
+ttt=False
+skip_value = True
 fun_list = []
 script_fun_list = []
+del_func_list = []
 
 merged_str=''
+del_area_start = '\'\'\'\n==================[Deleted functions, please check this]==================\n'
+del_area_end = '\n=============================[Deleted functions]==========================\n\'\'\''
 
 #read graphml function
 with open(sys.argv[1]+'/merged.py', 'r') as file:
@@ -24,7 +28,12 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 
 	    for line in file:
 
-	        if 'def ' in line :
+	    	if '[Deleted functions, please check this]' in line:
+    			skip_value = False
+	    	if '[Deleted functions]' in line:
+	    		skip_value = True
+	
+	        if 'def ' in line and skip_value:
 	        	
 	        	script_fun_list.append(line[4:line.find('()')])
 
@@ -44,19 +53,27 @@ new_function = list(set(fun_list) ^ set(intersection))
 del_function = list(set(script_fun_list) ^ set(intersection))
 
 
-#def func
+#del func
+
 if os.path.exists(sys.argv[1]+'/script.py'):
 	removed_func_str = ''
 	with open(sys.argv[1]+'/script.py', 'r') as file:
+		read_all = file.read()
+		if del_area_start in read_all:
+			
+			ttt=True
+			del_area = read_all[read_all.find(del_area_start):read_all.find(del_area_end)+82]
+			del_area_not_end = del_area.replace(del_area_end,'')
+			read_all = read_all.replace(del_area,'')
 
-		temp = file.read().split('def')
+		temp = read_all.split('def')
 		
 		for i in temp:
 			
 			if i[1:i.find('()')] in del_function:
 				
 				temp.remove(i)
-
+				del_func_list.append(i)
 
 		removed_func_str =  'def'.join(temp)
 
@@ -83,7 +100,33 @@ for i in new_function:
 write_file = open(sys.argv[1]+'/script.py','a')
 
 write_file.write(all_fun_str)
+
 write_file.close()
+
+
+#add del func
+write_file = open(sys.argv[1]+'/script.py','a')
+
+
+if ttt:
+	write_file.write(del_area_not_end)
+
+if del_func_list:
+
+	if not ttt:
+		write_file.write(del_area_start)
+
+	for i in del_func_list:
+		write_file.write(str('def')+i)
+
+	if not ttt:
+		write_file.write(del_area_end)
+if ttt:
+	write_file.write(del_area_end)
+
+
+write_file.close()
+
 
 
 #open merged.py
