@@ -2,10 +2,11 @@
 	
 	"latest":
 
-		{"Version":"1.0.3","Change log":["新增刪除確認區"]},
+		{"Version":"1.0.4","Change log":["新增Log Record","新增測試報告"]},
 
 	"old":
 	[	
+		{"Version":"1.0.3","Change log":["新增刪除確認區"]},
 		{"Version":"1.0.2","Change log":["新增完整change log","修復change note UTF-8 Bug","新增Graphwalker_Runner到'/usr/bin/'底下"]},
 		{"Version":"1.0.1","Change log":["script.py合併時，移除不存在的function"]},
 		{"Version":"1.0.0","Change log":["修復合圖問題","新增版本與更新細節清單"]}

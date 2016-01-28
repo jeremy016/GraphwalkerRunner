@@ -1,9 +1,34 @@
 #/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argparse,os,git,subprocess,sys,urllib2,json
-#Need install GitPython
+import os,subprocess,sys,json,shlex
+import logging,argparse,urllib2
+import logging.config
 
+from subprocess import Popen, PIPE
+
+
+
+# logger setting
+
+logging.config.fileConfig("/usr/local/GraphwalkerRunner/logger.conf")
+
+logger = logging.getLogger("example01")
+
+def call(command,output_file=''):
+	p = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+	output, error = p.communicate()
+	if p.returncode == 0:
+		if output:
+			if output_file:
+				with open(output_file, 'w') as outfile:
+				    outfile.write(str(output))
+			else:
+				logger.info(output)
+		else:
+			logger.info('successful')
+	else:
+	   	logger.error(str(error))
 
 def output_immediately():
 	while True:
@@ -46,126 +71,179 @@ current_locate = os.popen('pwd').read().strip('\n')
 
 # show version
 if args.version:
-		
-	with open('/usr/local/GraphwalkerRunner/version.json') as f:
-		contents = json.loads(f.read())
+	
+	try:
 
-		
-		print '\n Current Version:',contents['latest']['Version']
-		print ' Change log：'
-		for i in contents['latest']['Change log']:
-			print '   ',contents['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+		with open('/usr/local/GraphwalkerRunner/version.json') as f:
+			contents = json.loads(f.read())
 
-		if args.version == 'all':
+			print '\n Current Version:',contents['latest']['Version']
+			print ' Change log：'
+			for i in contents['latest']['Change log']:
+				print '   ',contents['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
 
-			for i in contents['old']:
-				print '\n Version:',i['Version']
-				print ' Change log：'
-				for ii in i['Change log']:
-					print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
+			if args.version == 'all':
+
+				for i in contents['old']:
+					print '\n Version:',i['Version']
+					print ' Change log：'
+					for ii in i['Change log']:
+						print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
+			
+	except Exception,e:
+
+		logger.error(str(e))
 
 
 
 #init environment [-i]
 if args.init:
+	
 	if os.path.exists('/usr/local/GraphwalkerRunner'):
-		os.popen('sudo rm -rf /usr/local/GraphwalkerRunner')
 
+		call(['sudo','rm','-rf','/usr/local/GraphwalkerRunner2'])
 
 #creat folder [init]
 if not os.path.exists('/usr/local/GraphwalkerRunner'):
-	# git clone code
-	print 'git clone code...'
-	# git.Git().clone("git://github.com/jeremy016/GraphwalkerRunner.git")
-	print os.popen('sudo git clone https://github.com/jeremy016/GraphwalkerRunner').read()
 	
-	print 'creat tool folder'
-	print os.popen('sudo mv -f GraphwalkerRunner /usr/local/GraphwalkerRunner').read()
+	# git clone code
+	# print 'git clone code...'
+	logger.info('git clone code...')
+	call(['sudo','git','clone','https://github.com/jeremy016/GraphwalkerRunner'])
+
+
+	# print 'creat tool folder'
+	logger.info('creat tool folder')
+	call(['sudo','mv','-f','GraphwalkerRunner','/usr/local/GraphwalkerRunner'])
 
 	#download graphwalker-cli-3.4.0-SNAPSHOT.jar
 
-	print 'download graphwalker-cli-SNAPSHOT.jar'
-	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"c84d674b-c645-4a2b-a5f0-8afd931b005e","password":""}]}')
-	req.get_method = lambda: 'POST'
-	Request_detail = json.loads(urllib2.urlopen(req).read())
-	print os.popen('sudo wget --no-check-certificate "'+Request_detail['downloadURL']+'" -O /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar').read()
-
-	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
-	req.get_method = lambda: 'POST'
-	Request_detail = json.loads(urllib2.urlopen(req).read())
-	print os.popen('sudo wget --no-check-certificate "'+Request_detail['downloadURL']+'" -O /usr/bin/Graphwalker_Runner').read()
+	# print 'download graphwalker-cli-SNAPSHOT.jar'
 	
-	#改權限
-	print os.popen('sudo chmod -R 777 /usr/local/GraphwalkerRunner').read()
 
+	try:
+		logger.info('get ".jar" downloadURL...')
+		req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"c84d674b-c645-4a2b-a5f0-8afd931b005e","password":""}]}')
+		req.get_method = lambda: 'POST'
+		Request_detail = json.loads(urllib2.urlopen(req).read())
+
+	except Exception,e:
+		logger.error(str(e))
+
+	logger.info('Download graphwalker-cli-SNAPSHOT.jar...')
+	call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar'])
+
+	try:
+		logger.info('get "Runner" downloadURL...')
+		req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
+		req.get_method = lambda: 'POST'
+		Request_detail = json.loads(urllib2.urlopen(req).read())
+	
+	except Exception,e:
+		logger.error(str(e))
+
+	logger.info('Download Runner...')
+	call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/bin/Graphwalker_Runner'])
+
+	#改權限
+	logger.info('chmod folder...')
+	call(['sudo','chmod','-R','777','/usr/local/GraphwalkerRunner'])
+	
+
+	
 #更新code
 if args.update:
-	# git pull date
-	print 'update...'
-	print os.popen('bash /usr/local/GraphwalkerRunner/lib/git_pull.sh').read()
 
-	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
-	req.get_method = lambda: 'POST'
-	Request_detail = json.loads(urllib2.urlopen(req).read())
-	print os.popen('sudo wget --no-check-certificate "'+Request_detail['downloadURL']+'" -O /usr/bin/Graphwalker_Runner').read()
+	# git pull date
+	# print 'update...'
+	logger.info('update...')
+	call(['bash','/usr/local/GraphwalkerRunner/lib/git_pull.sh'])
+	
+	try:
+		logger.info('get "Runner" downloadURL...')
+		req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
+		req.get_method = lambda: 'POST'
+		Request_detail = json.loads(urllib2.urlopen(req).read())
+
+	except Exception,e:
+		logger.error(str(e))
+
+	logger.info('Download Runner...')
+	call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/bin/Graphwalker_Runner'])
 
 	#改權限
-	print os.popen('sudo chmod -R 777 /usr/bin/Graphwalker_Runner').read()
-
+	logger.info('chmod folder...')
+	call(['sudo','chmod','-R','777','/usr/local/GraphwalkerRunner'])
+	
 #merge graph [-m]
 if args.model:
-	print 'merge graph...'
-	#merge graph (graph_merge.py)
-	command = 'python /usr/local/GraphwalkerRunner/lib/graph_merge.py '+args.model+' '+current_locate
-	print os.popen(command).read()
 
-	#graphml -> dot
-	print 'graphml -> dot... (merged.dot)'
-	command = 'java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar convert -i '+current_locate+'/merged.graphml '+current_locate+'/merged.dot'
-	print os.popen(command).read()
+	try:
 
-	#dot -> png  , apt-get install graphviz
-	print 'dot -> png... (merged.png)'
-	command = 'dot -Tpng '+current_locate+'/merged.dot > '+current_locate+'/merged.png'
-	print os.popen(command).read()
+		logger.info('merge graph...')
+		call(['python','/usr/local/GraphwalkerRunner/lib/graph_merge.py',args.model,current_locate])
 
-	#output merged.py
-	command = 'java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar source -i '+current_locate+'/merged.graphml /usr/local/GraphwalkerRunner/lib/python.template > '+current_locate+'/merged.py'
-	print os.popen(command).read()
+		
+		#graphml -> dot
+		logger.info('graphml -> dot... (merged.dot)')
+		call(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','convert','-i',current_locate+'/merged.graphml',current_locate+'/merged.dot'])		
 
-	#stripping function
-	print 'Generate python stub source code & graphwalker Runner ... (script.py)'
-	command = 'python /usr/local/GraphwalkerRunner/lib/stripping.py '+current_locate
-	print os.popen(command).read()
+		
+		#dot -> png  , apt-get install graphviz
+		logger.info('dot -> png... (merged.png)')
+		call(['dot','-Tpng',current_locate+'/merged.dot','-o',current_locate+'/merged.png'])
 
-	#del dot
-	command = 'rm '+current_locate+'/merged.dot '+current_locate+'/merged.py'
-	print os.popen(command).read()
+
+		
+		#output merged.py
+		logger.info('output merged.py')
+		call(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','source','-i',current_locate+'/merged.graphml','/usr/local/GraphwalkerRunner/lib/python.template'],current_locate+'/merged.py')
+		
+
+		#stripping function
+		logger.info('Generate python stub source code & graphwalker Runner ... (script.py)')
+		call(['python', '/usr/local/GraphwalkerRunner/lib/stripping.py',current_locate])
+
+		#del dot
+		logger.info('del dot')
+		call(['rm',current_locate+'/merged.dot',current_locate+'/merged.py'])
 	
+
+	except Exception,e:
+		logger.error(str(e))
+
 #Check graphical integrity [-c]
 if args.check:
-	print 'Check graphical integrity'
-	command = 'python /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+current_locate
-	print os.popen(command).read()
+
+	logger.info('Check graphical integrity')
+	os.popen('python /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+ current_locate).read()
+	#call(['python','/usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py',current_locate])
 
 #running graphwalker [-r]
 if args.run:
-	print 'graphwalker running'
-	#copy script to tool
-	command = 'cp '+current_locate+'/script.py /usr/local/GraphwalkerRunner/lib/script.py'
-	print os.popen(command).read()
-	
-	#Stop Condition [-S]
-	args.Stop = args.Stop.replace('(','\\(').replace(')','\\)')
-	command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+args.Stop
 
-	#Screenshot [-s]
-	if args.shot:
-		command += ' '+args.shot
-	
-	#Running GraphwalkerRunner
-	p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
-	output_immediately()
+	logger.info('graphwalker running')
+
+	try:
+		
+		#copy script to tool
+		call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
+
+		
+		#Stop Condition [-S]
+		args.Stop = args.Stop.replace('(','\\(').replace(')','\\)')
+		command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop)
+
+		
+		#Screenshot [-s]
+		if args.shot:
+			command += ' '+args.shot
+		
+		#Running GraphwalkerRunner
+		p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
+		output_immediately()
 
 	
+	except Exception, e:
 
+		logger.error(str(e))

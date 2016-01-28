@@ -4,10 +4,19 @@ from threading import Timer
 import xml.etree.ElementTree as ET
 import numpy as np
 
+import logging
+import logging.config
+from subprocess import Popen, PIPE
 
 from xml.etree.ElementTree import ElementTree
 
 
+##########Set log################
+
+logging.config.fileConfig("/usr/local/GraphwalkerRunner/logger.conf")
+logger = logging.getLogger("example01")
+
+#################################
 
 class GraphFun(object):
 
@@ -338,9 +347,25 @@ class GraphFun(object):
 
     def Count_Walked(self, stop_condition="random(edge_coverage(100))"):
         Walked_list = []
-        path_result = os.popen("java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar offline --json -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \""+stop_condition+"\"").read()
-        
-        return path_result
+
+        #path_result = os.popen("java -jar /usr/local/GraphwalkerRunne/lib/graphwalker-cli-SNAPSHOT.jar offline --json -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \""+stop_condition+"\"").read()
+        try:
+
+            p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m','/usr/local/GraphwalkerRunner/lib/merged_mark.graphml','"'+stop_condition+'"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            output, error = p.communicate()
+
+            if p.returncode == 0:
+                ok=True if output else False        
+            else:
+                ok=False
+
+            assert ok==True,error
+
+        except Exception as e:
+
+            logger.error(str(e))
+
+        return output
 
 
 
@@ -392,7 +417,6 @@ class GraphFun(object):
             result = self.timeout('Count_Walked',c_locate,timeout)
             if result:
                 step = result.count('CurrentElementName')
-
                 step_count_list.append(int(step))
                 if i==0:
                     print 'The '+str(i+1)+'st times step:'+str(step)
@@ -402,6 +426,8 @@ class GraphFun(object):
                     print 'The '+str(i+1)+'rd times step:'+str(step)
                 else:
                     print 'The '+str(i+1)+'th times step:'+str(step)
+            else:
+                break
 
         assert step_count_list,'Stop_Condition all timeout'
 
@@ -500,19 +526,40 @@ class GraphFun(object):
             return result
 
         except KeyboardInterrupt as e:
+            logger.error(str('[Timeout] :')+str(fun_name))
             print 'KeyboardInterrupt'
             print '\n-------------------------\nPlease click enter to end...\n-------------------------\n'
             self.kill_Process('Runner.py')
             self.kill_Process('')
 
-            
+    def screen_shot(self,argv,sys_argv,command,step_count,step):
 
+      
+
+        if argv == 'mobile':
+            p = Popen(['adb','shell','screencap','-p','|','sed','s/\r$//',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            output, error = p.communicate()
+            if p.returncode == 0:
+                ok=False if output else True        
+            else:
+                ok=False
+            assert ok==True,logger.error(str(e))
+
+        elif argv:
+            p = Popen(['import','-display',':0','-window','root',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            output, error = p.communicate()
+            if p.returncode == 0:
+                ok=False if output else True        
+            else:
+                ok=False
+            assert ok==True,logger.error(str(e))
+
+    
 
 
     def CheckGraphicalIntegrity(self):
 
         global current_locate
-        print 'CheckGraphicalIntegrity'
         # read file & get fun name & write to file
         try:
             func_list = []
@@ -534,17 +581,32 @@ class GraphFun(object):
             fun_list_len = len(func_list)
 
             #Cheching Graphical Integrity
-            print 'Cheching...'
+            # print 'Cheching...'
+            
 
             import script_test as RunFun
 
             self.kill_Process() 
+           
+            logger.info(str('Cheching Graphical Integrity by offline'))
+            p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            output, error = p.communicate()
 
-            os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &') 
+            if p.returncode == 0:
+                ok=True if output else False        
+            else:
+                ok=False
+
+            assert ok==True,error
+            logger.info(str('successful'))
+
+            logger.info(str('Run Websocket...'))
+
+            os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &')
+            
             time.sleep(5)
 
-      
-
+            logger.info(str('Cheching every point by online'))
             gw_url = 'http://localhost:8887/graphwalker'
 
             while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' :
@@ -572,105 +634,169 @@ class GraphFun(object):
                     else:
                         count=0
                     if count == fun_list_len * fun_list_len:
-                        print "\n========================================"
-                        print 'Visited incomplete graphics'
-                        print 'Stop Condition is (length * length) Step'
-                        print "=========================================="
+                        logger.info(str('===============Result==================='))
+                        logger.info(str('Visited incomplete graphics'))
+                        logger.info(str('Stop Condition is (length * length) Step'))
+                        logger.info(str('========================================'))
                         break
             
             if count < fun_list_len * fun_list_len:
-                print "\n=============================="
-                print 'Visited complete graphics'
-                print "=============================="
+
+                logger.info(str('===========Result============='))
+                logger.info(str('Visited complete graphics'))
+                logger.info(str('=============================='))
 
                         
             if func_list:
-                print '\nNot visited points : '
-                print func_list
-                print '\nOutput log file : Not_visited_points.txt'
-                print 'log file path : '+current_locate+'/Not_visited_points.txt'
+                logger.info(str('Not visited points : '))
+                logger.info(func_list)
+                logger.info(str('Output log file : Not_visited_points.txt'))
+                logger.info('log file path : '+current_locate+'/Not_visited_points.txt')
+
                 error_file = open(current_locate+'/Not_visited_points.txt', 'w')
                 error_file.write(str(func_list))
                 error_file.close()
             else:
-                os.popen('rm '+current_locate+'/Not_visited_points.txt')            
+        
+                p = Popen(['rm',current_locate+'/Not_visited_points.txt'], stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+                output, error = p.communicate()
+                if p.returncode == 0:
+                    if output:
+                        if output_file:
+                            with open(output_file, 'w') as outfile:
+                                outfile.write(str(output))
+                        else:
+                            logger.info(output)
+                else:
+                    logger.error(str(error))          
 
             # os.popen('rm /usr/local/GraphwalkerRunner/lib/script_test.py /usr/local/GraphwalkerRunner/lib/script_test.pyc')
             
             return func_list if func_list else True
 
         except Exception as e:
-            print '\n-------------------------\nException\n-------------------------\n'
+            logger.error(str(e))
+
+            # print '\n-------------------------\nException\n-------------------------\n'
             self.kill_Process()
             return e 
-     
+    
+    def Test_Report(self, complete_value, error_list, pass_dic, BLOCKED):
+        logger.info(str('Generate Test Report'))
+
+        try:
+
+            #All Pass
+            if pass_dic['Completion_type'] == 'Pass':
+
+                with open('test_report.txt', 'w') as report_file:
+
+                    report_file.write('[PASS]\n\tSTEP : ')
+
+                    ste_list = ' -> '.join(pass_dic['ste_list'])
+                    report_file.write(str(ste_list))
+
+            #Conditional Pass
+            elif pass_dic['Completion_type'] == 'Fail':
+
+                with open('test_report.txt', 'w') as report_file:
+
+                    report_file.write('[Fail Record]\n\n')
+
+                    #create fail testcase
+                    report_file.write('\t[Error]\n\n')
+                    for i in error_list:
+
+                        report_file.write('\t\tFail_Fun : '+str(i['Fail_Fun'])+'\n')
+                        report_file.write('\t\tstep : '+str(i['step'])+'\n')
+                        report_file.write('\t\tError_Message : '+str(i['Error_Message'])+'\n\n')
+                        
+
+                    #create pass testcase
+                    report_file.write('\t[Conditional Pass]\n')
+        
+                    report_file.write('\n\t\tstep : '+pass_dic['step_str']+'\n\n')
+
+                    #create ignore testcase
+
+                    if BLOCKED.has_key('getNext'):
+
+                        report_file.write('\t[Ignore]\n')
+
+                        report_file.write('\n\t\tpoint : '+str(BLOCKED['getNext'])+'\n\n')                    
+
+
+        except Exception as e:
+
+            logger.error(str(e))
 
     def Generate_XML(self, complete_value, error_list, pass_dic, BLOCKED):
 
-        print 'Generate_XML'
+        logger.info(str('Generate XML'))
         
-        testsuite = ET.Element("testsuite", Tests=str(len(error_list)))
+        try:
 
-        properties = ET.SubElement(testsuite,"properties")
+            testsuite = ET.Element("testsuite", Tests=str(len(error_list)))
 
+            properties = ET.SubElement(testsuite,"properties")
+
+            
+            index = 0
+
+            #All Pass
+            if pass_dic['Completion_type'] == 'Pass':
+
+                testcase = ET.SubElement(testsuite,"testcase" ,classname='All',name='Pass')
+
+                ET.SubElement(testcase,"Pass" ,message='The Step :\n '+str(pass_dic['step_str']))
+
+                #create pass testcase
+                for i in pass_dic['ste_list']:
+
+                    testcase = ET.SubElement(testsuite,"testcase" ,classname='pass',name=str(i))
+
+                    ET.SubElement(testcase,"pass")
+
+            #Conditional Pass
+            elif pass_dic['Completion_type'] == 'Fail':
+
+                #create fail testcase
+                for i in error_list:
+
+                    testcase = ET.SubElement(testsuite,"testcase" ,message='complete Condition:'+str(complete_value),classname='Fail',name=str(i['Fail_Fun']))
+
+                    img = 'http://192.168.20.140:8080/jenkins/job/MBT_Project/job/JUSTUP/ws/Graphwalker/Run_GraphWalker/Screenshot/'+str(i['Fail_Fun'])+'.png'
+                    message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])
+                    
+                    ET.SubElement(testcase,"error" ,message=str(message_str)+' \n\nScreenshot : '+str(img))
+                    
+                
+
+                #create pass testcase
+                for i in pass_dic['ste_list']:
+
+                    testcase = ET.SubElement(testsuite,"testcase" ,classname='pass',name=str(i))
+
+                    ET.SubElement(testcase,"pass")
+
+                #create ignore testcase
+
+                for item in BLOCKED:
+
+                    for i in BLOCKED[item]:
+
+                        testcase = ET.SubElement(testsuite,"testcase" ,classname='ignore',name=str(i))
+
+                        ET.SubElement(testcase,"skipped",message='Ignore HasNext Messages : ' + str(i),name=str(item) )
+
+               
         
-        index = 0
 
-        #All Pass
-        if pass_dic['Completion_type'] == 'Pass':
+            tree = ET.ElementTree(testsuite)
 
-            testcase = ET.SubElement(testsuite,"testcase" ,classname='All',name='Pass')
 
-            ET.SubElement(testcase,"Pass" ,message='The Step :\n '+str(pass_dic['step_str']))
-
-            #create pass testcase
-            for i in pass_dic['ste_list']:
-
-                testcase = ET.SubElement(testsuite,"testcase" ,classname='pass',name=str(i))
-
-                ET.SubElement(testcase,"pass")
-
-        #Conditional Pass
-        elif pass_dic['Completion_type'] == 'Fail':
-
-            #create fail testcase
-            for i in error_list:
-
-                testcase = ET.SubElement(testsuite,"testcase" ,message='complete Condition:'+str(complete_value),classname='Fail',name=str(i['Fail_Fun']))
-
-                img = 'http://192.168.20.140:8080/jenkins/job/MBT_Project/job/JUSTUP/ws/Graphwalker/Run_GraphWalker/Screenshot/'+str(i['Fail_Fun'])+'.png'
-                message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])
-                
-                ET.SubElement(testcase,"error" ,message=str(message_str)+' \n\nScreenshot : '+str(img))
-                
+            tree.write("Result.xml", 'UTF-8', 'True')
             
 
-            #create pass testcase
-            for i in pass_dic['ste_list']:
-
-                testcase = ET.SubElement(testsuite,"testcase" ,classname='pass',name=str(i))
-
-                ET.SubElement(testcase,"pass")
-
-            #create ignore testcase
-
-            for item in BLOCKED:
-
-                for i in BLOCKED[item]:
-
-                    testcase = ET.SubElement(testsuite,"testcase" ,classname='ignore',name=str(i))
-
-                    ET.SubElement(testcase,"skipped",message='Ignore HasNext Messages : ' + str(i),name=str(item) )
-
-           
-    
-
-        tree = ET.ElementTree(testsuite)
-
-
-        tree.write("Result.xml", 'UTF-8', 'True')
-        
-        #kill service
-        self.kill_Process('Graphwalker_Runner')
-
-
+        except Exception as e:
+            logger.error(str(e))

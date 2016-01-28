@@ -4,8 +4,13 @@ import requests,json,traceback,time,sys,os
 import GraphFun as GraphFun
 import script as RunFun
 
+from subprocess import Popen, PIPE
+import logging
+import logging.config
+
 global temp
 temp={}
+
 
 ##
 ## 1) Generate python stub source code:
@@ -32,142 +37,184 @@ error_list = []
 pass_dic = {}
 BLOCKED = {}
 
+##########Set log################
+
+logging.config.fileConfig("/usr/local/GraphwalkerRunner/logger.conf")
+logger = logging.getLogger("example01")
+
+#################################
+
 #creat GraphFun object----------------
-GF = GraphFun.GraphFun()
 
-#rename graphml (merged.graphml -> merged_mark.graphml)
-os.popen('cp merged.graphml /usr/local/GraphwalkerRunner/lib/merged_mark.graphml')
+try:
 
-print 'Get average count...'
-Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
-test_count=0
+#creat "GraphFun" object
+    GF = GraphFun.GraphFun()
 
-argv = sys.argv[3] if len(sys.argv) > 3 else ''
-
-if argv:
-    if not os.path.exists(sys.argv[1]+'/Screenshot'):
-        os.popen('mkdir '+sys.argv[1]+'/Screenshot')
+#cp merged.graphml to too's lib
+    p = Popen(['cp','merged.graphml','/usr/local/GraphwalkerRunner/lib/merged_mark.graphml'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+    output, error = p.communicate()
+    if p.returncode == 0:
+        ok=False if output else True        
     else:
-        os.popen("rm -rf "+sys.argv[1]+"/Screenshot")
-        os.popen('mkdir '+sys.argv[1]+'/Screenshot')
+        ok=False
+    assert ok==True,error
 
-
-while(NoneError):
-    step_count=0
-
-    if test_count==0:
-        command =  'The\ '+str(test_count+1)+'st\ times\ testing'
-    elif test_count==1:
-        command =  'The\ '+str(test_count+1)+'nd\ times\ testing'
-    elif test_count==2:
-        command =  'The\ '+str(test_count+1)+'rd\ times\ testing'
-    else:
-        command =  'The\ '+str(test_count+1)+'th\ times\ testing'
+#Get average count
+    logger.info('Get average count...')
+    Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
+ 
+    test_count=0
+    
+    argv = sys.argv[3] if len(sys.argv) > 3 else ''
 
     if argv:
-        os.popen('mkdir '+sys.argv[1]+'/Screenshot/'+str(command))
-    
-    test_count+=1
+        if not os.path.exists(sys.argv[1]+'/Screenshot'):
+            os.popen('mkdir '+sys.argv[1]+'/Screenshot')
+        else:
+            os.popen("rm -rf "+sys.argv[1]+"/Screenshot")
+            os.popen('mkdir '+sys.argv[1]+'/Screenshot')
 
-    print '\nRun Testing...\n'
-    GF.kill_Process() 
+#start running GW
+  
+    while(NoneError):
+        step_count=0
 
-    GF.Run_Websocket(sys.argv[2])  
+        if test_count==0:
+            command =  'The '+str(test_count+1)+'st times testing'
+        elif test_count==1:
+            command =  'The '+str(test_count+1)+'nd times testing'
+        elif test_count==2:
+            command =  'The '+str(test_count+1)+'rd times testing'
+        else:
+            command =  'The '+str(test_count+1)+'th times testing'
 
-    gw_url = 'http://localhost:8887/graphwalker'
-
-    step_list=[]
-    Test_result = {}
-
-    #Run Graphwalker----------------
-    try:
-        while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' and Stop > 0 :
-
-            # Get next step from GraphWalker
-            try:
-
-                step = requests.get(gw_url+'/getNext').json()['CurrentElementName']
-
-            # Step(CurrentElementName) occured error
-            except Exception as e:
-                print e
-                # BLOCKED Error Handling 
-                BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action('getNext', e, BLOCKED, Max, Min, step, NoneError,Test_result)
-                break
-
-            step_list.append(str(step))
-
-            #Run Function
-            if step != '' :
-                try:
-                    eval( "RunFun."+step + "()" )
-                    Stop-=1
-
-                    if argv == 'mobile':
-                        os.system("adb shell screencap -p | sed 's/\r$//' > "+sys.argv[1]+"/Screenshot/"+command+"/screen-" + str(step_count) + "-" + step + ".png")
-                    elif argv:
-                        os.popen('import -display :0 -window root '+sys.argv[1]+'/Screenshot/'+command+'/screen-' + str(step_count) + '-' + step + '.png') 
-                    
-                    step_count+=1
-
-                #Fun error
-                except Exception as e:
+        if argv:
             
-                    #Fun error Handling
-                    Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list)
+            p = Popen(['mkdir',sys.argv[1]+'/Screenshot/'+str(command)],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            output, error = p.communicate()
+            if p.returncode == 0:
+                ok=False if output else True        
+            else:
+                ok=False
+            assert ok==True,error
+        
+        test_count+=1
+
+        print '\nRun Testing...\n'
+        GF.kill_Process() 
+
+        GF.Run_Websocket(sys.argv[2])  
+
+        gw_url = 'http://localhost:8887/graphwalker'
+
+        step_list=[]
+        Test_result = {}
+
+        #Run Graphwalker----------------
+        try:
+            while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' and Stop > 0 :
+
+                # Get next step from GraphWalker
+                try:
+
+                    step = requests.get(gw_url+'/getNext').json()['CurrentElementName']
+
+                # Step(CurrentElementName) occured error
+                except Exception as e:
+                    logger.debug('[CurrentElementName error] : '+str(e))
+                    # BLOCKED Error Handling 
+                    BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action('getNext', e, BLOCKED, Max, Min, step, NoneError,Test_result)
                     break
 
-        #integrate screen capture code to templete
-        if argv == 'mobile':
-            os.system("adb shell screencap -p | sed 's/\r$//' > "+sys.argv[1]+"/Screenshot/"+command+"/screen_final.png")
-        elif argv:
-            os.popen('import -display :0 -window root '+sys.argv[1]+'/Screenshot/'+command+'/screen_final.png') 
-        # integrate cleanup code to templete
-        #RunFun.temp['driver'].quit()
+                step_list.append(str(step))
 
-    # Step(HasNext) occured error
-    except Exception as e:
-        print e
-        #occured Connection aborted error
-        if  'Connection refused' in str(e):
-            print 'Connection refused'
-            root_cause,step = GF.Connection_Aborted(e,sys.argv[2])
-            print root_cause,step
+                #Run Function
+                if step != '' :
+                    try:
+                        eval( "RunFun."+step + "()" )
+                        Stop-=1
 
-        else:
-            root_cause = 'HasNext'
+                        GF.screen_shot(argv,sys.argv[1],command,str(step_count),step)
+            
+                        step_count+=1
 
-        print '----------'
-        # BLOCKED Error Handling
-        BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action(root_cause, e, BLOCKED, Max, Min, step, NoneError,Test_result)
+                    #Fun error
+                    except Exception as e:
+                        #Fun error Handling
+                        Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list)
+                        logger.debug('[Function error] : '+str(Test_result))
+                     
+                        break
+
+            #integrate screen capture code to templete
+            GF.screen_shot(argv,sys.argv[1],command,str(step_count),step)
+
+        # Step(HasNext) occured error
+        except Exception as e:
+            logger.debug('[HasNext error] : '+str(e))
+            #occured Connection aborted error
+            if  'Connection refused' in str(e):
+                
+                root_cause,step = GF.Connection_Aborted(e,sys.argv[2])
+
+                logger.debug('[Connection refused] root_cause : '+str(root_cause)+' ; step : '+str(step))
+
+                if 'No start context found' == str(root_cause):
+                    logger.debug('No start context found')
+                    break
+            else:
+                root_cause = 'HasNext'
+
+            print '----------'
+            # BLOCKED Error Handling
+            BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action(root_cause, e, BLOCKED, Max, Min, step, NoneError,Test_result)
 
 
-    if(not NoneError):
-        #Add BLOCKED----------------
-        graph = GF.Add_BLOCKED('/usr/local/GraphwalkerRunner/lib/', 'merged_mark.graphml',Test_result['Fail_Fun']) 
+        if(not NoneError):
+            #Add BLOCKED----------------
+            graph = GF.Add_BLOCKED('/usr/local/GraphwalkerRunner/lib/', 'merged_mark.graphml',Test_result['Fail_Fun']) 
 
-        #graphml_generate----------------
-        GF.graphml_generate(graph[0], graph[1], '/usr/local/GraphwalkerRunner/lib/merged_mark.graphml', debug_flag=False)
+            #graphml_generate----------------
+            GF.graphml_generate(graph[0], graph[1], '/usr/local/GraphwalkerRunner/lib/merged_mark.graphml', debug_flag=False)
 
-    NoneError = not NoneError
+        NoneError = not NoneError
+           
+
+
+    #complete Condition
+    complete_value = 'Condition Completion' if Stop == 0 else 'Full Completion'
+
+    step_str = ' -> '.join(step_list)
+    pass_dic['step_str'] = step_str
+    pass_dic['ste_list'] = list(set(step_list))
+    pass_dic['Completion_type']='Fail' if len(error_list) > 0 else 'Pass'
+
+
        
 
+    print ('*********************')
+    print (str(complete_value))
+    print ('*********************')
 
-#complete Condition
-complete_value = 'Condition Completion' if Stop == 0 else 'Full Completion'
-
-step_str = ' -> '.join(step_list)
-pass_dic['step_str'] = step_str
-pass_dic['ste_list'] = list(set(step_list))
-pass_dic['Completion_type']='Fail' if len(error_list) > 0 else 'Pass'
+    print ('*********************')
+    print (str(BLOCKED))
+    print ('*********************')
 
 
-   
+    #Generate Test Report
+    GF.Test_Report(complete_value, error_list,pass_dic,BLOCKED)
+    #Generate XML
+    GF.Generate_XML(complete_value, error_list,pass_dic,BLOCKED)
 
-print '\n\n*********************\n'+str(complete_value)+'\n*********************'
+    #kill service
+    GF.kill_Process('Graphwalker_Runner')
 
-print '\n\n*********************\n'+str(BLOCKED)+'\n*********************'
+except KeyboardInterrupt as e:
+    logger.error('KeyboardInterrupt')
+    self.kill_Process('Runner.py')
 
-#Generate XML
-GF.Generate_XML(complete_value, error_list,pass_dic,BLOCKED)
+except Exception, e:
+
+    logger.error(str(e))
 }}>FOOTER
