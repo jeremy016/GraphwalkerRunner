@@ -588,17 +588,17 @@ class GraphFun(object):
 
             self.kill_Process() 
            
-            logger.info(str('Cheching Graphical Integrity by offline'))
-            p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-            output, error = p.communicate()
+            # logger.info(str('Cheching Graphical Integrity by offline'))
+            # p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            # output, error = p.communicate()
 
-            if p.returncode == 0:
-                ok=True if output else False        
-            else:
-                ok=False
+            # if p.returncode == 0:
+            #     ok=True if output else False        
+            # else:
+            #     ok=False
 
-            assert ok==True,error
-            logger.info(str('successful'))
+            # assert ok==True,error
+            # logger.info(str('successful'))
 
             logger.info(str('Run Websocket...'))
 
