@@ -93,8 +93,8 @@
         A：此錯誤為有頂點或邊沒有命名(常見的錯誤：多拉了一條線)
     2:
         Q：Cannot assign requested address    
-        A：
-            原因：主要是太頻繁的連接伺服器，由於每次都在很短的時間內結束，導致很多TIME_WAIT，以至於用光可以用的端口，所以新的連接無法綁定成功，通過netstat，的確看到很多TIME_WAIT狀態的連接。
+        A：原因：主要是太頻繁的連接伺服器，由於每次都在很短的時間內結束，導致很多TIME_WAIT，以至於用光可以用的端口。
+            所以新的連接無法綁定成功，通過netstat，的確看到很多TIME_WAIT狀態的連接。
             解決方法：執行修改如下兩個內核参数 （需要root權限） 
             sysctl -w net.ipv4.tcp_timestamps=1  開啟對於TCP時間戳的支持,若該項設置為0，則下面一項設置不起作用
             sysctl -w net.ipv4.tcp_tw_recycle=1  標示開啟TCP連接中TIME-WAIT sockets的快速回收
