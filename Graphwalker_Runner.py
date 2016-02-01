@@ -11,7 +11,36 @@ from subprocess import Popen, PIPE
 
 # logger setting
 
-logging.config.fileConfig("/usr/local/GraphwalkerRunner/logger.conf")
+try:
+	logging.config.fileConfig("/usr/local/GraphwalkerRunner/logger.conf")
+
+except Exception :
+
+	print 'git clone code...'
+	os.popen('sudo git clone https://github.com/jeremy016/GraphwalkerRunner').read()
+	
+	print 'creat tool folder'
+	os.popen('sudo mv -f GraphwalkerRunner /usr/local/GraphwalkerRunner').read()
+
+	print 'get ".jar" downloadURL...'
+	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"c84d674b-c645-4a2b-a5f0-8afd931b005e","password":""}]}')
+	req.get_method = lambda: 'POST'
+	Request_detail = json.loads(urllib2.urlopen(req).read())
+
+	print 'Download graphwalker-cli-SNAPSHOT.jar...'
+	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL']+' -O /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar').read()	
+
+	print 'get "Runner" downloadURL...'
+	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
+	req.get_method = lambda: 'POST'
+	Request_detail = json.loads(urllib2.urlopen(req).read())
+
+	print 'Download Runner...'
+	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL'] +' -O /usr/bin/Graphwalker_Runner').read()	
+	
+	print 'chmod folder...'
+	os.popen('sudo chmod -R 777 /usr/local/GraphwalkerRunner').read()	
+
 
 logger = logging.getLogger("example01")
 
@@ -101,54 +130,32 @@ if args.init:
 	
 	if os.path.exists('/usr/local/GraphwalkerRunner'):
 
-		call(['sudo','rm','-rf','/usr/local/GraphwalkerRunner2'])
+		call(['sudo','rm','-rf','/usr/local/GraphwalkerRunner'])
 
-#creat folder [init]
-if not os.path.exists('/usr/local/GraphwalkerRunner'):
+	print 'git clone code...'
+	os.popen('sudo git clone https://github.com/jeremy016/GraphwalkerRunner').read()
 	
-	# git clone code
-	# print 'git clone code...'
-	logger.info('git clone code...')
-	call(['sudo','git','clone','https://github.com/jeremy016/GraphwalkerRunner'])
+	print 'creat tool folder'
+	os.popen('sudo mv -f GraphwalkerRunner /usr/local/GraphwalkerRunner').read()
 
+	print 'get ".jar" downloadURL...'
+	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"c84d674b-c645-4a2b-a5f0-8afd931b005e","password":""}]}')
+	req.get_method = lambda: 'POST'
+	Request_detail = json.loads(urllib2.urlopen(req).read())
 
-	# print 'creat tool folder'
-	logger.info('creat tool folder')
-	call(['sudo','mv','-f','GraphwalkerRunner','/usr/local/GraphwalkerRunner'])
+	print 'Download graphwalker-cli-SNAPSHOT.jar...'
+	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL']+' -O /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar').read()	
 
-	#download graphwalker-cli-3.4.0-SNAPSHOT.jar
+	print 'get "Runner" downloadURL...'
+	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
+	req.get_method = lambda: 'POST'
+	Request_detail = json.loads(urllib2.urlopen(req).read())
 
-	# print 'download graphwalker-cli-SNAPSHOT.jar'
+	print 'Download Runner...'
+	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL'] +' -O /usr/bin/Graphwalker_Runner').read()	
 	
-
-	try:
-		logger.info('get ".jar" downloadURL...')
-		req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"c84d674b-c645-4a2b-a5f0-8afd931b005e","password":""}]}')
-		req.get_method = lambda: 'POST'
-		Request_detail = json.loads(urllib2.urlopen(req).read())
-
-	except Exception,e:
-		logger.error(str(e))
-
-	logger.info('Download graphwalker-cli-SNAPSHOT.jar...')
-	call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar'])
-
-	try:
-		logger.info('get "Runner" downloadURL...')
-		req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
-		req.get_method = lambda: 'POST'
-		Request_detail = json.loads(urllib2.urlopen(req).read())
-	
-	except Exception,e:
-		logger.error(str(e))
-
-	logger.info('Download Runner...')
-	call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/bin/Graphwalker_Runner'])
-
-	#改權限
-	logger.info('chmod folder...')
-	call(['sudo','chmod','-R','777','/usr/local/GraphwalkerRunner'])
-	
+	print 'chmod folder...'
+	os.popen('sudo chmod -R 777 /usr/local/GraphwalkerRunner').read()	
 
 	
 #更新code
