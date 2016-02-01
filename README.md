@@ -88,8 +88,14 @@
     
 # Q&A
 
-    Q：TypeError: argument of type 'NoneType' is not iterable >>
-    A：此錯誤為有頂點或邊沒有命名(常見的錯誤：多拉了一條線)
+    1:
+        Q：TypeError: argument of type 'NoneType' is not iterable >>
+        A：此錯誤為有頂點或邊沒有命名(常見的錯誤：多拉了一條線)
+    2:
+        Q：Cannot assign requested address    
+        A：執行修改如下兩個內核参数 （需要root權限） 
+            sysctl -w net.ipv4.tcp_timestamps=1  開啟對於TCP時間戳的支持,若該項設置為0，則下面一項設置不起作用
+            sysctl -w net.ipv4.tcp_tw_recycle=1  標示開啟TCP連接中TIME-WAIT sockets的快速回收
 
 # Reference
 
