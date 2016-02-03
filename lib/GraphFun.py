@@ -586,7 +586,7 @@ class GraphFun(object):
 
             import script_test as RunFun
 
-            self.kill_Process() 
+            #self.kill_Process() 
            
             # logger.info(str('Cheching Graphical Integrity by offline'))
             # p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
@@ -602,9 +602,20 @@ class GraphFun(object):
 
             logger.info(str('Run Websocket...'))
 
-            os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &')
             
-            time.sleep(5)
+            command = 'sudo fuser 8887/tcp > port.txt'
+
+            os.popen(command)
+            time.sleep(1)
+            port_list=[]
+            port = open('port.txt','r')
+            for line in port.readlines():
+                port_list.append(line.strip())
+                logger.error(str(line.strip()))
+
+            assert port_list==[],'port is used'+str(port_list)
+
+            os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &')
 
             logger.info(str('Cheching every point by online'))
             gw_url = 'http://localhost:8887/graphwalker'
