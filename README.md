@@ -145,12 +145,82 @@
     syntax：
         Graphwalker_Runner -c
     example:
-        
+        $ Graphwalker_Runner -c
+        INFO : Check graphical integrity
+        INFO : Run Websocket...
+            二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+            資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
+            二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.NetworkListener start
+            資訊: Started listener bound to [0.0.0.0:8887]
+            二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.HttpServer start
+            資訊: [HttpServer] Started.
+        INFO : Cheching every point by online
+        INFO : ===========Result=============
+        INFO : Visited complete graphics
+        INFO : ==============================
     
 #### Running graphwalker
 
-    說明：執行Graphewalker測試。
-    syntax：Graphwalker_Runner -r
+    說明：執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
+    syntax：
+        Graphwalker_Runner -r
+    example:
+        Graphwalker_Runner -r
+        INFO : graphwalker running
+        INFO : successful
+        INFO : Get average count...
+            The 1st times step:12
+            The 2nd times step:18
+            The 3rd times step:12
+            The 4th times step:30
+            The 5th times step:12
+            The 6th times step:24
+            The 7th times step:18
+            The 8th times step:18
+            The 9th times step:12
+            The 10th times step:12
+            Step List:[12, 18, 12, 30, 12, 24, 18, 18, 12, 12]
+            Max:30
+            Min:12
+            Stop Condition:54
+        Run Testing...
+        kill pid : 6821
+        Run websocket...
+            二月 03, 2016 5:56:23 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+            資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
+            二月 03, 2016 5:56:23 下午 org.glassfish.grizzly.http.server.NetworkListener start
+            資訊: Started listener bound to [0.0.0.0:8887]
+            二月 03, 2016 5:56:23 下午 org.glassfish.grizzly.http.server.HttpServer start
+            資訊: [HttpServer] Started.
+        e_init
+        v_3
+        e_3_2
+        v_2
+        e_2_1_1
+        v_1_edit
+        e_1__2_3
+        Action error on e_1__2_3
+        Error message:
+        (<type 'exceptions.AssertionError'>, AssertionError(), <traceback object at 0x29196c8>)
+        
+        
+        Run Testing...
+            .
+            .
+            .
+        *********************
+        Full Completion
+        *********************
+        *********************
+        {}
+        *********************
+        2016-02-03 17:56:37,041 - INFO : Generate Test Report
+        2016-02-03 17:56:37,060 - INFO : Generate XML
+        kill pid : 6869
+        kill pid : 6870
+        已砍掉
+        
+    
 #### Screenshot when testing
 
     說明：執行Graphewalker測試與錯誤發生時照下當前畫面
