@@ -54,16 +54,16 @@
         
     syntax：Graphwalker_Runner -i
     example:
-    $ sudo ./Graphwalker_Runner
-    git clone code...
-    [sudo] password for jeremy: 
-    remote: Counting objects: 822, done.
-    remote: Compressing objects: 100% (10/10), done.
-    remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812
-       .   
-       .  
-       .   
-    chmod folder...
+        $ sudo ./Graphwalker_Runner
+        git clone code...
+        [sudo] password for jeremy: 
+        remote: Counting objects: 822, done.
+        remote: Compressing objects: 100% (10/10), done.
+        remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812
+           .   
+           .  
+           .   
+        chmod folder...
 
 #### Version
 
