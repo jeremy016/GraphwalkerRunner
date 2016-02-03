@@ -79,12 +79,12 @@
 
     說明：執行Graphewalker測試與錯誤發生時照下當前畫面
          參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
-    syntax：Graphwalker_Runner -s [ pc | mobile ]
+    syntax：Graphwalker_Runner -r -s [ pc | mobile ]
 #### Set stop condition
 
     說明：設置停止條件，預設為"random(edge_coverage(100))"。
          更多停止條件用法請參考下方"Stop conditions Documentation"
-    syntax：Graphwalker_Runner -S "stop condition"
+    syntax：Graphwalker_Runner -r -S "stop condition"
     
 # Q&A
 
