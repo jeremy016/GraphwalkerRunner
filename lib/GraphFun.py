@@ -603,11 +603,13 @@ class GraphFun(object):
             logger.info(str('Run Websocket...'))
 
             
+
             command = 'sudo fuser 8887/tcp > port_used_list.txt'
 
             os.popen(command)
             time.sleep(1)
             port_list=[]
+
             port = open('port_used_list.txt','r')
             for line in port.readlines():
                 port_list.append(line.strip())
@@ -617,6 +619,7 @@ class GraphFun(object):
             os.popen('rm port_used_list.txt')
             os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &')
             time.sleep(5)
+
             logger.info(str('Cheching every point by online'))
             gw_url = 'http://localhost:8887/graphwalker'
 

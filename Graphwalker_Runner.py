@@ -75,21 +75,23 @@ parser = argparse.ArgumentParser(description='Graphwalker Runner')
 
 
 # init
-parser.add_argument("-i", "--init", help="Init graphwalker environment",action="store_true") 
+parser.add_argument("-i", "--init", help="Init graphwalker environment , syntax：Graphwalker_Runner -i ",action="store_true") 
 # 更新code
-parser.add_argument("-u", "--update", help="Update graphwalker source code",action="store_true")
+parser.add_argument("-u", "--update", help="Update graphwalker source code, syntax：Graphwalker_Runner -u ",action="store_true")
 # Merge all graph
-parser.add_argument("-m", "--model", help="It's will merge graphml files in folder , example:Graphwalker_Runner -m 'folder path'") 
+parser.add_argument("-m", "--model", help="It's will merge graphml files in folder , syntax：Graphwalker_Runner -m 'graphml folder path' 'folder path'") 
 # Check graphical integrity
-parser.add_argument("-c", "--check", help="Check graphical integrity, output Not visited points file (Not_visited_points.txt) ",action="store_true") 
+parser.add_argument("-c", "--check", help="Check graphical integrity, output Not visited points file (Not_visited_points.txt) ,syntax：Graphwalker_Runner -c ",action="store_true") 
 # Running graphwalker
-parser.add_argument("-r", "--run", help="Running graphwalker",action="store_true") 
+parser.add_argument("-r", "--run", help="Running graphwalker, syntax：Graphwalker_Runner -r",action="store_true") 
 # Screenshot
-parser.add_argument("-s", "--shot", help="Screenshot when graphwalker running, parameter: 'pc' or 'mobile' , example: Graphwalker_Runner -s pc[mobile]") 
+parser.add_argument("-s", "--shot", help="Screenshot when graphwalker running, parameter: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s [pc|mobile]") 
 # Stop Condition
-parser.add_argument("-S", "--Stop", help="Set stop condition, default parameter: 'random(edge_coverage(100))' , example: Graphwalker_Runner -S 'random(edge_coverage(100))'",default="random(edge_coverage(100))") 
+parser.add_argument("-S", "--Stop", help="Set stop condition, default parameter: 'random(edge_coverage(100))' , syntax: Graphwalker_Runner -r -S 'random(edge_coverage(100))'",default="random(edge_coverage(100))") 
 # Version
-parser.add_argument("-v", "--version", help="Show version number and change notes , parameter: 'new' (show lastest info) or 'all' (show all version info) , example: Graphwalker_Runner -v new[all]")
+parser.add_argument("-v", "--version", help="Show current version number and change notes",action="store_true")
+# All Version
+parser.add_argument("-vv", "--ChangeNotes", help="Show all version number and change notes ",action="store_true")
 
 
 # 解析參數
@@ -118,6 +120,29 @@ if args.version:
 					print ' Change log：'
 					for ii in i['Change log']:
 						print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
+			
+	except Exception,e:
+
+		logger.error(str(e))
+
+# show ChangeNotes
+if args.ChangeNotes:
+	
+	try:
+
+		with open('/usr/local/GraphwalkerRunner/version.json') as f:
+			contents = json.loads(f.read())
+
+			print '\n Current Version:',contents['latest']['Version']
+			print ' Change log：'
+			for i in contents['latest']['Change log']:
+				print '   ',contents['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+		
+			for i in contents['old']:
+				print '\n Version:',i['Version']
+				print ' Change log：'
+				for ii in i['Change log']:
+					print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
 			
 	except Exception,e:
 
