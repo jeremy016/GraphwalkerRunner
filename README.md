@@ -165,7 +165,7 @@
     syntax：
         Graphwalker_Runner -r
     example:
-        Graphwalker_Runner -r
+        $ Graphwalker_Runner -r
         INFO : graphwalker running
         INFO : successful
         INFO : Get average count...
@@ -223,14 +223,21 @@
     
 #### Screenshot when testing
 
-    說明：執行Graphewalker測試與錯誤發生時照下當前畫面
+    說明：執行Graphewalker測試與錯誤發生時照下當前畫面，並存在screenshot目錄內(依照每一次測試結果分類)
          參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
-    syntax：Graphwalker_Runner -r -s [ pc | mobile ]
+    syntax：
+        Graphwalker_Runner -r -s [ pc | mobile ]
+    example:
+         $ Graphwalker_Runner -r -s pc
+         
 #### Set stop condition
 
     說明：設置停止條件，預設為"random(edge_coverage(100))"。
          更多停止條件用法請參考下方"Stop conditions Documentation"
-    syntax：Graphwalker_Runner -r -S "stop condition"
+    syntax：
+        Graphwalker_Runner -r -S "stop condition"
+    example:
+         $ Graphwalker_Runner -r -S "random(edge_coverage(10))"
     
 # Q&A
 
