@@ -52,39 +52,39 @@
             3. 下載graphwalker-cli-SNAPSHOT.jar
             註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
         
-    example：Graphwalker_Runner -i
+    syntax：Graphwalker_Runner -i
 #### Version
 
     說明：查詢版本，回傳"版號"與"Change note"。
          參數: new (顯示最新版本的資訊) or all (顯示所有版本資訊) 。
-    example：Graphwalker_Runner -v new[all]
+    syntax：Graphwalker_Runner -v [ new | all ]
 #### Update code
 
     說明：從github拉新的code。
-    example：Graphwalker_Runner -u
+    syntax：Graphwalker_Runner -u
 #### Merge graph
 
     說明：合併資料夾內所有Graphml子圖。
-    example：Graphwalker_Runner -m 'graphml folder path'
+    syntax：Graphwalker_Runner -m 'graphml folder path'
 #### Check graphical integrity
 
     說明：確認script.py內所有的function是否均被執行到。
          回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
-    example：Graphwalker_Runner -c
+    syntax：Graphwalker_Runner -c
 #### Running graphwalker
 
     說明：執行Graphewalker測試。
-    example：Graphwalker_Runner -r
+    syntax：Graphwalker_Runner -r
 #### Screenshot when testing
 
     說明：執行Graphewalker測試與錯誤發生時照下當前畫面
          參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
-    example：Graphwalker_Runner -s pc(mobile)
+    syntax：Graphwalker_Runner -s [ pc | mobile ]
 #### Set stop condition
 
     說明：設置停止條件，預設為"random(edge_coverage(100))"。
          更多停止條件用法請參考下方"Stop conditions Documentation"
-    example：Graphwalker_Runner -S "random(edge_coverage(100))"
+    syntax：Graphwalker_Runner -S "stop condition"
     
 # Q&A
 
