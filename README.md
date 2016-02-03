@@ -45,27 +45,36 @@
 
 #### Init environment
 
-    說明：重新建置環境。
-        建立Graphwalker Runner環境的流程說明：
+    說明：移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
+        自動建立Graphwalker Runner環境的流程如下：
             1. clone graphwalker工具 (from github)
             2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
             3. 下載graphwalker-cli-SNAPSHOT.jar
             註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
         
     syntax：Graphwalker_Runner -i
+    example:
+*    `$ sudo ./Graphwalker_Runner`
+    git clone code...
+
 #### Version
+
 
     說明：查詢版本，回傳"版號"與"Change note"。
          參數: new (顯示最新版本的資訊) or all (顯示所有版本資訊) 。
     syntax：Graphwalker_Runner -v [ new | all ]
+    
 #### Update code
 
     說明：從github拉新的code。
     syntax：Graphwalker_Runner -u
+    
 #### Merge graph
 
     說明：合併資料夾內所有Graphml子圖。
     syntax：Graphwalker_Runner -m 'graphml folder path'
+    
+
 #### Check graphical integrity
 
     說明：確認script.py內所有的function是否均被執行到。
