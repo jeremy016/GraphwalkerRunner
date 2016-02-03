@@ -55,7 +55,67 @@
     syntax：Graphwalker_Runner -i
     example:
 *    `$ sudo ./Graphwalker_Runner`
-    git clone code...
+    `git clone code...`
+
+    `[sudo] password for jeremy: `
+    
+    `remote: Counting objects: 822, done.`
+    
+    `remote: Compressing objects: 100% (10/10), done.`
+    
+    `remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812`
+    
+    `Receiving objects: 100% (822/822), 90.28 MiB | 253 KiB/s, done.`
+    
+    `Resolving deltas: 100% (274/274), done.`
+    
+    `creat tool folder`
+    
+    `get ".jar" downloadURL...`
+    
+    `Download graphwalker-cli-SNAPSHOT.jar...`
+    
+    `--2016-02-03 16:51:29-- ` 
+    
+    `https://justup.co/api/v1.1/download?t=JQm7mcFFZUwZyQFk6kKSkVhNDbrTo_uwTkUFiMmNNqY*`
+    
+    `正在查找主機 justup.co (justup.co)... 210.203.20.30, 210.203.20.31`
+    
+    `正在連接 justup.co (justup.co)|210.203.20.30|:443... 連上了。`
+    
+    `已送出 HTTP 要求，正在等候回應... 200 OK`
+    
+    `長度: 12190165 (12M) [application/octet-stream]`
+    
+    `Saving to: '/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar' `
+    
+    `100%[======================================>] 12,190,165  2.42M/s   in 4.4s`
+    
+    `2016-02-03 16:51:34 (2.64 MB/s) -` `'/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar' saved [12190165/12190165]`
+    
+    `get "Runner" downloadURL...`
+    
+    `Download Runner...`
+    
+    `--2016-02-03 16:51:35-- ` 
+    
+    `https://justup.co/api/v1.1/download?t=PmDVkraF-9hiLGhVSg2nQhbBZrZt2QuBqWQMc8OPEW4*`
+    
+    `正在查找主機 justup.co (justup.co)... 210.203.20.30, 210.203.20.31`
+    
+    `正在連接 justup.co (justup.co)|210.203.20.30|:443... 連上了。`
+    
+    `已送出 HTTP 要求，正在等候回應... 200 OK`
+    
+    `長度: 3842052 (3.7M) [application/octet-stream]`
+    
+    `Saving to: '/usr/bin/Graphwalker_Runner'`
+    
+    `100%[======================================>] 3,842,052   5.08M/s   in 0.7s    `
+    
+    `2016-02-03 16:51:36 (5.08 MB/s) - '/usr/bin/Graphwalker_Runner' saved [3842052/3842052]`
+    
+    `chmod folder...`
 
 #### Version
 
