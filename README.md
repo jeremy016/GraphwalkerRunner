@@ -45,46 +45,122 @@
 
 #### Init environment
 
-    說明：重新建置環境。
-        建立Graphwalker Runner環境的流程說明：
+    說明：移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
+        自動建立Graphwalker Runner環境的流程如下：
             1. clone graphwalker工具 (from github)
             2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
             3. 下載graphwalker-cli-SNAPSHOT.jar
             註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
         
-    example：Graphwalker_Runner -i
+    syntax：
+        Graphwalker_Runner -i
+    example:
+        $ sudo Graphwalker_Runner -i  
+        git clone code...
+        [sudo] password for jeremy: 
+        remote: Counting objects: 822, done.
+        remote: Compressing objects: 100% (10/10), done.
+        remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812
+           .   
+           .  
+           .   
+        chmod folder...
+
 #### Version
 
-    說明：查詢版本，回傳"版號"與"Change note"。
-         參數: new (顯示最新版本的資訊) or all (顯示所有版本資訊) 。
-    example：Graphwalker_Runner -v new[all]
+    說明：查詢目前版本，回傳"版號"與"Change note"。。
+    syntax：
+        Graphwalker_Runner -v
+    example:
+        $ sudo Graphwalker_Runner -v
+        Current Version: 1.0.5
+        Change log：
+            1 ： 修改logging config 初始化錯誤
+            
+#### ChangeNotes
+
+    說明：查詢所有版本，回傳"版號"與"Change note"。。
+    syntax：
+        Graphwalker_Runner -vv
+    example:
+        $ sudo Graphwalker_Runner -vv
+        Current Version: 1.0.5
+        Change log：
+            1 ： 修改logging config 初始化錯誤
+        Version: 1.0.4
+        Change log：
+            1 ： 新增Log Record
+            2 ： 新增測試報告
+            .  
+            .
+            .
+        Version: 1.0.0
+        Change log：
+            1 ： 修復合圖問題
+            2 ： 新增版本與更新細節清單
+          
 #### Update code
 
     說明：從github拉新的code。
-    example：Graphwalker_Runner -u
+    syntax：
+        Graphwalker_Runner -u
+    example:
+        $ ./Graphwalker_Runner -u
+        INFO : update...
+        INFO : Updating 0fe0936..fdb732c
+        Fast-forward
+         README.md |   21 +++++++++++++++++++--
+         1 file changed, 19 insertions(+), 2 deletions(-)
+        INFO : get "Runner" downloadURL...
+        INFO : Download Runner...
+        INFO : successful
+        INFO : chmod folder...
+        INFO : successful
+        INFO : chmod runner...
+        INFO : successful
+    
 #### Merge graph
 
     說明：合併資料夾內所有Graphml子圖。
-    example：Graphwalker_Runner -m 'graphml folder path'
+    syntax：
+        Graphwalker_Runner -m 'graphml folder path'
+    example:
+        $ Graphwalker_Runner -m ./graph_folder
+        INFO : merge graph...
+        INFO : successful
+        INFO : graphml -> dot... (merged.dot)
+        INFO : successful
+        INFO : dot -> png... (merged.png)
+        INFO : successful
+        INFO : output merged.py
+        INFO : Generate python stub source code & graphwalker Runner ... (script.py)
+        INFO : successful
+        INFO : del dot
+        INFO : successful
+
 #### Check graphical integrity
 
     說明：確認script.py內所有的function是否均被執行到。
          回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
-    example：Graphwalker_Runner -c
+    syntax：
+        Graphwalker_Runner -c
+    example:
+        
+    
 #### Running graphwalker
 
     說明：執行Graphewalker測試。
-    example：Graphwalker_Runner -r
+    syntax：Graphwalker_Runner -r
 #### Screenshot when testing
 
     說明：執行Graphewalker測試與錯誤發生時照下當前畫面
          參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
-    example：Graphwalker_Runner -s pc(mobile)
+    syntax：Graphwalker_Runner -r -s [ pc | mobile ]
 #### Set stop condition
 
     說明：設置停止條件，預設為"random(edge_coverage(100))"。
          更多停止條件用法請參考下方"Stop conditions Documentation"
-    example：Graphwalker_Runner -S "random(edge_coverage(100))"
+    syntax：Graphwalker_Runner -r -S "stop condition"
     
 # Q&A
 
