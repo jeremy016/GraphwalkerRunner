@@ -54,7 +54,7 @@
         
     syntax：Graphwalker_Runner -i
     example:
-*    `$ sudo ./Graphwalker_Runner`
+    `$ sudo ./Graphwalker_Runner`
     `git clone code...`
 
     `[sudo] password for jeremy: `
