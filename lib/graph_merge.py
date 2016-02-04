@@ -7,16 +7,29 @@ from pygraphml import Graph
 from pygraphml import GraphMLParser
 import GraphFun 
 
-#graph_path='./Justup_2/'
-graph_path=sys.argv[1]+'/'
+
+all_graph=[]
 
 #creat GraphFun object
 GF = GraphFun.GraphFun()
 
+isfile = os.path.isfile(sys.argv[1])
+if isfile:
 
-#read graphml file
+	path_list = list(os.path.split(sys.argv[1]))
+	all_graph=[path_list[1]]
+	graph_path=path_list[0]+'/'
 
-all_graph = os.listdir(graph_path)
+
+else:
+	graph_path=sys.argv[1]+'/'
+
+	#read graphml file
+	all_file = os.listdir(graph_path)
+
+	for i in all_file:
+		if i.split(".")[-1] == 'graphml':
+			all_graph.append(i)
 
 merge_grapg = GF.multi_grapg_merge(all_graph,graph_path)
 

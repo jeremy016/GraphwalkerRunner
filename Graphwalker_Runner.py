@@ -75,19 +75,19 @@ parser = argparse.ArgumentParser(description='Graphwalker Runner')
 
 
 # init
-parser.add_argument("-i", "--init", help="Init graphwalker environment , syntax：Graphwalker_Runner -i ",action="store_true") 
+parser.add_argument("-i", "--init", help="Rebuild graphwalker environment , syntax：Graphwalker_Runner -i ",action="store_true") 
 # 更新code
-parser.add_argument("-u", "--update", help="Update graphwalker source code, syntax：Graphwalker_Runner -u ",action="store_true")
+parser.add_argument("-u", "--update", help="Pull graphwalker source code from github, syntax：Graphwalker_Runner -u ",action="store_true")
 # Merge all graph
-parser.add_argument("-m", "--model", help="It's will merge graphml files in folder , syntax：Graphwalker_Runner -m 'graphml folder path' 'folder path'") 
+parser.add_argument("-m", "--model", help="Merge graphml files in folder ,folderpattern: graphml folder path, syntax：Graphwalker_Runner -m <folderpattern>") 
 # Check graphical integrity
 parser.add_argument("-c", "--check", help="Check graphical integrity, output Not visited points file (Not_visited_points.txt) ,syntax：Graphwalker_Runner -c ",action="store_true") 
 # Running graphwalker
 parser.add_argument("-r", "--run", help="Running graphwalker, syntax：Graphwalker_Runner -r",action="store_true") 
 # Screenshot
-parser.add_argument("-s", "--shot", help="Screenshot when graphwalker running, parameter: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s [pc|mobile]") 
+parser.add_argument("-s", "--shot", help="Screenshot when graphwalker running, TestDevice: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s <TestDevice>") 
 # Stop Condition
-parser.add_argument("-S", "--Stop", help="Set stop condition, default parameter: 'random(edge_coverage(100))' , syntax: Graphwalker_Runner -r -S 'random(edge_coverage(100))'",default="random(edge_coverage(100))") 
+parser.add_argument("-S", "--Stop", help="Set stop condition, default StopCondition: 'random(edge_coverage(100))' , syntax: Graphwalker_Runner -r -S <StopCondition>",default="random(edge_coverage(100))") 
 # Version
 parser.add_argument("-v", "--version", help="Show current version number and change notes",action="store_true")
 # All Version
