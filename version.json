@@ -2,10 +2,11 @@
 	
 	"latest":
 
-		{"Version":"1.0.5","Change log":["修改logging config 初始化錯誤"]},
+		{"Version":"1.0.6","Change log":["新增合併圖形讀取單一圖檔與過慮非grapml格式","修改參數內容"]},
 
 	"old":
 	[	
+		{"Version":"1.0.5","Change log":["修改logging config 初始化錯誤"]},
 		{"Version":"1.0.4","Change log":["新增Log Record","新增測試報告"]},
 		{"Version":"1.0.3","Change log":["新增刪除確認區"]},
 		{"Version":"1.0.2","Change log":["新增完整change log","修復change note UTF-8 Bug","新增Graphwalker_Runner到'/usr/bin/'底下"]},
