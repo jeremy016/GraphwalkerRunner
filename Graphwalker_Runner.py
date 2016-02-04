@@ -8,7 +8,7 @@ import logging.config
 from subprocess import Popen, PIPE
 
 
-
+runner_version='1.0.0'
 # logger setting
 
 try:
@@ -107,20 +107,17 @@ if args.version:
 
 		with open('/usr/local/GraphwalkerRunner/version.json') as f:
 			contents = json.loads(f.read())
-
-			print '\n Current Version:',contents['latest']['Version']
+			print '\n Current Version:',contents['tool']['latest']['Version']
 			print ' Change log：'
-			for i in contents['latest']['Change log']:
-				print '   ',contents['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+			for i in contents['tool']['latest']['Change log']:
+				print '   ',contents['tool']['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+			if runner_version != contents['runner']['latest']['Version']:
+				print '\n****************** Warning ********************'
+				print '\n Runner has new version : '+str(contents['runner']['latest']['Version'])
+				print '\n please update by runner_update (Ubuntu executable) '
+				print '\n "runner_update" download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf'
+				print '\n***********************************************'
 
-			if args.version == 'all':
-
-				for i in contents['old']:
-					print '\n Version:',i['Version']
-					print ' Change log：'
-					for ii in i['Change log']:
-						print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
-			
 	except Exception,e:
 
 		logger.error(str(e))
@@ -133,12 +130,12 @@ if args.ChangeNotes:
 		with open('/usr/local/GraphwalkerRunner/version.json') as f:
 			contents = json.loads(f.read())
 
-			print '\n Current Version:',contents['latest']['Version']
+			print '\n Current Version:',contents['tool']['latest']['Version']
 			print ' Change log：'
-			for i in contents['latest']['Change log']:
-				print '   ',contents['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+			for i in contents['tool']['latest']['Change log']:
+				print '   ',contents['tool']['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
 		
-			for i in contents['old']:
+			for i in contents['tool']['old']:
 				print '\n Version:',i['Version']
 				print ' Change log：'
 				for ii in i['Change log']:
