@@ -31,11 +31,11 @@
         -h, --help            show this help message and exit
         -i, --init            Rebuild graphwalker environment ,syntax：Graphwalker_Runner -i
         -u, --update          Pull graphwalker source code from github,syntax：Graphwalker_Runner -u
-        -m MODEL, --model MODEL Merge graphml files in folder ,folderpattern: graphml folder path,         syntax：Graphwalker_Runner -m <folderpattern>
-        -c, --check           Check graphical integrity, output Not visited points file (Not_visited_points.txt), syntax：Graphwalker_Runner -c
+        -m, --model MODEL Merge graphml files in folder ,folderpattern: graphml folder path,         syntax：Graphwalker_Runner -m <folderpattern>
+        -c, --check           Check graphical integrity, output Not visited points file (Not_visited_points.txt),syntax：Graphwalker_Runner -c
         -r, --run             Running graphwalker, syntax：Graphwalker_Runner -r
-        -s SHOT, --shot SHOT  Screenshot when graphwalker running, TestDevice: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s <TestDevice>
-        -S STOP, --Stop STOP  Set stop condition, default StopCondition:'random(edge_coverage(100))' , syntax: Graphwalker_Runner -r -S <StopCondition>
+        -s, --shot SHOT  Screenshot when graphwalker running, TestDevice: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s <TestDevice>
+        -S, --Stop STOP  Set stop condition, default StopCondition:'random(edge_coverage(100))' , syntax:Graphwalker_Runner -r -S <StopCondition>
         -v, --version         Show current version number and change notes
         -vv, --ChangeNotes    Show all version number and change notes
 
