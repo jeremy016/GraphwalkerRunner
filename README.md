@@ -24,6 +24,8 @@
 ### 全域執行：
 *   `Graphwalker [arguments]`
 
+*   註：如果執行檔權限不足，請修改它的權限(chmod 775 Graphwalker)
+
 # How to Run：
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
