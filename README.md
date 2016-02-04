@@ -20,6 +20,7 @@
 
 ### Install command
 *    `$ sudo ./Graphwalker_Runner`
+
 *   註：如果執行檔權限不足，請修改它的權限(chmod 775 Graphwalker)
 
 ### 全域執行：
