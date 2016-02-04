@@ -586,7 +586,7 @@ class GraphFun(object):
 
             import script_test as RunFun
 
-            #self.kill_Process() 
+            self.kill_Process() 
            
             # logger.info(str('Cheching Graphical Integrity by offline'))
             # p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
