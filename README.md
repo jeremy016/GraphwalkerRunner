@@ -31,7 +31,7 @@
         -i , --init     Init graphwalker environment
         -u , --update   Update graphwalker source code
         -m , --model    It's will merge graphml files in folder ,
-                        example：Graphwalker_Runner -m 'folder path'
+                        example：Graphwalker_Runner -m <filepattern>
         -c , --check    Check graphical integrity, output Not visited points file
         -r , --run      Running graphwalker
         -s , --shot     Screenshot when graphwalker running, parameter: 'pc' or 'mobile'
