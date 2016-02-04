@@ -171,13 +171,13 @@ if args.init:
 	print 'Download graphwalker-cli-SNAPSHOT.jar...'
 	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL']+' -O /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar').read()	
 
-	print 'get "Runner" downloadURL...'
-	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
-	req.get_method = lambda: 'POST'
-	Request_detail = json.loads(urllib2.urlopen(req).read())
+	# print 'get "Runner" downloadURL...'
+	# req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
+	# req.get_method = lambda: 'POST'
+	# Request_detail = json.loads(urllib2.urlopen(req).read())
 
-	print 'Download Runner...'
-	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL'] +' -O /usr/bin/Graphwalker_Runner').read()	
+	# print 'Download Runner...'
+	# os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL'] +' -O /usr/bin/Graphwalker_Runner').read()	
 	
 	print 'chmod folder...'
 	os.popen('sudo chmod -R 777 /usr/local/GraphwalkerRunner').read()	
@@ -191,21 +191,21 @@ if args.update:
 	logger.info('update...')
 	call(['bash','/usr/local/GraphwalkerRunner/lib/git_pull.sh'])
 	
-	try:
-		logger.info('get "Runner" downloadURL...')
-		req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
-		req.get_method = lambda: 'POST'
-		Request_detail = json.loads(urllib2.urlopen(req).read())
+	# try:
+	# 	logger.info('get "Runner" downloadURL...')
+	# 	req = urllib2.Request('https://justup.co/api/v1.1/download/files',headers = {"Content-Type":"application/json"},data = '{"filelist":[{"fileid":"cc9139b0-8094-4ba0-8d03-72dc6e483ff4","password":""}]}')
+	# 	req.get_method = lambda: 'POST'
+	# 	Request_detail = json.loads(urllib2.urlopen(req).read())
 
-	except Exception,e:
-		logger.error(str(e))
+	# except Exception,e:
+	# 	logger.error(str(e))
 
-	logger.info('Download Runner...')
-	call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/bin/Graphwalker_Runner'])
+	# logger.info('Download Runner...')
+	# call(['sudo','wget','--no-check-certificate',Request_detail['downloadURL'],'-O','/usr/bin/Graphwalker_Runner'])
 
-	#改權限
-	logger.info('chmod folder...')
-	call(['sudo','chmod','-R','777','/usr/local/GraphwalkerRunner'])
+	# #改權限
+	# logger.info('chmod folder...')
+	# call(['sudo','chmod','-R','777','/usr/local/GraphwalkerRunner'])
 	
 #merge graph [-m]
 if args.model:
