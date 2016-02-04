@@ -28,20 +28,16 @@
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
-        -h , --help     Show this help message and exit
-        -i , --init     Init graphwalker environment
-        -u , --update   Update graphwalker source code
-        -m , --model    It's will merge graphml files in folder ,
-                        example：Graphwalker_Runner -m <filepattern>
-        -c , --check    Check graphical integrity, output Not visited points file
-        -r , --run      Running graphwalker
-        -s , --shot     Screenshot when graphwalker running, parameter: 'pc' or 'mobile'
-                        example：Graphwalker_Runner -s pc[mobile]
-        -S , --Stop     Set stop condition, default parameter：'random(edge_coverage(100))'
-                        example：Graphwalker_Runner -S 'random(edge_coverage(100))'
-        -v , --version  Show version number and change notes
-                        parameter:'new' (show lastest info) or 'all' (show all versioninfo)
-                        example: Graphwalker_Runner -v new[all]
+        -h, --help            show this help message and exit
+        -i, --init            Rebuild graphwalker environment ,syntax：Graphwalker_Runner -i
+        -u, --update          Pull graphwalker source code from github,syntax：Graphwalker_Runner -u
+        -m, --model           MODEL Merge graphml files in folder ,folderpattern: graphml folder path,syntax：Graphwalker_Runner -m <folderpattern>
+        -c, --check           Check graphical integrity, output Not visited points file (Not_visited_points.txt),syntax：Graphwalker_Runner -c
+        -r, --run             Running graphwalker, syntax：Graphwalker_Runner -r
+        -s, --shot SHOT  Screenshot when graphwalker running, TestDevice: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s <TestDevice>
+        -S, --Stop STOP  Set stop condition, default StopCondition:'random(edge_coverage(100))' , syntax:Graphwalker_Runner -r -S <StopCondition>
+        -v, --version         Show current version number and change notes
+        -vv, --ChangeNotes    Show all version number and change notes
 
 
 #### Init environment
@@ -69,7 +65,7 @@
 
 #### Version
 
-    說明：查詢目前版本，回傳"版號"與"Change note"。。
+    說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
     syntax：
         Graphwalker_Runner -v
     example:
@@ -77,6 +73,16 @@
         Current Version: 1.0.5
         Change log：
             1 ： 修改logging config 初始化錯誤
+            
+        ****************** Warning ********************
+        
+        Runner has new version : 1.0.1
+        
+        please update by runner_update (Ubuntu executable) 
+        
+        runner_update download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf
+        
+        ***********************************************
             
 #### ChangeNotes
 
