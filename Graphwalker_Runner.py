@@ -8,7 +8,7 @@ import logging.config
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.0'
+runner_version='1.0.1'
 # logger setting
 
 try:
@@ -123,7 +123,7 @@ if args.version:
 		logger.error(str(e))
 
 # show ChangeNotes
-if args.ChangeNotes:
+elif args.ChangeNotes:
 	
 	try:
 
@@ -148,7 +148,7 @@ if args.ChangeNotes:
 
 
 #init environment [-i]
-if args.init:
+elif args.init:
 	
 	if os.path.exists('/usr/local/GraphwalkerRunner'):
 
@@ -181,7 +181,7 @@ if args.init:
 
 	
 #更新code
-if args.update:
+elif args.update:
 
 	# git pull date
 	# print 'update...'
@@ -205,7 +205,7 @@ if args.update:
 	# call(['sudo','chmod','-R','777','/usr/local/GraphwalkerRunner'])
 	
 #merge graph [-m]
-if args.model:
+elif args.model:
 
 	try:
 
@@ -242,14 +242,14 @@ if args.model:
 		logger.error(str(e))
 
 #Check graphical integrity [-c]
-if args.check:
+elif args.check:
 
 	logger.info('Check graphical integrity')
 	os.popen('python /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+ current_locate).read()
 	#call(['python','/usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py',current_locate])
 
 #running graphwalker [-r]
-if args.run:
+elif args.run:
 
 	logger.info('graphwalker running')
 
@@ -276,3 +276,6 @@ if args.run:
 	except Exception, e:
 
 		logger.error(str(e))
+
+else:
+	parser.print_help()

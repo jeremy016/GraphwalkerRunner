@@ -18,7 +18,7 @@
 	},
 	"runner":{
 		"latest":
-		{"Version":"1.0.0","Change log":["init runner version "]}
+		{"Version":"1.0.1","Change log":[" default will show help message "]}
 	}
 		
 	
