@@ -124,6 +124,7 @@ example：
      
 ## 更新工具
 說明：從github拉新的code。
+
 syntax：
     `Graphwalker_Runner -u`
 example：
@@ -144,6 +145,7 @@ example：
     
 ## 圖形合併
 說明：合併資料夾內所有Graphml子圖。
+
 syntax：
     `Graphwalker_Runner -m 'graphml folder path'`
     
@@ -165,6 +167,7 @@ example：
 ## 確認圖形完整性
 說明：確認script.py內所有的function是否均被執行到。
       回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
+      
 syntax：
     `Graphwalker_Runner -c`
     
@@ -186,6 +189,7 @@ example:
     
 ## 執行graphwlaker測試
 說明：執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
+
 syntax：
         `Graphwalker_Runner -r`
         
@@ -247,6 +251,7 @@ example:
 ### Screenshot when testing 
 說明：執行Graphewalker測試與錯誤發生時照下當前畫面，並存在screenshot目錄內(依照每一次測試結果分類)
     參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
+    
 syntax：
     `Graphwalker_Runner -r -s [ pc | mobile ]`
 example：
@@ -255,6 +260,7 @@ example：
          
 ### Set stop condition
 說明：設置停止條件，預設為"random(edge_coverage(100))"。更多停止條件用法請參考下方"Stop conditions Documentation"
+
 syntax：
     `Graphwalker_Runner -r -S "stop condition"`
 example：
