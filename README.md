@@ -175,7 +175,7 @@
 ### 確認圖形完整性
 以線上Graphwalker的方式去走訪合併後的圖形，如失敗，則列出所有沒走訪的點。
 
-*   註:深怕陷入無窮回圈，故會有timeout機制(當執行到一定條件時也會停止，並列出未走訪的點和邊)
+*   註:因圖形有可能繪製成無窮回圈的狀況，故另外加一條停止條件機制(當執行到指定步數時時也會停止，並列出未走訪的點和邊)
 
 ##### 流程說明：
 1. 確認socket server port是否被佔用
@@ -187,7 +187,7 @@
 
 ##### Syntax：
     `Graphwalker_Runner -c`
-    
+
 ##### Example:
 
     $ Graphwalker_Runner -c
@@ -205,7 +205,17 @@
     INFO : ==============================
     
 ### 執行graphwlaker測試
-執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
+此測試在原先graphwalker的運行上，新增了下列幾個功能：
+1. 新增停止條件：以平均走訪圖形10次，以(最大值+最小值*2)作為另一停止條件。
+2. 錯誤續跑的機制：當遇到錯誤的點時，會自動修改圖形，以mark錯誤的點重新開始走訪，改善了原先遇到錯誤時即停止的問題。
+
+##### 流程說明：
+1. 以offline的方式，算出10次走訪完整的圖形所需的步數(作為陷入無窮回圈時的停止條件)
+2. 再啟動Web scoket server
+3. 以online的方式，開始走訪script.py內的function
+4. 當遇到錯誤時會mark住錯誤的點以及相關的點和邊
+5. 持續重複步驟3~4，直至走訪完成
+6. 結果：產生兩份測試報告，文字檔(test_report.txt)與匯入Jenkins的報告格式(Result.xml)
 
 ##### Syntax：
         `Graphwalker_Runner -r`
@@ -266,18 +276,37 @@
     已砍掉
     
 #### Screenshot when testing 
-執行Graphewalker測試與錯誤發生時照下當前畫面，並存在screenshot目錄內(依照每一次測試結果分類)
+此參數為執行graphwlaker測試之可選用參數。同步紀錄執行Graphewalker測試與錯誤發生時的畫面截圖，並存在screenshot目錄內(依照每一次測試結果分類)，目前有兩種模式，分別是pc與mobile。
 參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
-    
+
+##### 流程說明：
+1. 執行測試時，同步擷取每一個function執行的畫面
+2. 擷取的畫面，存放於當前目錄底下的screenshot資料夾
+3. 測試進行時，會重複步驟1~2，並以測試次數作為子資料夾名稱
+
 ##### Syntax：
     `Graphwalker_Runner -r -s [ pc | mobile ]`
 
 ##### Example：
 
     $ Graphwalker_Runner -r -s pc
+    $ cd Screenshot/
+    $ ls
+        The_1st_times_testing  The_3rd_times_testing  The_5th_times_testing
+        The_2nd_times_testing  The_4th_times_testing
+    $ cd The_1st_times_testing/
+    $ ls
+        screen-0-e_Init.png
+        screen-100-e_link_System_Bulletin_from_More.png
+        screen-101-v_System_Bulletin.png
+        .
+        .
+        .
          
 #### Set stop condition
-設置停止條件，預設為"random(edge_coverage(100))"。更多停止條件用法請參考下方"Stop conditions Documentation"
+此參數為執行graphwlaker測試之可選用參數。即設置停止條件，預設為"random(edge_coverage(100))"，可依照不同的測試需求，設定不同的停止條件。
+    
+    註：更多停止條件用法請參考下方"Stop conditions Documentation"
 
 ##### Syntax：
     `Graphwalker_Runner -r -S "stop condition"`
