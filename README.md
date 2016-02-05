@@ -46,7 +46,7 @@
 
 ### 建立初始環境
 
-移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
+  移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
 
 ##### 流程說明：
 自動建立Graphwalker Runner環境的流程如下 
@@ -77,7 +77,9 @@
 
 ### 版本
 
-查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
+  查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
+
+##### 流程說明：
 
 ##### Syntax：
 
