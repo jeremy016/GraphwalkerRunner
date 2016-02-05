@@ -24,8 +24,8 @@
 
 # 更新
 
-*   更新：[runner_update](https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf)
-*   tool：`$ Graphwalker -u`
+*   Runner：[runner_update](https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf)
+*   Tool：`$ Graphwalker -u`
 
 # 移除
 
