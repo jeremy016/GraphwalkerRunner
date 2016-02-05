@@ -123,61 +123,66 @@ example：
         2 ： 新增版本與更新細節清單
      
 ## 更新工具
-    說明：從github拉新的code。
-    syntax：
-        `Graphwalker_Runner -u`
-    example:
-        `$ ./Graphwalker_Runner -u`
-        `INFO : update...`
-        `INFO : Updating 0fe0936..fdb732c`
-        `Fast-forward`
-        ` README.md |   21 +++++++++++++++++++--`
-        ` 1 file changed, 19 insertions(+), 2 deletions(-)`
-        `INFO : get "Runner" downloadURL...`
-        `INFO : Download Runner...`
-        `INFO : successful`
-        `INFO : chmod folder...`
-        `INFO : successful`
-        `INFO : chmod runner...`
-        `INFO : successful`
+說明：從github拉新的code。
+syntax：
+    `Graphwalker_Runner -u`
+example：
+
+    $ ./Graphwalker_Runner -u
+    INFO : update...
+    INFO : Updating 0fe0936..fdb732c
+    Fast-forward
+     README.md |   21 +++++++++++++++++++--
+     1 file changed, 19 insertions(+), 2 deletions(-)
+    INFO : get "Runner" downloadURL...
+    INFO : Download Runner...
+    INFO : successful
+    INFO : chmod folder...
+    INFO : successful
+    INFO : chmod runner...
+    INFO : successful
     
 ## 圖形合併
-    說明：合併資料夾內所有Graphml子圖。
-    syntax：
-        `Graphwalker_Runner -m 'graphml folder path'`
-    example:
-        `$ Graphwalker_Runner -m ./graph_folder`
-        `INFO : merge graph...`
-        `INFO : successful`
-        `INFO : graphml -> dot... (merged.dot)`
-        `INFO : successful`
-        `INFO : dot -> png... (merged.png)`
-        `INFO : successful`
-        `INFO : output merged.py`
-        `INFO : Generate python stub source code & graphwalker Runner ... (script.py)`
-        `INFO : successful`
-        `INFO : del dot`
-        `INFO : successful`
+說明：合併資料夾內所有Graphml子圖。
+syntax：
+    `Graphwalker_Runner -m 'graphml folder path'`
+    
+example：
+
+    $ Graphwalker_Runner -m ./graph_folder
+    INFO : merge graph...
+    INFO : successful
+    INFO : graphml -> dot... (merged.dot)
+    INFO : successful
+    INFO : dot -> png... (merged.png)
+    INFO : successful
+    INFO : output merged.py
+    INFO : Generate python stub source code & graphwalker Runner ... (script.py)
+    INFO : successful
+    INFO : del dot
+    INFO : successful
 
 ## 確認圖形完整性
-    說明：確認script.py內所有的function是否均被執行到。
-         回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
-    syntax：
-        `Graphwalker_Runner -c`
-    example:
-        `$ Graphwalker_Runner -c`
-        `INFO : Check graphical integrity`
-        `INFO : Run Websocket...`
-        `    二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate`
-        `    資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'`
-        `    二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.NetworkListener start`
-        `    資訊: Started listener bound to [0.0.0.0:8887]`
-        `    二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.HttpServer start`
-        `    資訊: [HttpServer] Started.`
-        `INFO : Cheching every point by online`
-        `INFO : ===========Result=============`
-        `INFO : Visited complete graphics`
-        `INFO : ==============================`
+說明：確認script.py內所有的function是否均被執行到。
+      回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
+syntax：
+    `Graphwalker_Runner -c`
+    
+example:
+
+    $ Graphwalker_Runner -c
+    INFO : Check graphical integrity
+    INFO : Run Websocket...
+        二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+        資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
+        二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.NetworkListener start
+        資訊: Started listener bound to [0.0.0.0:8887]
+        二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.HttpServer start
+        資訊: [HttpServer] Started.
+    INFO : Cheching every point by online
+    INFO : ===========Result=============
+    INFO : Visited complete graphics
+    INFO : ==============================
     
 ## 執行graphwlaker測試
 說明：執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
