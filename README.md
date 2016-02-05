@@ -7,7 +7,7 @@
         It reads models in the shape of finite-state diagrams, or directed graphs, 
         and generate tests from the models, either offline or online.
     
-# Install 
+# 安裝
 
 ### 下載執行檔並執行
 
@@ -18,15 +18,17 @@
 
     註：備用執行程式：Graphwalker_Runner.py，此方式需要安裝所需的lib。
 
-### Install command
+### 安裝指令
 *    `$ sudo ./Graphwalker_Runner`
 
 *   註：如果執行檔權限不足，請修改它的權限(chmod 775 Graphwalker)
 
-### 全域執行：
-*   `Graphwalker [arguments]`
-
 # How to Run：
+
+## 全域執行：
+*   `$ Graphwalker [arguments]`
+
+## 指令說明：
 
     usage: Graphwalker_Runner [-h] [-u UPDATE] [-m MODEL] [-c] [-r]
     optional arguments:
@@ -42,214 +44,249 @@
         -vv, --ChangeNotes    Show all version number and change notes
 
 
-#### Init environment
+### 建立初始環境
+移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
 
-    說明：移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
-        自動建立Graphwalker Runner環境的流程如下：
-            1. clone graphwalker工具 (from github)
-            2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner)
-            3. 下載graphwalker-cli-SNAPSHOT.jar
-            註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib。
-        
-    syntax：
-        Graphwalker_Runner -i
-    example:
-        $ sudo Graphwalker_Runner -i  
-        git clone code...
-        [sudo] password for jeremy: 
-        remote: Counting objects: 822, done.
-        remote: Compressing objects: 100% (10/10), done.
-        remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812
-           .   
-           .  
-           .   
-        chmod folder...
+##### 流程說明：
+自動建立Graphwalker Runner環境的流程如下 
 
-#### Version
+-   移除本地端Tool(path:/usr/local/GraphwalkerRunner)
+-   clone graphwalker工具 (from github) 
+-   於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner) 
+-   下載graphwalker-cli-SNAPSHOT.jar
 
-    說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
-    syntax：
-        Graphwalker_Runner -v
-    example:
-        $ sudo Graphwalker_Runner -v
-        Current Version: 1.0.5
-        Change log：
-            1 ： 修改logging config 初始化錯誤
-            
-        ****************** Warning ********************
-        
-        Runner has new version : 1.0.1
-        
-        please update by runner_update (Ubuntu executable) 
-        
+註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
+
+##### Syntax：
+
+`$ Graphwalker_Runner -i`
+
+##### Example：
+
+    $ sudo Graphwalker_Runner -i 
+    git clone code...
+    [sudo] password for jeremy: 
+    remote: Counting objects: 822, done.
+    remote: Compressing objects: 100% (10/10), done.
+    remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812
+    .
+    .
+    .
+    chmod folder...
+
+### 版本
+
+  查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
+
+##### Syntax：
+
+`$ Graphwalker_Runner -v`
+
+##### Example:
+
+    $ sudo Graphwalker_Runner -v
+    Current Version: 1.0.5
+    Change log：
+        1 ： 修改logging config 初始化錯誤
+                                                   
+    ****************** Warning ********************
+                                                       
+    Runner has new version : 1.0.1
+                                                       
+    please update by runner_update (Ubuntu executable) 
+                                                               
         runner_update download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf
-        
+                                                           
         ***********************************************
             
-#### ChangeNotes
+### 變更歷程
+查詢所有版本，回傳"版號"與"Change note"。。
 
-    說明：查詢所有版本，回傳"版號"與"Change note"。。
-    syntax：
-        Graphwalker_Runner -vv
-    example:
-        $ sudo Graphwalker_Runner -vv
-        Current Version: 1.0.5
-        Change log：
-            1 ： 修改logging config 初始化錯誤
-        Version: 1.0.4
-        Change log：
-            1 ： 新增Log Record
-            2 ： 新增測試報告
-            .  
-            .
-            .
-        Version: 1.0.0
-        Change log：
-            1 ： 修復合圖問題
-            2 ： 新增版本與更新細節清單
-          
-#### Update code
+##### Syntax：
 
-    說明：從github拉新的code。
-    syntax：
-        Graphwalker_Runner -u
-    example:
-        $ ./Graphwalker_Runner -u
-        INFO : update...
-        INFO : Updating 0fe0936..fdb732c
-        Fast-forward
-         README.md |   21 +++++++++++++++++++--
-         1 file changed, 19 insertions(+), 2 deletions(-)
-        INFO : get "Runner" downloadURL...
-        INFO : Download Runner...
-        INFO : successful
-        INFO : chmod folder...
-        INFO : successful
-        INFO : chmod runner...
-        INFO : successful
+`$ Graphwalker_Runner -vv`
+
+##### Example：
+
+    $ sudo Graphwalker_Runner -vv
+    Current Version: 1.0.5
+    Change log：
+        1 ： 修改logging config 初始化錯誤
+    Version: 1.0.4
+    Change log：
+        1 ： 新增Log Record
+        2 ： 新增測試報告
+        . 
+        .
+        .
+    Version: 1.0.0
+    Change log：
+        1 ： 修復合圖問題
+        2 ： 新增版本與更新細節清單
+     
+### 更新工具
+從github拉新的code。
+
+##### 流程說明：
+從Github上pull code至本地端目錄(/usr/local/Graphwalker)
+
+##### Syntax：
+    `Graphwalker_Runner -u`
+##### Example：
+
+    $ ./Graphwalker_Runner -u
+    INFO : update...
+    INFO : Updating 0fe0936..fdb732c
+    Fast-forward
+     README.md |   21 +++++++++++++++++++--
+     1 file changed, 19 insertions(+), 2 deletions(-)
+    INFO : get "Runner" downloadURL...
+    INFO : Download Runner...
+    INFO : successful
+    INFO : chmod folder...
+    INFO : successful
+    INFO : chmod runner...
+    INFO : successful
     
-#### Merge graph
+### 圖形合併
+合併資料夾內所有Graphml子圖。
 
-    說明：合併資料夾內所有Graphml子圖。
-    syntax：
-        Graphwalker_Runner -m 'graphml folder path'
-    example:
-        $ Graphwalker_Runner -m ./graph_folder
-        INFO : merge graph...
-        INFO : successful
-        INFO : graphml -> dot... (merged.dot)
-        INFO : successful
-        INFO : dot -> png... (merged.png)
-        INFO : successful
-        INFO : output merged.py
-        INFO : Generate python stub source code & graphwalker Runner ... (script.py)
-        INFO : successful
-        INFO : del dot
-        INFO : successful
+##### 流程說明：
+合併graph目錄下所有的圖，並再當前目錄底下產生 1.合併後的圖(merged.graphml), 2.合併後的png檔(merged.png), 3.執行的腳本(script.py)。
 
-#### Check graphical integrity
-
-    說明：確認script.py內所有的function是否均被執行到。
-         回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
-    syntax：
-        Graphwalker_Runner -c
-    example:
-        $ Graphwalker_Runner -c
-        INFO : Check graphical integrity
-        INFO : Run Websocket...
-            二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
-            資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
-            二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.NetworkListener start
-            資訊: Started listener bound to [0.0.0.0:8887]
-            二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.HttpServer start
-            資訊: [HttpServer] Started.
-        INFO : Cheching every point by online
-        INFO : ===========Result=============
-        INFO : Visited complete graphics
-        INFO : ==============================
+##### Syntax：
+    `Graphwalker_Runner -m 'graphml folder path'`
     
-#### Running graphwalker
+##### Example：
 
-    說明：執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
-    syntax：
-        Graphwalker_Runner -r
-    example:
-        $ Graphwalker_Runner -r
-        INFO : graphwalker running
-        INFO : successful
-        INFO : Get average count...
-            The 1st times step:12
-            The 2nd times step:18
-            The 3rd times step:12
-            The 4th times step:30
-            The 5th times step:12
-            The 6th times step:24
-            The 7th times step:18
-            The 8th times step:18
-            The 9th times step:12
-            The 10th times step:12
-            Step List:[12, 18, 12, 30, 12, 24, 18, 18, 12, 12]
-            Max:30
-            Min:12
-            Stop Condition:54
-        Run Testing...
-        kill pid : 6821
-        Run websocket...
-            二月 03, 2016 5:56:23 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
-            資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
-            二月 03, 2016 5:56:23 下午 org.glassfish.grizzly.http.server.NetworkListener start
-            資訊: Started listener bound to [0.0.0.0:8887]
-            二月 03, 2016 5:56:23 下午 org.glassfish.grizzly.http.server.HttpServer start
-            資訊: [HttpServer] Started.
-        e_init
-        v_3
-        e_3_2
-        v_2
-        e_2_1_1
-        v_1_edit
-        e_1__2_3
-        Action error on e_1__2_3
-        Error message:
-        (<type 'exceptions.AssertionError'>, AssertionError(), <traceback object at 0x29196c8>)
-        
-        
-        Run Testing...
-            .
-            .
-            .
-        *********************
-        Full Completion
-        *********************
-        *********************
-        {}
-        *********************
-        2016-02-03 17:56:37,041 - INFO : Generate Test Report
-        2016-02-03 17:56:37,060 - INFO : Generate XML
-        kill pid : 6869
-        kill pid : 6870
-        已砍掉
-        
+    $ Graphwalker_Runner -m ./graph_folder
+    INFO : merge graph...
+    INFO : successful
+    INFO : graphml -> dot... (merged.dot)
+    INFO : successful
+    INFO : dot -> png... (merged.png)
+    INFO : successful
+    INFO : output merged.py
+    INFO : Generate python stub source code & graphwalker Runner ... (script.py)
+    INFO : successful
+    INFO : del dot
+    INFO : successful
+
+### 確認圖形完整性
+以線上Graphwalker的方式去走訪合併後的圖形，如失敗，則列出所有沒走訪的點。
+
+*   註:深怕陷入無窮回圈，故會有timeout機制(當執行到一定條件時也會停止，並列出未走訪的點和邊)
+
+##### 流程說明：
+1. 確認socket server port是否被佔用
+2. 啟動Web socket server
+3. 以"random(edge_coverage(100))"或"步驟等於(edge+vertex)^2)"作為"停止條件"，以隨機的方式執行script.py內的所有function。
+4. 結果：
+    -   Pass -> 回饋訊息：Visited complete graphics
+    -   Fail -> 回饋訊息：Visited incomplete graphics 與 Not visited points : xx,xx,xx,xx,....
+
+##### Syntax：
+    `Graphwalker_Runner -c`
     
-#### Screenshot when testing
+##### Example:
 
-    說明：執行Graphewalker測試與錯誤發生時照下當前畫面，並存在screenshot目錄內(依照每一次測試結果分類)
-         參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
-    syntax：
-        Graphwalker_Runner -r -s [ pc | mobile ]
-    example:
-         $ Graphwalker_Runner -r -s pc
+    $ Graphwalker_Runner -c
+    INFO : Check graphical integrity
+    INFO : Run Websocket...
+        二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+        資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
+        二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.NetworkListener start
+        資訊: Started listener bound to [0.0.0.0:8887]
+        二月 03, 2016 5:48:26 下午 org.glassfish.grizzly.http.server.HttpServer start
+        資訊: [HttpServer] Started.
+    INFO : Cheching every point by online
+    INFO : ===========Result=============
+    INFO : Visited complete graphics
+    INFO : ==============================
+    
+### 執行graphwlaker測試
+執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
+
+##### Syntax：
+        `Graphwalker_Runner -r`
+        
+##### Example:
+
+    $ Graphwalker_Runner -r
+    INFO : graphwalker running
+    INFO : successful
+    INFO : Get average count...
+        The 1st times step:12
+        The 2nd times step:18
+        The 3rd times step:12
+        The 4th times step:30
+        The 5th times step:12
+        The 6th times step:24
+        The 7th times step:18
+        The 8th times step:18
+        The 9th times step:12
+        The 10th times step:12
+        Step List:[12, 18, 12, 30, 12, 24, 18, 18, 12, 12]
+        Max:30
+        Min:12
+        Stop Condition:54
+    Run Testing...
+    kill pid : 6821
+    Run websocket...
+        二月 03, 2016 5:56:23 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+        資訊: Initiating Jersey application, version 'Jersey: 1.18.3 12/01/2014 08:23 AM'
+        二月 03, 2016 5:56:23 下午 org.glassfish.grizzly.http.server.NetworkListener start
+        資訊: Started listener bound to [0.0.0.0:8887]
+        二月 03, 2016 5:56:23 下午 org.glassfish.grizzly.http.server.HttpServer start
+        資訊: [HttpServer] Started.
+    e_init
+    v_3
+    e_3_2
+    v_2
+    e_2_1_1
+    v_1_edit
+    e_1__2_3
+    Action error on e_1__2_3
+    Error message:
+    (<type 'exceptions.AssertionError'>, AssertionError(), <traceback object at 0x29196c8>)
+    Run Testing...
+        .
+        .
+        .
+    *********************
+    Full Completion
+    *********************
+    *********************
+    {}
+    *********************
+    2016-02-03 17:56:37,041 - INFO : Generate Test Report
+    2016-02-03 17:56:37,060 - INFO : Generate XML
+    kill pid : 6869
+    kill pid : 6870
+    已砍掉
+    
+#### Screenshot when testing 
+執行Graphewalker測試與錯誤發生時照下當前畫面，並存在screenshot目錄內(依照每一次測試結果分類)
+參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
+    
+##### Syntax：
+    `Graphwalker_Runner -r -s [ pc | mobile ]`
+
+##### Example：
+
+    $ Graphwalker_Runner -r -s pc
          
 #### Set stop condition
+設置停止條件，預設為"random(edge_coverage(100))"。更多停止條件用法請參考下方"Stop conditions Documentation"
 
-    說明：設置停止條件，預設為"random(edge_coverage(100))"。
-         更多停止條件用法請參考下方"Stop conditions Documentation"
-    syntax：
-        Graphwalker_Runner -r -S "stop condition"
-    example:
-         $ Graphwalker_Runner -r -S "random(edge_coverage(10))"
+##### Syntax：
+    `Graphwalker_Runner -r -S "stop condition"`
     
-# Q&A
+##### Example：
 
+    $ Graphwalker_Runner -r -S "random(edge_coverage(10))"
+    
+# 問與答
     1:
         Q：TypeError: argument of type 'NoneType' is not iterable >>
         A：此錯誤為有頂點或邊沒有命名(常見的錯誤：多拉了一條線)
@@ -261,7 +298,7 @@
             sysctl -w net.ipv4.tcp_timestamps=1  開啟對於TCP時間戳的支持,若該項設置為0，則下面一項設置不起作用
             sysctl -w net.ipv4.tcp_tw_recycle=1  標示開啟TCP連接中TIME-WAIT sockets的快速回收
 
-# Reference
+# 資料來源
 
 *   [Graphwalker官網](http://graphwalker.org/)
 *   下載 [graphwalker-cli-SNAPSHOT.jar](https://justup.9ifriend.com/share.html?id=c84d674b-c645-4a2b-a5f0-8afd931b005e)
