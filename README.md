@@ -95,26 +95,28 @@ example:
         ***********************************************
             
 ## 變更歷程
-    說明：查詢所有版本，回傳"版號"與"Change note"。。
-    syntax：
-        `Graphwalker_Runner -vv`
-    example:
-        `$ sudo Graphwalker_Runner -vv`
-        `Current Version: 1.0.5`
-        `Change log：`
-        `    1 ： 修改logging config 初始化錯誤`
-        `Version: 1.0.4`
-        `Change log：`
-        `    1 ： 新增Log Record`
-        `    2 ： 新增測試報告`
-        `    . ` 
-        `    .`
-        `    .`
-        `Version: 1.0.0`
-        `Change log：`
-        `    1 ： 修復合圖問題`
-        `    2 ： 新增版本與更新細節清單`
-          
+說明：查詢所有版本，回傳"版號"與"Change note"。。
+
+syntax：`Graphwalker_Runner -vv`
+
+example：
+
+    $ sudo Graphwalker_Runner -vv
+    Current Version: 1.0.5
+    Change log：
+        1 ： 修改logging config 初始化錯誤
+    Version: 1.0.4
+    Change log：
+        1 ： 新增Log Record
+        2 ： 新增測試報告
+        . 
+        .
+        .
+    Version: 1.0.0
+    Change log：
+        1 ： 修復合圖問題
+        2 ： 新增版本與更新細節清單
+     
 ## 更新工具
     說明：從github拉新的code。
     syntax：
