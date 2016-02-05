@@ -306,7 +306,7 @@
 #### Set stop condition
 此參數為執行graphwlaker測試之可選用參數。即設置停止條件，預設為"random(edge_coverage(100))"，可依照不同的測試需求，設定不同的停止條件。
     
-    註：更多停止條件用法請參考下方"Stop conditions Documentation"
+註：更多停止條件用法請參考下方"Stop conditions Documentation"
 
 ##### Syntax：
     `Graphwalker_Runner -r -S "stop condition"`
