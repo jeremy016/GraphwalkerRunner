@@ -537,22 +537,24 @@ class GraphFun(object):
       
 
         if argv == 'mobile':
-            p = Popen(['adb','shell','screencap','-p','|','sed','s/\r$//',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-            output, error = p.communicate()
-            if p.returncode == 0:
-                ok=False if output else True        
-            else:
-                ok=False
-            assert ok==True,logger.error(str(e))
+            os.system("adb shell screencap -p | sed 's/\r$//' > "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
+            # p = Popen(['adb','shell','screencap','-p','|','sed','\'s/\r$//\'',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            # output, error = p.communicate()
+            # if p.returncode == 0:
+            #     ok=False if output else True        
+            # else:
+            #     ok=False
+            # assert ok==True,logger.error(str(output))
 
-        elif argv:
-            p = Popen(['import','-display',':0','-window','root',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-            output, error = p.communicate()
-            if p.returncode == 0:
-                ok=False if output else True        
-            else:
-                ok=False
-            assert ok==True,logger.error(str(e))
+        elif argv == 'pc':
+            os.system('import -display :0 -window root '+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
+            # p = Popen(['import','-display',':0','-window','root',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+            # output, error = p.communicate()
+            # if p.returncode == 0:
+            #     ok=False if output else True        
+            # else:
+            #     ok=False
+            # assert ok==True,logger.error(str(output))
 
     
 
