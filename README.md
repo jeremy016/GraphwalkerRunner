@@ -49,34 +49,27 @@
 說明：移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
 
 自動建立Graphwalker Runner環境的流程如下： 
-1. clone graphwalker工具 (from github) 
-2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner) 
-3. 下載graphwalker-cli-SNAPSHOT.jar
+*   1. clone graphwalker工具 (from github) 
+*   2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner) 
+*   3. 下載graphwalker-cli-SNAPSHOT.jar
 
 註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
 
 syntax：
-
 `Graphwalker_Runner -i`
-        
+
 example：
 
-`$ sudo Graphwalker_Runner -i `
-
-`git clone code...`
-
-`[sudo] password for jeremy: `
-
-`remote: Counting objects: 822, done.`
-
-`remote: Compressing objects: 100% (10/10), done.`
-
-`remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812`
-.
-.
-.
-
-`chmod folder...`
+    $ sudo Graphwalker_Runner -i 
+    git clone code...
+    [sudo] password for jeremy: 
+    remote: Counting objects: 822, done.
+    remote: Compressing objects: 100% (10/10), done.
+    remote: Total 822 (delta 3), reused 0 (delta 0), pack-reused 812
+    .
+    .
+    .
+    chmod folder...
 
 ## 版本
     說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
