@@ -53,13 +53,13 @@
     -   於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner) 
     -   下載graphwalker-cli-SNAPSHOT.jar
 
-*   註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
+    註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
 
-syntax：
+*   syntax：
 
 `$ Graphwalker_Runner -i`
 
-example：
+*   example：
 
     $ sudo Graphwalker_Runner -i 
     git clone code...
