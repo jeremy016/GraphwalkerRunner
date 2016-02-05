@@ -29,7 +29,7 @@
 
 # 移除
 
-*   移除執行檔(Ubuntu executable)：[ubinstall](https://justup.co/share.html?id=561d951c-27ce-47b1-b40f-a1911ed3a726)
+*   移除執行檔(Ubuntu executable)：[uninstall](https://justup.co/share.html?id=561d951c-27ce-47b1-b40f-a1911ed3a726)
 
 # How to Run：
 
