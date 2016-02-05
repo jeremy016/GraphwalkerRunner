@@ -73,24 +73,25 @@ example：
     chmod folder...
 
 ## 版本
-    說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
-    syntax：
-        `Graphwalker_Runner -v`
-    example:
-        `$ sudo Graphwalker_Runner -v`
-        `Current Version: 1.0.5`
-        `Change log：`
-        `    1 ： 修改logging config 初始化錯誤`
-        `                                                   `
-        `****************** Warning ********************`
-        `                                                   `
-        `Runner has new version : 1.0.1`
-        `                                                   `
-        `please update by runner_update (Ubuntu executable) `
-        `                                                   `
-        `runner_update download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf`
-        `                                                   `
-        `***********************************************`
+說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
+syntax：`Graphwalker_Runner -v`
+
+example:
+
+    $ sudo Graphwalker_Runner -v
+    Current Version: 1.0.5
+    Change log：
+        1 ： 修改logging config 初始化錯誤
+                                                   
+    ****************** Warning ********************
+                                                       
+    Runner has new version : 1.0.1
+                                                       
+    please update by runner_update (Ubuntu executable) 
+                                                               
+        runner_update download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf
+                                                           
+        ***********************************************
             
 ## 變更歷程
     說明：查詢所有版本，回傳"版號"與"Change note"。。
