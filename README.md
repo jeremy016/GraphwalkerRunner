@@ -181,8 +181,8 @@
 2. 啟動Web socket server
 3. 以"random(edge_coverage(100))"或"步驟等於(edge+vertex)^2)"作為"停止條件"
 4. 結果：
--   Pass：Visited complete graphics
--   Fail：Visited incomplete graphics
+    -   Pass：Visited complete graphics
+    -   Fail：Visited incomplete graphics
 
 ##### Syntax：
     `Graphwalker_Runner -c`
