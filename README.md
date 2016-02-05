@@ -49,7 +49,6 @@
 說明：移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
 
 自動建立Graphwalker Runner環境的流程如下： 
-
     1. clone graphwalker工具 (from github) 
     2. 於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner) 
     3. 下載graphwalker-cli-SNAPSHOT.jar
