@@ -46,10 +46,10 @@
 
 ### 建立初始環境
 
-###### 說明：
+##### 說明：
 移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
 
-###### 流程說明：
+##### 流程說明：
 自動建立Graphwalker Runner環境的流程如下 
 
 -   移除本地端Tool(path:/usr/local/GraphwalkerRunner)
@@ -59,11 +59,11 @@
 
 註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
 
-###### Syntax：
+##### Syntax：
 
 `$ Graphwalker_Runner -i`
 
-###### Example：
+##### Example：
 
     $ sudo Graphwalker_Runner -i 
     git clone code...
