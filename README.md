@@ -14,14 +14,21 @@
 說明：此執行檔為單個可執行的程式，不需要另外安裝所需library，安裝指令如下方"Install command"中，執行完後，即可於全域執行。
 
 *   下載：[Ubuntu executable](https://justup.9ifriend.com/share.html?id=cc9139b0-8094-4ba0-8d03-72dc6e483ff4)
-*   更新：[runner_update](https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf)
 
-    註：備用執行程式：Graphwalker_Runner.py，此方式需要安裝所需的lib。
+*   註：備用執行程式：Graphwalker_Runner.py，此方式需要安裝所需的lib。
 
 ### 安裝指令
 *    `$ sudo ./Graphwalker_Runner`
 
 *   註：如果執行檔權限不足，請修改它的權限(chmod 775 Graphwalker)
+
+# 更新
+
+*   更新：[runner_update](https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf)
+
+# 移除
+
+*   移除執行檔(Ubuntu executable)：[ubinstall](https://justup.co/share.html?id=561d951c-27ce-47b1-b40f-a1911ed3a726)
 
 # How to Run：
 
