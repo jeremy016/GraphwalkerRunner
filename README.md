@@ -173,16 +173,16 @@
     INFO : successful
 
 ### 確認圖形完整性
-確認script.py內所有的function是否均被執行到。
-回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
+以線上Graphwalker的方式去走訪合併後的圖形，如失敗，則列出所有沒走訪的點。
+    ps:深怕陷入無窮回圈，故會有timeout機制(當執行到一定條件時也會停止，並列出未走訪的點和邊)
 
 ##### 流程說明：
 1. 確認socket server port是否被佔用
 2. 啟動Web socket server
-3. 以"random(edge_coverage(100))"或"步驟等於(edge+vertex)^2)"作為"停止條件"
+3. 以"random(edge_coverage(100))"或"步驟等於(edge+vertex)^2)"作為"停止條件"，以隨機的方式執行script.py內的所有function。
 4. 結果：
-    -   Pass：Visited complete graphics
-    -   Fail：Visited incomplete graphics
+    -   Pass -> 回饋訊息：Visited complete graphics
+    -   Fail -> 回饋訊息：Visited incomplete graphics 與 Not visited points : xx,xx,xx,xx,....
 
 ##### Syntax：
     `Graphwalker_Runner -c`
