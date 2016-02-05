@@ -26,7 +26,7 @@
 # How to Run：
 
 ## 全域執行：
-*   `Graphwalker [arguments]`
+*   `$ Graphwalker [arguments]`
 
 ## 指令說明：
 
@@ -57,7 +57,8 @@
 註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
 
 syntax：
-`Graphwalker_Runner -i`
+
+`$ Graphwalker_Runner -i`
 
 example：
 
@@ -75,7 +76,9 @@ example：
 ## 版本
 說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
 
-syntax：`Graphwalker_Runner -v`
+syntax：
+
+`$ Graphwalker_Runner -v`
 
 example:
 
@@ -97,7 +100,9 @@ example:
 ## 變更歷程
 說明：查詢所有版本，回傳"版號"與"Change note"。。
 
-syntax：`Graphwalker_Runner -vv`
+syntax：
+
+`$ Graphwalker_Runner -vv`
 
 example：
 
