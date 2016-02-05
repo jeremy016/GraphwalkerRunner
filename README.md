@@ -45,8 +45,7 @@
 
 
 ### 建立初始環境
-
-  移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
+移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
 
 ##### 流程說明：
 自動建立Graphwalker Runner環境的流程如下 
@@ -78,8 +77,6 @@
 ### 版本
 
   查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
-
-##### 流程說明：
 
 ##### Syntax：
 
@@ -130,6 +127,9 @@
 ### 更新工具
 從github拉新的code。
 
+##### 流程說明：
+從Github上pull code至本地端目錄(/usr/local/Graphwalker)
+
 ##### Syntax：
     `Graphwalker_Runner -u`
 ##### Example：
@@ -150,6 +150,9 @@
     
 ### 圖形合併
 合併資料夾內所有Graphml子圖。
+
+##### 流程說明：
+合併graph目錄下所有的圖，並再當前目錄底下產生 1.合併後的圖(merged.graphml), 2.合併後的png檔(merged.png), 3.執行的腳本(script.py)。
 
 ##### Syntax：
     `Graphwalker_Runner -m 'graphml folder path'`
@@ -172,7 +175,15 @@
 ### 確認圖形完整性
 確認script.py內所有的function是否均被執行到。
 回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
-      
+
+##### 流程說明：
+1. 確認socket server port是否被佔用
+2. 啟動Web socket server
+3. 以"random(edge_coverage(100))"或"步驟等於(edge+vertex)^2)"作為"停止條件"
+4. 結果：
+-   Pass：Visited complete graphics
+-   Fail：Visited incomplete graphics
+
 ##### Syntax：
     `Graphwalker_Runner -c`
     
