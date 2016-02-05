@@ -77,11 +77,11 @@
 ### 版本
 說明：查詢目前版本，回傳"版號"與"Change note"，如果runner版本過舊也會顯示提示更新訊息。
 
-syntax：
+###### Syntax：
 
 `$ Graphwalker_Runner -v`
 
-example:
+###### Example:
 
     $ sudo Graphwalker_Runner -v
     Current Version: 1.0.5
@@ -101,11 +101,11 @@ example:
 ### 變更歷程
 說明：查詢所有版本，回傳"版號"與"Change note"。。
 
-syntax：
+###### Syntax：
 
 `$ Graphwalker_Runner -vv`
 
-example：
+###### Example：
 
     $ sudo Graphwalker_Runner -vv
     Current Version: 1.0.5
@@ -126,9 +126,9 @@ example：
 ### 更新工具
 說明：從github拉新的code。
 
-syntax：
+###### Syntax：
     `Graphwalker_Runner -u`
-example：
+###### Example：
 
     $ ./Graphwalker_Runner -u
     INFO : update...
@@ -147,10 +147,10 @@ example：
 ### 圖形合併
 說明：合併資料夾內所有Graphml子圖。
 
-syntax：
+###### Syntax：
     `Graphwalker_Runner -m 'graphml folder path'`
     
-example：
+###### Example：
 
     $ Graphwalker_Runner -m ./graph_folder
     INFO : merge graph...
@@ -169,10 +169,10 @@ example：
 說明：確認script.py內所有的function是否均被執行到。
       回傳值：True(全部已執行); False(有function未執行，或執行步數達到限制條件Stop condition：(edge+vertex)^2)
       
-syntax：
+###### Syntax：
     `Graphwalker_Runner -c`
     
-example:
+###### Example:
 
     $ Graphwalker_Runner -c
     INFO : Check graphical integrity
@@ -191,10 +191,10 @@ example:
 ### 執行graphwlaker測試
 說明：執行Graphewalker測試。測試會先計算平均十次的步數作為陷入無窮回圈時的停止條件，再進行Graphwalker的運行。
 
-syntax：
+###### Syntax：
         `Graphwalker_Runner -r`
         
-example:
+###### Example:
 
     $ Graphwalker_Runner -r
     INFO : graphwalker running
@@ -253,18 +253,20 @@ example:
 說明：執行Graphewalker測試與錯誤發生時照下當前畫面，並存在screenshot目錄內(依照每一次測試結果分類)
     參數：pc(當前測試裝置為桌電) or mobile(當前測試裝置為行動裝置)。
     
-syntax：
+###### Syntax：
     `Graphwalker_Runner -r -s [ pc | mobile ]`
-example：
+
+###### Example：
 
     $ Graphwalker_Runner -r -s pc
          
 #### Set stop condition
 說明：設置停止條件，預設為"random(edge_coverage(100))"。更多停止條件用法請參考下方"Stop conditions Documentation"
 
-syntax：
+###### Syntax：
     `Graphwalker_Runner -r -S "stop condition"`
-example：
+    
+###### Example：
 
     $ Graphwalker_Runner -r -S "random(edge_coverage(10))"
     
