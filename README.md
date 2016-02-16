@@ -50,6 +50,7 @@
         -S, --Stop STOP  Set stop condition, default StopCondition:'random(edge_coverage(100))' , syntax:Graphwalker_Runner -r -S <StopCondition>
         -v, --version         Show current version number and change notes
         -vv, --ChangeNotes    Show all version number and change notes
+        -p , --path PATH  Visits specific path , syntax: Graphwalker_Runner -p 'path' , path syntax :'point(0)->point(2)->point(3)'
 
 
 ### 建立初始環境
@@ -131,6 +132,22 @@
     Change log：
         1 ： 修復合圖問題
         2 ： 新增版本與更新細節清單
+
+### 走訪特定路線
+可執行指定的路徑，可搭配錯誤報告中的path(格式一致，可直接複製貼上)，進行問題重現。
+
+##### Syntax：
+
+`$ Graphwalker_Runner -p 'path'`
+
+##### Example：
+
+    $ Graphwalker_Runner -p 'e_Init->v_Landing_Page->e_btn_Download_from_Landing'
+    2016-02-16 10:41:16,183 - INFO : successful
+    2016-02-16 10:41:16,184 - INFO : run script by specific path...
+    e_Init
+    v_Landing_Page
+    e_btn_Download_from_Landing
      
 ### 更新工具
 從github拉新的code。
