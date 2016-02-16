@@ -18,7 +18,12 @@
 	},
 	"runner":{
 		"latest":
-		{"Version":"1.0.1","Change log":[" default will show help message "]}
+			{"Version":"1.0.2","Change log":["Visits specific path"]},
+
+		"old":
+		[	
+			{"Version":"1.0.1","Change log":[" default will show help message "]},
+		]
 	}
 		
 	

@@ -8,7 +8,7 @@ import logging.config
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.1'
+runner_version='1.0.2'
 # logger setting
 
 try:
@@ -92,7 +92,8 @@ parser.add_argument("-S", "--Stop", help="Set stop condition, default StopCondit
 parser.add_argument("-v", "--version", help="Show current version number and change notes",action="store_true")
 # All Version
 parser.add_argument("-vv", "--ChangeNotes", help="Show all version number and change notes ",action="store_true")
-
+# Visits specific path
+parser.add_argument("-p", "--path", help="Visits specific path , syntax: Graphwalker_Runner -p 'path', path syntax : 'point(0)->point(2)->point(3)' ")
 
 # 解析參數
 args = parser.parse_args()
@@ -141,6 +142,25 @@ elif args.ChangeNotes:
 				for ii in i['Change log']:
 					print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
 			
+	except Exception,e:
+
+		logger.error(str(e))
+
+
+# Visits specific path
+elif args.path:
+
+	try:
+
+		#copy script to tool
+		call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
+
+		#run script by specific path
+		logger.info('run script by specific path...')
+		print os.popen('python /usr/local/GraphwalkerRunner/lib/Run_Specified_Path.py \''+str(args.path)+'\'').read()
+
+
+
 	except Exception,e:
 
 		logger.error(str(e))
