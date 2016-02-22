@@ -18,7 +18,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.2","Change log":["Visits specific path"]}
+			{"Version":"1.0.3","Change log":["show more merged error info"]}
 	}
 		
 	
