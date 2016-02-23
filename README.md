@@ -10,8 +10,13 @@
 # 預安裝
 
 *   pygraphml
+    `$ pip install pygraphml`
+
 *   graphviz
+    `$ sudo apt-get install graphviz`
+
 *   numpy
+    `$ sudo apt-get install python-numpy`
 
 # 安裝
 
