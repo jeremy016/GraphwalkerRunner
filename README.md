@@ -7,8 +7,8 @@
         It reads models in the shape of finite-state diagrams, or directed graphs, 
         and generate tests from the models, either offline or online.
 
-# GraphwalkerRunner架構圖
-![Alt text](http://s1.imgs.cc/img/cOBuOqJt.png)
+# GraphwalkerRunner流程圖
+![Alt text](http://s3.imgs.cc/img/HH5V568t.png)
 # 預安裝
 
 *   pygraphml
