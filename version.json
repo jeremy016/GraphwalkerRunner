@@ -18,7 +18,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.3","Change log":["show more merged error info"]}
+			{"Version":"1.0.4","Change log":["修改版本參數資訊","Runner執行權限"]}
 	}
 		
 	

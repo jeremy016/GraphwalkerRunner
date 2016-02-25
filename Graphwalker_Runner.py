@@ -8,7 +8,7 @@ import logging.config
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.3'
+runner_version='1.0.4'
 # logger setting
 
 try:
@@ -35,11 +35,16 @@ except Exception :
 	req.get_method = lambda: 'POST'
 	Request_detail = json.loads(urllib2.urlopen(req).read())
 
-	print 'Download Runner...'
+	print 'Download Graphwalker_Runner...'
 	os.popen('sudo wget --no-check-certificate '+Request_detail['downloadURL'] +' -O /usr/bin/Graphwalker_Runner').read()	
 	
 	print 'chmod folder...'
-	os.popen('sudo chmod -R 777 /usr/local/GraphwalkerRunner').read()	
+	os.popen('sudo chmod -R 775 /usr/local/GraphwalkerRunner').read()
+
+	print 'chmod Runner...'
+	os.popen('sudo chmod -R 775 /usr/bin/Graphwalker_Runner').read()
+
+
 
 
 logger = logging.getLogger("example01")
@@ -111,16 +116,22 @@ if args.version:
 
 		with open('/usr/local/GraphwalkerRunner/version.json') as f:
 			contents = json.loads(f.read())
-			print '\n Current Version:',contents['tool']['latest']['Version']
-			print ' Change log：'
+
+			print '\n****************** Current Versions ********************'
+			print '\nCurrent Runner Version:',str(runner_version)
+			print '\nCurrent Tool Version:',contents['tool']['latest']['Version']
+			print 'Change log：'
 			for i in contents['tool']['latest']['Change log']:
 				print '   ',contents['tool']['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
 			if runner_version != contents['runner']['latest']['Version']:
 				print '\n****************** Warning ********************'
 				print '\n Runner has new version : '+str(contents['runner']['latest']['Version'])
+				print ' Change log：'
+				for i in contents['runner']['latest']['Change log']:
+					print '   ',contents['runner']['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
 				print '\n please update by runner_update (Ubuntu executable) '
 				print '\n "runner_update" download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf'
-				print '\n***********************************************'
+			print '\n********************************************************'
 
 	except Exception,e:
 
@@ -134,16 +145,30 @@ elif args.ChangeNotes:
 		with open('/usr/local/GraphwalkerRunner/version.json') as f:
 			contents = json.loads(f.read())
 
-			print '\n Current Version:',contents['tool']['latest']['Version']
-			print ' Change log：'
+			print '\n****************** Current Versions ********************'
+			print '\nCurrent Runner Version:',str(runner_version)
+			print '\nCurrent Tool Version:',contents['tool']['latest']['Version']
+			print 'Change log：'
+			
 			for i in contents['tool']['latest']['Change log']:
 				print '   ',contents['tool']['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
-		
+			
+			print '\n****************** Previous Versions ********************'
 			for i in contents['tool']['old']:
 				print '\n Version:',i['Version']
 				print ' Change log：'
 				for ii in i['Change log']:
 					print '   ',i['Change log'].index(ii)+1,'：',ii.encode('utf-8')
+
+			if runner_version != contents['runner']['latest']['Version']:
+				print '\n********************* Warning ***********************'
+				print '\n Runner has new version : '+str(contents['runner']['latest']['Version'])
+				print ' Change log：'
+				for i in contents['runner']['latest']['Change log']:
+					print '   ',contents['runner']['latest']['Change log'].index(i)+1,'：',i.encode('utf-8')
+				print '\n please update by runner_update (Ubuntu executable) '
+				print '\n "runner_update" download URL : https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf'
+			print '\n*********************************************************'
 			
 	except Exception,e:
 
