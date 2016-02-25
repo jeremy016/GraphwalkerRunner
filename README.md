@@ -107,7 +107,8 @@
 ##### Example:
 
     $ sudo Graphwalker_Runner -v
-    Current Version: 1.0.5
+    Current Runner Version: 1.0.3
+    Current Tool Version: 1.0.6
     Change log：
         1 ： 修改logging config 初始化錯誤
                                                    
