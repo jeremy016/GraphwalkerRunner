@@ -6,7 +6,20 @@
         It's a Model-Based testing tool built in Java. 
         It reads models in the shape of finite-state diagrams, or directed graphs, 
         and generate tests from the models, either offline or online.
-    
+
+# GraphwalkerRunner流程圖
+![Alt text](http://s2.imgs.cc/img/aNHB7SHt.png)
+# 預安裝
+
+*   pygraphml
+    `$ pip install pygraphml`
+
+*   graphviz
+    `$ sudo apt-get install graphviz`
+
+*   numpy
+    `$ sudo apt-get install python-numpy`
+
 # 安裝
 
 ### 下載執行檔並執行
@@ -25,7 +38,7 @@
 # 更新
 
 *   Runner：[runner_update](https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf)
-*   Tool：`$ Graphwalker -u`
+*   Library：`$ Graphwalker -u`
 
 # 移除
 
@@ -94,13 +107,14 @@
 ##### Example:
 
     $ sudo Graphwalker_Runner -v
-    Current Version: 1.0.5
+    Current Runner Version: 1.0.3
+    Current Tool Version: 1.0.6
     Change log：
         1 ： 修改logging config 初始化錯誤
                                                    
     ****************** Warning ********************
                                                        
-    Runner has new version : 1.0.1
+    Runner has new version : 1.0.4
                                                        
     please update by runner_update (Ubuntu executable) 
                                                                
@@ -109,7 +123,7 @@
         ***********************************************
             
 ### 變更歷程
-查詢所有版本，回傳"版號"與"Change note"。。
+查詢Runner與Library版本，回傳Runner的"版號"，Library的"版號"與"Change note"。
 
 ##### Syntax：
 
@@ -118,7 +132,8 @@
 ##### Example：
 
     $ sudo Graphwalker_Runner -vv
-    Current Version: 1.0.5
+    Current Runner Version: 1.0.4
+    Current Tool Version: 1.0.6
     Change log：
         1 ： 修改logging config 初始化錯誤
     Version: 1.0.4
@@ -149,7 +164,7 @@
     v_Landing_Page
     e_btn_Download_from_Landing
      
-### 更新工具
+### 更新Library
 從github拉新的code。
 
 ##### 流程說明：
