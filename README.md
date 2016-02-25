@@ -114,7 +114,7 @@
                                                    
     ****************** Warning ********************
                                                        
-    Runner has new version : 1.0.1
+    Runner has new version : 1.0.4
                                                        
     please update by runner_update (Ubuntu executable) 
                                                                
