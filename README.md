@@ -8,7 +8,7 @@
         and generate tests from the models, either offline or online.
 
 # GraphwalkerRunner流程圖
-![Alt text](http://s2.imgs.cc/img/qDVexGKt.png)
+![Alt text](http://s2.imgs.cc/img/aNHB7SHt.png)
 # 預安裝
 
 *   pygraphml
@@ -38,7 +38,7 @@
 # 更新
 
 *   Runner：[runner_update](https://justup.co/share.html?id=88fab911-0ee0-4614-8702-f30b812487cf)
-*   Tool：`$ Graphwalker -u`
+*   Library：`$ Graphwalker -u`
 
 # 移除
 
@@ -163,7 +163,7 @@
     v_Landing_Page
     e_btn_Download_from_Landing
      
-### 更新工具
+### 更新Library
 從github拉新的code。
 
 ##### 流程說明：
