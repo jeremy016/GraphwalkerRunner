@@ -132,11 +132,14 @@
 ##### Example：
 
     $ sudo Graphwalker_Runner -vv
+    ****************** Current Versions ********************
     Current Runner Version: 1.0.4
     Current Tool Version: 1.0.6
     Change log：
-        1 ： 修改logging config 初始化錯誤
-    Version: 1.0.4
+    1 ： 新增合併圖形讀取單一圖檔與過慮非grapml格式
+    2 ： 修改參數內容
+    ****************** Previous Versions ********************
+    Version: 1.0.5
     Change log：
         1 ： 新增Log Record
         2 ： 新增測試報告
@@ -147,6 +150,7 @@
     Change log：
         1 ： 修復合圖問題
         2 ： 新增版本與更新細節清單
+    *********************************************************
 
 ### 走訪特定路線
 執行指定的路徑，可搭配錯誤報告中的path(格式一致，可直接複製貼上)，進行問題重現。
