@@ -123,7 +123,7 @@
         ***********************************************
             
 ### 變更歷程
-查詢所有版本，回傳"版號"與"Change note"。。
+查詢Runner與Library版本，回傳Runner的"版號"，Library的"版號"與"Change note"。
 
 ##### Syntax：
 
@@ -132,7 +132,8 @@
 ##### Example：
 
     $ sudo Graphwalker_Runner -vv
-    Current Version: 1.0.5
+    Current Runner Version: 1.0.4
+    Current Tool Version: 1.0.6
     Change log：
         1 ： 修改logging config 初始化錯誤
     Version: 1.0.4
