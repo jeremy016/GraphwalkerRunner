@@ -8,7 +8,7 @@
         and generate tests from the models, either offline or online.
 
 # GraphwalkerRunner架構圖
-![Alt text](https://justup.co/share.html?id=fced5f0f-37ed-4b49-be66-5af974896c51 "Optional title")
+![Alt text](http://s1.imgs.cc/img/cOBuOqJt.png)
 # 預安裝
 
 *   pygraphml
