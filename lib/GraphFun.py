@@ -2,6 +2,7 @@
 import json,os,time,sys,shlex, subprocess,requests,re,thread,signal
 from threading import Timer
 import xml.etree.ElementTree as ET
+import traceback
 import numpy as np
 
 import logging
@@ -473,14 +474,20 @@ class GraphFun(object):
 
     def Fun_Exception_Action(self, e, Max, Min, step, NoneError,Test_result,step_list,error_list):
 
-        print '\nAction error on '+str(step)+'\nError message:\n'+str(sys.exc_info())+'\n'
-
+        _, _, tb = sys.exc_info()
+        traceback.print_tb(tb) # Fixed format
+        tb_info = traceback.extract_tb(tb)
+        filename, line, func, text = tb_info[-1]
+        time.sleep(0.5)
+        error_msg = '\nAction error on '+str(step)+'\nError content:'+str(sys.exc_info())+'\nError line:'+str(line)+'\nError Func:'+str(func)+'\nError text:'+str(text)+'\n'
+        print error_msg
+        
         #self.Screenshot(0,step)
 
         Stop = Max + Min * 2
         NoneError = not NoneError
         Test_result['Fail_Fun'] = str(step)
-        Test_result['Error_Message'] = sys.exc_info()
+        Test_result['Error_Message'] = error_msg
 
         #append error path
         step_str = '->'.join(step_list)
