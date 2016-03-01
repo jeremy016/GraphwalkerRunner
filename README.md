@@ -67,14 +67,14 @@
 
 
 ### 建立初始環境
-移除現有環境，並重新於本地端建立一個全新的Graphwalker tool。
+移除現有環境，並重新於本地端建立一個全新的Graphwalker Library。
 
 ##### 流程說明：
-自動建立Graphwalker Runner環境的流程如下 
+自動建立Graphwalker Library環境的流程如下 
 
--   移除本地端Tool(path:/usr/local/GraphwalkerRunner)
+-   移除本地端Library目錄(path:/usr/local/GraphwalkerRunner)
 -   clone graphwalker工具 (from github) 
--   於本地端建立執行環境 (path:/usr/local/GraphwalkerRunner) 
+-   建立本地端Library目錄 (path:/usr/local/GraphwalkerRunner) 
 -   下載graphwalker-cli-SNAPSHOT.jar
 
 註：如果下載失敗，請手動下載，並放置在：/usr/local/GraphwalkerRunner/lib
@@ -123,7 +123,7 @@
         ***********************************************
             
 ### 變更歷程
-查詢Runner與Library版本，回傳Runner的"版號"，Library的"版號"與"Change note"。
+查詢Runner與Library版本，回傳Runner目前"版號"，Library所有"版號"與"Change note"的相關資訊。
 
 ##### Syntax：
 
@@ -132,11 +132,14 @@
 ##### Example：
 
     $ sudo Graphwalker_Runner -vv
+    ****************** Current Versions ********************
     Current Runner Version: 1.0.4
     Current Tool Version: 1.0.6
     Change log：
-        1 ： 修改logging config 初始化錯誤
-    Version: 1.0.4
+    1 ： 新增合併圖形讀取單一圖檔與過慮非grapml格式
+    2 ： 修改參數內容
+    ****************** Previous Versions ********************
+    Version: 1.0.5
     Change log：
         1 ： 新增Log Record
         2 ： 新增測試報告
@@ -147,6 +150,7 @@
     Change log：
         1 ： 修復合圖問題
         2 ： 新增版本與更新細節清單
+    *********************************************************
 
 ### 走訪特定路線
 執行指定的路徑，可搭配錯誤報告中的path(格式一致，可直接複製貼上)，進行問題重現。
