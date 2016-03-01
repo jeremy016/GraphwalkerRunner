@@ -3,10 +3,11 @@
 
 		"latest":
 
-			{"Version":"1.0.6","Change log":["新增合併圖形讀取單一圖檔與過慮非grapml格式","修改參數內容"]},
+			{"Version":"1.0.7","Change log":["修改錯誤訊息，顯示完整資訊"]},
 
 		"old":
 		[	
+			{"Version":"1.0.6","Change log":["新增合併圖形讀取單一圖檔與過慮非grapml格式","修改參數內容"]},
 			{"Version":"1.0.5","Change log":["修改logging config 初始化錯誤"]},
 			{"Version":"1.0.4","Change log":["新增Log Record","新增測試報告"]},
 			{"Version":"1.0.3","Change log":["新增刪除確認區"]},
