@@ -1,4 +1,4 @@
-# GraphwalkerRunner8888888888
+# GraphwalkerRunn
     說明：以Graphwalker的核心架構下，新增特殊功能的整合工具。
     增添功能： 1.圖形合併 2. 圖形完整性驗證 3. Grapgwalker運行 4. 錯誤續跑機制 5. 畫面截圖。
     
