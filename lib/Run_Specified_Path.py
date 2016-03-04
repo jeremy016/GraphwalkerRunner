@@ -5,6 +5,8 @@ import script as Script
 import logging
 import logging.config
 
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 ##########Set log################
 
