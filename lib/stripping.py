@@ -66,7 +66,7 @@ if os.path.exists(sys.argv[1]+'/script.py'):
 			del_area_not_end = del_area.replace(del_area_end,'')
 			read_all = read_all.replace(del_area,'')
 
-		temp = read_all.split('def')
+		temp = re.split('^def', read_all)
 		
 		for i in temp:
 			
