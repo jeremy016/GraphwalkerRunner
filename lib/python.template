@@ -81,13 +81,13 @@ try:
         step_count=0
 
         if test_count==0:
-            command =  'The '+str(test_count+1)+'st times testing'
+            command =  'The_'+str(test_count+1)+'st_times_testing'
         elif test_count==1:
-            command =  'The '+str(test_count+1)+'nd times testing'
+            command =  'The_'+str(test_count+1)+'nd_times_testing'
         elif test_count==2:
-            command =  'The '+str(test_count+1)+'rd times testing'
+            command =  'The_'+str(test_count+1)+'rd_times_testing'
         else:
-            command =  'The '+str(test_count+1)+'th times testing'
+            command =  'The_'+str(test_count+1)+'th_times_testing'
 
         if argv:
             
