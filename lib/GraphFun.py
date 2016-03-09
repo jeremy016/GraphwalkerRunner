@@ -545,7 +545,7 @@ class GraphFun(object):
 
         if argv == 'mobile':
             os.system("adb shell screencap -p /sdcard/screen.png")
-            os.system("adb pull /sdcard/screen.png "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
+            os.system("adb pull /sdcard/screen.png "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png > /dev/null 2>&1 ')
             os.system("adb shell rm /sdcard/screen.png")
             # os.system("adb shell screencap -p | sed 's/\r$//' > "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
             
