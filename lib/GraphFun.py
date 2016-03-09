@@ -544,25 +544,14 @@ class GraphFun(object):
       
 
         if argv == 'mobile':
-            os.system("adb shell screencap -p | sed 's/\r$//' > "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
-            # p = Popen(['adb','shell','screencap','-p','|','sed','\'s/\r$//\'',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-            # output, error = p.communicate()
-            # if p.returncode == 0:
-            #     ok=False if output else True        
-            # else:
-            #     ok=False
-            # assert ok==True,logger.error(str(output))
-
+            os.system("adb shell screencap -p /sdcard/screen.png")
+            os.system("adb pull /sdcard/screen.png "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
+            os.system("adb shell rm /sdcard/screen.png")
+            # os.system("adb shell screencap -p | sed 's/\r$//' > "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
+            
         elif argv == 'pc':
             os.system('import -display :0 -window root '+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
-            # p = Popen(['import','-display',':0','-window','root',sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-            # output, error = p.communicate()
-            # if p.returncode == 0:
-            #     ok=False if output else True        
-            # else:
-            #     ok=False
-            # assert ok==True,logger.error(str(output))
-
+            
     
 
 
