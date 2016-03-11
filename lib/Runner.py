@@ -16,10 +16,6 @@ RunFun = imp.load_source('script', sys.argv[1]+'/script.py')
 
 
 
-
-
-
-
 #init parameter
 NoneError = True
 Pid_exist = True
