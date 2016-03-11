@@ -82,6 +82,8 @@ try:
             os.popen("rm -rf "+sys.argv[1]+"/Screenshot")
             os.popen('mkdir '+sys.argv[1]+'/Screenshot')
 
+os.popen('adb ' + serial + ' shell logcat -c')           
+
 #start running GW
   
     while(NoneError):

@@ -549,10 +549,11 @@ class GraphFun(object):
 
 
         try:
+            logger.info('Log Saving...')
             timestamp = time.strftime("%Y%m%d%H%M%S")
 
             # local_path = os.getcwd() + '/log/' + timestamp
-            local_path = current_locate
+            local_path = current_locate + '/log/' + timestamp
 
             os.popen('mkdir -p ' + local_path)
 
@@ -563,7 +564,7 @@ class GraphFun(object):
 
             logcat_file = local_path + '/logcat_' + timestamp + '.log'
 
-            os.popen('adb ' + serial + ' shell logcat -d > ' + logcat_file)   
+            os.popen('adb ' + serial + ' shell logcat -v time -d > ' + logcat_file)   
 
             logcat_file = local_path + '/dmesg_' + timestamp + '.log'
             os.popen('adb ' + serial + ' shell dmesg > ' + logcat_file)
@@ -574,14 +575,17 @@ class GraphFun(object):
             os.popen('adb ' + serial + ' shell logcat -c')           
 
             #check crash log
-            retval = "[MINOR]" + timestamp
-            retval = os.popen("cat " + logcat_file + " | grep 'beginning of crash' | wc -l").read()
-            if retval != '':
+            retval = os.popen("cat " + logcat_file + " | grep 'beginning\ of\ crash' | wc -l").read().strip()
+            if retval != '0':
                 return "[CRASH]" + timestamp
+            else:
+                return "[MINOR]" + timestamp
+
+            logger.info('Log Saved')
 
         except Exception as e:
 
-            logger.error(str(e))
+            logger.error(str    )
 
             return False
 
