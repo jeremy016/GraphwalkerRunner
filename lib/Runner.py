@@ -1,8 +1,8 @@
 
 # -*- coding: utf-8 -*-
-import requests,json,traceback,time,sys,os
+import requests,json,traceback,time,sys,os,imp
 import GraphFun as GraphFun
-import script as RunFun
+# import script as RunFun
 
 from subprocess import Popen, PIPE
 import logging
@@ -12,6 +12,7 @@ global temp
 temp={}
 
 
+RunFun = imp.load_source('script', sys.argv[1]+'/script.py')
 
 
 

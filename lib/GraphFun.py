@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-import json,os,time,sys,shlex, subprocess,requests,re,thread,signal
+import json,os,time,sys,shlex, subprocess,requests,re,thread,signal,imp
 from threading import Timer
 import xml.etree.ElementTree as ET
 import traceback
@@ -608,7 +608,7 @@ class GraphFun(object):
         try:
             func_list = []
             count=0
-            w_file = open('/usr/local/GraphwalkerRunner/lib/script_test.py', 'w')
+            w_file = open(current_locate+'/script_test.py', 'w')
             with open(current_locate+'/script.py', 'r') as file:
              
                 for line in file:
@@ -628,7 +628,8 @@ class GraphFun(object):
             # print 'Cheching...'
             
 
-            import script_test as RunFun
+            # import script_test as RunFun
+            RunFun = imp.load_source('script_test', current_locate+'/script_test.py')
 
             self.kill_Process() 
            
