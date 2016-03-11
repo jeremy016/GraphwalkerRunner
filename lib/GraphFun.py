@@ -825,8 +825,7 @@ class GraphFun(object):
                     testcase = ET.SubElement(testsuite,"testcase" ,message='complete Condition:'+str(complete_value),classname='Fail',name=str(i['Fail_Fun']))
 
                     img = 'http://192.168.20.140:8080/jenkins/job/MBT_Project/job/JUSTUP/ws/Graphwalker/Run_GraphWalker/Screenshot/'+str(i['Fail_Fun'])+'.png'
-                    message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun']+'\n\nAndroid_Log : '+str(i['Android_Log'])
-                    
+                    message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])+'\n\nAndroid_Log : '+str(i['Android_Log'])
                     ET.SubElement(testcase,"error" ,message=str(message_str)+' \n\nScreenshot : '+str(img))
                     
                 
