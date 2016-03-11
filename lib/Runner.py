@@ -70,7 +70,8 @@ try:
             os.popen('mkdir '+sys.argv[1]+'/Screenshot')
 
 #start running GW
-    os.popen('adb ' + serial + ' shell logcat -c')           
+    if argv_4:
+        os.popen('adb shell logcat -c')           
   
     while(NoneError):
         step_count=0
