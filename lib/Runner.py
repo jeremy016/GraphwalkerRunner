@@ -36,6 +36,7 @@ logger = logging.getLogger("example01")
 
 #creat GraphFun object----------------
 
+
 try:
 
 #creat "GraphFun" object
@@ -53,12 +54,14 @@ try:
 #Get average count
     logger.info('Get average count...')
     Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
- 
-    test_count=0
-    
-    argv = sys.argv[3] if len(sys.argv) > 3 else ''
 
-    if argv:
+    test_count=0
+
+    argv_3 = sys.argv[3] if sys.argv[3] != 'False' else False
+    argv_4 = True if sys.argv[4] != 'False' else False
+    
+    if argv_3:
+
         if not os.path.exists(sys.argv[1]+'/Screenshot'):
             os.popen('mkdir '+sys.argv[1]+'/Screenshot')
         else:
@@ -79,7 +82,7 @@ try:
         else:
             command =  'The_'+str(test_count+1)+'th_times_testing'
 
-        if argv:
+        if argv_3:
             
             p = Popen(['mkdir',sys.argv[1]+'/Screenshot/'+str(command)],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
             output, error = p.communicate()
@@ -125,20 +128,20 @@ try:
                         eval( "RunFun."+step + "()" )
                         Stop-=1
 
-                        GF.screen_shot(argv,sys.argv[1],command,str(step_count),step)
+                        GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step)
             
                         step_count+=1
 
                     #Fun error
                     except Exception as e:
                         #Fun error Handling
-                        Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list)
+                        Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list,sys.argv[1],argv_4)
                         logger.debug('[Function error] : '+str(Test_result))
                      
                         break
 
             #integrate screen capture code to templete
-            GF.screen_shot(argv,sys.argv[1],command,str(step_count),step)
+            GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step)
 
         # Step(HasNext) occured error
         except Exception as e:
@@ -199,6 +202,7 @@ try:
 
     #kill service
     GF.kill_Process('Graphwalker_Runner')
+
 
 except KeyboardInterrupt as e:
     logger.error('KeyboardInterrupt')

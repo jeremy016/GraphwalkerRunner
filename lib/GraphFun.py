@@ -17,7 +17,7 @@ from xml.etree.ElementTree import ElementTree
 logging.config.fileConfig("/usr/local/GraphwalkerRunner/logger.conf")
 logger = logging.getLogger("example01")
 
-#################################
+#################################   
 
 class GraphFun(object):
 
@@ -472,7 +472,7 @@ class GraphFun(object):
 
         return BLOCKED, Stop, NoneError, Test_result
 
-    def Fun_Exception_Action(self, e, Max, Min, step, NoneError,Test_result,step_list,error_list):
+    def Fun_Exception_Action(self, e, Max, Min, step, NoneError,Test_result,step_list,error_list,current_locate,argv_4):
 
         _, _, tb = sys.exc_info()
         traceback.print_tb(tb) # Fixed format
@@ -493,6 +493,12 @@ class GraphFun(object):
         step_str = '->'.join(step_list)
         Test_result['step'] = step_str
         error_list.append(Test_result)
+
+        #Saving Logcat info
+        if argv_4:
+            result_log = self.save_log(current_locate)
+            if result_log:
+                Test_result['Android_Log'] = result_log
 
         return Stop,NoneError,Test_result,error_list
 
@@ -538,6 +544,46 @@ class GraphFun(object):
             print '\n-------------------------\nPlease click enter to end...\n-------------------------\n'
             self.kill_Process('Runner.py')
             self.kill_Process('')
+
+    def save_log(self,current_locate,serial=''):
+
+
+        try:
+            timestamp = time.strftime("%Y%m%d%H%M%S")
+
+            # local_path = os.getcwd() + '/log/' + timestamp
+            local_path = current_locate
+
+            os.popen('mkdir -p ' + local_path)
+
+
+            if serial != '':
+
+                serial = '-s ' + serial
+
+            logcat_file = local_path + '/logcat_' + timestamp + '.log'
+
+            os.popen('adb ' + serial + ' shell logcat -d > ' + logcat_file)   
+
+            logcat_file = local_path + '/dmesg_' + timestamp + '.log'
+            os.popen('adb ' + serial + ' shell dmesg > ' + logcat_file)
+
+            logcat_file = local_path + '/bugreport_' + timestamp + '.log'
+            os.popen('adb ' + serial + ' bugreport > ' + logcat_file)
+
+            os.popen('adb ' + serial + ' shell logcat -c')           
+
+            #check crash log
+            retval = "[MINOR]" + timestamp
+            retval = os.popen("cat " + logcat_file + " | grep 'beginning of crash' | wc -l").read()
+            if retval != '':
+                return "[CRASH]" + timestamp
+
+        except Exception as e:
+
+            logger.error(str(e))
+
+            return False
 
     def screen_shot(self,argv,sys_argv,command,step_count,step):
 
@@ -720,6 +766,7 @@ class GraphFun(object):
                     for i in error_list:
 
                         report_file.write('\t\tFail_Fun : '+str(i['Fail_Fun'])+'\n')
+                        report_file.write('\t\tAndroid_Log : '+str(i['Android_Log'])+'\n')
                         report_file.write('\t\tstep : '+str(i['step'])+'\n')
                         report_file.write('\t\tError_Message : '+str(i['Error_Message'])+'\n\n')
                         
@@ -778,7 +825,7 @@ class GraphFun(object):
                     testcase = ET.SubElement(testsuite,"testcase" ,message='complete Condition:'+str(complete_value),classname='Fail',name=str(i['Fail_Fun']))
 
                     img = 'http://192.168.20.140:8080/jenkins/job/MBT_Project/job/JUSTUP/ws/Graphwalker/Run_GraphWalker/Screenshot/'+str(i['Fail_Fun'])+'.png'
-                    message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])
+                    message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun']+'\n\nAndroid_Log : '+str(i['Android_Log'])
                     
                     ET.SubElement(testcase,"error" ,message=str(message_str)+' \n\nScreenshot : '+str(img))
                     

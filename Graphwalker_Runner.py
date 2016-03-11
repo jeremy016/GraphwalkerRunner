@@ -8,7 +8,7 @@ import logging.config
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.4'
+runner_version='1.0.6'
 # logger setting
 
 try:
@@ -102,6 +102,9 @@ parser.add_argument("-v", "--version", help="Show current version number and cha
 parser.add_argument("-vv", "--ChangeNotes", help="Show all version number and change notes ",action="store_true")
 # Visits specific path
 parser.add_argument("-p", "--path", help="Visits specific path , syntax: Graphwalker_Runner -p 'path', path syntax : 'point(0)->point(2)->point(3)' ")
+# Logcat Saving
+parser.add_argument("-l", "--logcat", help="Saving android logcat information , syntax: Graphwalker_Runner -r -l ",action="store_true") 
+
 
 # 解析參數
 args = parser.parse_args()
@@ -304,17 +307,27 @@ elif args.run:
 	try:
 		
 		#copy script to tool
-		call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
+		# call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
 
 		
 		#Stop Condition [-S]
 		args.Stop = args.Stop.replace('(','\\(').replace(')','\\)')
-		command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop)
+		command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop) 
+		# command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop)
 
 		
 		#Screenshot [-s]
 		if args.shot:
 			command += ' '+args.shot
+		else:
+			command += ' False'
+
+
+		#logcat [-l]
+		if args.logcat:
+			command += ' True'
+		else:
+			command += ' False'
 		
 		#Running GraphwalkerRunner
 		p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
@@ -322,7 +335,7 @@ elif args.run:
 
 	
 	except Exception, e:
-
+		print e
 		logger.error(str(e))
 
 else:
