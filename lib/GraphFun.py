@@ -771,7 +771,7 @@ class GraphFun(object):
                     for i in error_list:
 
                         report_file.write('\t\tFail_Fun : '+str(i['Fail_Fun'])+'\n')
-                        if i has_key('Android_Log'):
+                        if i.has_key('Android_Log'):
                             report_file.write('\t\tAndroid_Log : '+str(i['Android_Log'])+'\n')
                         report_file.write('\t\tstep : '+str(i['step'])+'\n')
                         report_file.write('\t\tError_Message : '+str(i['Error_Message'])+'\n\n')
