@@ -834,7 +834,7 @@ class GraphFun(object):
                     if i.has_key('Android_Log'):
                         message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])+'\n\nAndroid_Log : '+str(i['Android_Log'])
                     else:
-                        message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun']))
+                        message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])
                     ET.SubElement(testcase,"error" ,message=str(message_str)+' \n\nScreenshot : '+str(img))
                     
                 
