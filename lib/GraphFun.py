@@ -628,8 +628,8 @@ class GraphFun(object):
        
             fun_list_len = len(func_list)
 
-            #Cheching Graphical Integrity
-            # print 'Cheching...'
+            #Checking Graphical Integrity
+            # print 'Checking...'
             
 
             # import script_test as RunFun
@@ -637,7 +637,7 @@ class GraphFun(object):
 
             self.kill_Process() 
            
-            # logger.info(str('Cheching Graphical Integrity by offline'))
+            # logger.info(str('Checking Graphical Integrity by offline'))
             # p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
             # output, error = p.communicate()
 
@@ -669,7 +669,7 @@ class GraphFun(object):
             os.popen('java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar online --json --service RESTFUL -m '+current_locate+'/merged.graphml \"random(edge_coverage(100))\" &')
             time.sleep(5)
 
-            logger.info(str('Cheching every point by online'))
+            logger.info(str('Checking every point by online'))
             gw_url = 'http://localhost:8887/graphwalker'
 
             while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' :
@@ -771,7 +771,8 @@ class GraphFun(object):
                     for i in error_list:
 
                         report_file.write('\t\tFail_Fun : '+str(i['Fail_Fun'])+'\n')
-                        report_file.write('\t\tAndroid_Log : '+str(i['Android_Log'])+'\n')
+                        if i has_key('Android_Log'):
+                            report_file.write('\t\tAndroid_Log : '+str(i['Android_Log'])+'\n')
                         report_file.write('\t\tstep : '+str(i['step'])+'\n')
                         report_file.write('\t\tError_Message : '+str(i['Error_Message'])+'\n\n')
                         
@@ -830,7 +831,10 @@ class GraphFun(object):
                     testcase = ET.SubElement(testsuite,"testcase" ,message='complete Condition:'+str(complete_value),classname='Fail',name=str(i['Fail_Fun']))
 
                     img = 'http://192.168.20.140:8080/jenkins/job/MBT_Project/job/JUSTUP/ws/Graphwalker/Run_GraphWalker/Screenshot/'+str(i['Fail_Fun'])+'.png'
-                    message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])+'\n\nAndroid_Log : '+str(i['Android_Log'])
+                    if i.has_key('Android_Log'):
+                        message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun'])+'\n\nAndroid_Log : '+str(i['Android_Log'])
+                    else:
+                        message_str='step : '+str(i['step'])+'\n\nError_Message : '+str(i['Error_Message'])+'\n\nFail_Fun : '+str(i['Fail_Fun']))
                     ET.SubElement(testcase,"error" ,message=str(message_str)+' \n\nScreenshot : '+str(img))
                     
                 
