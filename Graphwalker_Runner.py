@@ -1,14 +1,17 @@
 #/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os,subprocess,sys,json,shlex
+import os,subprocess,sys,json,shlex,re
 import logging,argparse,urllib2
 import logging.config
 
+sys.path.append('/usr/local/GraphwalkerRunner')
+
+from lib.Set_Resource import *
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.6'
+runner_version='1.0.7'
 # logger setting
 
 try:
@@ -104,6 +107,8 @@ parser.add_argument("-vv", "--ChangeNotes", help="Show all version number and ch
 parser.add_argument("-p", "--path", help="Visits specific path , syntax: Graphwalker_Runner -p 'path', path syntax : 'point(0)->point(2)->point(3)' ")
 # Logcat Saving
 parser.add_argument("-l", "--logcat", help="Saving android logcat information , syntax: Graphwalker_Runner -r -l ",action="store_true") 
+# Set Devices 
+parser.add_argument("-d", "--devices", help="Setting mobile devices , syntax: Graphwalker_Runner -r -d 'devices number' or 'list' , input 'list' can select ") 
 
 
 # 解析參數
@@ -309,6 +314,34 @@ elif args.run:
 		#copy script to tool
 		# call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
 
+
+		#Set Devices [-d]
+		if args.devices :
+
+			resource = Set_Resource(current_locate)
+
+			# select one
+			if args.devices == "list":
+
+				devices_info = os.popen('adb devices').read()
+				
+				p = re.compile(r'\n(.*)\t')
+				
+				d_list = p.findall(devices_info)
+				
+				print 'Devices List:'
+
+				for i in d_list:
+					print str(d_list.index(i)+1)+'.  '+str(i)
+
+				get_input = input('Please select one :')
+				resource.set_androidDeviceSerial(str(d_list[int(get_input)-1]))
+			
+			# get input 
+			else:
+				print resource.set_androidDeviceSerial(str(args.devices))
+
+			
 		
 		#Stop Condition [-S]
 		args.Stop = args.Stop.replace('(','\\(').replace(')','\\)')
@@ -338,5 +371,14 @@ elif args.run:
 		print e
 		logger.error(str(e))
 
+
+	
+
+
+
+
 else:
 	parser.print_help()
+
+	
+	
