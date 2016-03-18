@@ -8,11 +8,16 @@ from subprocess import Popen, PIPE
 import logging
 import logging.config
 
+RunFun = imp.load_source('script', sys.argv[1]+'/script.py')
+
 global temp
 temp={}
 
 
-RunFun = imp.load_source('script', sys.argv[1]+'/script.py')
+
+
+
+
 
 
 
@@ -51,11 +56,12 @@ try:
 #Get average count
     logger.info('Get average count...')
     Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
-
+  
     test_count=0
 
     argv_3 = sys.argv[3] if sys.argv[3] != 'False' else False
     argv_4 = True if sys.argv[4] != 'False' else False
+    argv_5 = sys.argv[5] if sys.argv[5] != 'False' else False
     
     if argv_3:
 
@@ -64,10 +70,10 @@ try:
         else:
             os.popen("rm -rf "+sys.argv[1]+"/Screenshot")
             os.popen('mkdir '+sys.argv[1]+'/Screenshot')
-
-#start running GW
     if argv_4:
-        os.popen('adb shell logcat -c')           
+            os.popen('adb shell logcat -c')  
+        
+#start running GW
   
     while(NoneError):
         step_count=0
@@ -127,7 +133,7 @@ try:
                         eval( "RunFun."+step + "()" )
                         Stop-=1
 
-                        GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step)
+                        GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step,argv_5)
             
                         step_count+=1
 
@@ -140,7 +146,7 @@ try:
                         break
 
             #integrate screen capture code to templete
-            GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step)
+            GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step,argv_5)
 
         # Step(HasNext) occured error
         except Exception as e:
@@ -210,4 +216,5 @@ except KeyboardInterrupt as e:
 except Exception, e:
 
     logger.error(str(e))
+
 

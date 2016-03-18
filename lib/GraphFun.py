@@ -589,14 +589,17 @@ class GraphFun(object):
 
             return False
 
-    def screen_shot(self,argv,sys_argv,command,step_count,step):
+    def screen_shot(self,argv,sys_argv,command,step_count,step,argv_5):
 
       
 
         if argv == 'mobile':
-            os.system("adb shell screencap -p /sdcard/screen.png")
-            os.system("adb pull /sdcard/screen.png "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png > /dev/null 2>&1 ')
-            os.system("adb shell rm /sdcard/screen.png")
+
+            adb_cmd = 'adb -s '+str(argv_5) if argv_5 else 'adb'
+        
+            os.system(adb_cmd+" shell screencap -p /sdcard/screen.png")
+            os.system(adb_cmd+" pull /sdcard/screen.png "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png > /dev/null 2>&1 ')
+            os.system(adb_cmd+" shell rm /sdcard/screen.png")
             # os.system("adb shell screencap -p | sed 's/\r$//' > "+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
             
         elif argv == 'pc':

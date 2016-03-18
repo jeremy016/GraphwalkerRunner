@@ -3,10 +3,11 @@
 
 		"latest":
 
-			{"Version":"1.0.12","Change log":["新增set devices功能"]},
+			{"Version":"1.0.13","Change log":["解決more than one device bug"]},
 
 		"old":
 		[	
+			{"Version":"1.0.12","Change log":["新增set devices功能"]},
 			{"Version":"1.0.11","Change log":["新增Logcat功能"]},
 			{"Version":"1.0.10","Change log":["修復mobile的screenshot路徑錯誤"]},
 			{"Version":"1.0.9","Change log":["修改標記中含有'def'關鍵字，產生切割錯誤"]},
@@ -24,7 +25,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.7","Change log":["新增set devices參數[-d]"]}
+			{"Version":"1.0.8","Change log":["新增指定測試設備"]}
 	}
 		
 	

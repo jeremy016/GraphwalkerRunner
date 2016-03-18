@@ -11,7 +11,7 @@ from lib.Set_Resource import *
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.7'
+runner_version='1.0.8'
 # logger setting
 
 try:
@@ -336,10 +336,11 @@ elif args.run:
 
 				get_input = input('Please select one :')
 				resource.set_androidDeviceSerial(str(d_list[int(get_input)-1]))
-			
+				args_devices = str(d_list[int(get_input)-1])
 			# get input 
 			else:
-				print resource.set_androidDeviceSerial(str(args.devices))
+				resource.set_androidDeviceSerial(str(args.devices))
+				args_devices = args.devices
 
 			
 		
@@ -359,6 +360,12 @@ elif args.run:
 		#logcat [-l]
 		if args.logcat:
 			command += ' True'
+		else:
+			command += ' False'
+
+		#Devices [-d]
+		if args.devices:
+			command += ' '+args_devices
 		else:
 			command += ' False'
 		
