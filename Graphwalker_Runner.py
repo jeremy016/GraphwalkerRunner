@@ -8,10 +8,11 @@ import logging.config
 sys.path.append('/usr/local/GraphwalkerRunner')
 
 from lib.Set_Resource import *
+from lib.GraphFun import *
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.8'
+runner_version='1.0.9'
 # logger setting
 
 try:
@@ -92,7 +93,7 @@ parser.add_argument("-u", "--update", help="Pull graphwalker source code from gi
 # Merge all graph
 parser.add_argument("-m", "--model", help="Merge graphml files in folder ,folderpattern: graphml folder path, syntax：Graphwalker_Runner -m <folderpattern>") 
 # Check graphical integrity
-parser.add_argument("-c", "--check", help="Check graphical integrity, output Not visited points file (Not_visited_points.txt) ,syntax：Graphwalker_Runner -c ",action="store_true") 
+parser.add_argument("-c", "--check", help="Check graphical integrity, output Not visited points file (Not_visited_points.txt),timeout: nput timeout second ,syntax：Graphwalker_Runner -c 'timeout'") 
 # Running graphwalker
 parser.add_argument("-r", "--run", help="Running graphwalker, syntax：Graphwalker_Runner -r",action="store_true") 
 # Screenshot
@@ -301,8 +302,11 @@ elif args.model:
 elif args.check:
 
 	logger.info('Check graphical integrity')
-	os.popen('python /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+ current_locate).read()
+	#os.popen('python /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+ current_locate).read()
 	#call(['python','/usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py',current_locate])
+	GF = GraphFun()
+	timeout=int(args.check)
+	GF.CheckGraphicalIntegrity(current_locate,timeout)
 
 #running graphwalker [-r]
 elif args.run:

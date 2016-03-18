@@ -21,9 +21,9 @@ logger = logging.getLogger("example01")
 
 class GraphFun(object):
 
-    global Interrupt_value,current_locate
+    global Interrupt_value,current_locate,temp
     Interrupt_value=True
-
+    temp={}
     def make_fun(self,merge_grapg):
 
         all_fun=[]
@@ -604,57 +604,36 @@ class GraphFun(object):
             
         elif argv == 'pc':
             os.system('import -display :0 -window root '+sys_argv+'/Screenshot/'+command+'/screen-'+step_count+'-'+step+'.png')
-            
-    
+   
+    def timeout_CG(self):
+        
+        global timer
 
+        timer='stop'
 
-    def CheckGraphicalIntegrity(self):
+    def CheckGraphicalIntegrity(self,current_locate,timeout):
 
-        global current_locate
+        global timer
         # read file & get fun name & write to file
+        timer=None
         try:
+
+            sys.path.append(current_locate)
+
             func_list = []
-            count=0
-            w_file = open(current_locate+'/script_test.py', 'w')
-            with open(current_locate+'/script.py', 'r') as file:
-             
-                for line in file:
-                    if re.match('^#',line):
-                        continue
-                    elif 'def ' in line:
-                        func_list.append(line[4:-5])
-                        w_file.write(line)
-                        w_file.write('\n')
-                        w_file.write('  return "'+str(line[4:-5])+'"')
-                        w_file.write('\n')
-            w_file.close()
-       
-            fun_list_len = len(func_list)
 
-            #Checking Graphical Integrity
-            # print 'Checking...'
-            
+            from script import *
 
-            # import script_test as RunFun
-            RunFun = imp.load_source('script_test', current_locate+'/script_test.py')
+            #Get all function
+            for i in dir():
+                if re.match('^e_',i) or re.match('^v_',i):
+                    func_list.append(i)
+
 
             self.kill_Process() 
            
-            # logger.info(str('Checking Graphical Integrity by offline'))
-            # p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m',current_locate+'/merged.graphml','"random(edge_coverage(100))"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-            # output, error = p.communicate()
-
-            # if p.returncode == 0:
-            #     ok=True if output else False        
-            # else:
-            #     ok=False
-
-            # assert ok==True,error
-            # logger.info(str('successful'))
-
+ 
             logger.info(str('Run Websocket...'))
-
-            
 
             command = 'sudo fuser 8887/tcp > port_used_list.txt'
 
@@ -675,44 +654,38 @@ class GraphFun(object):
             logger.info(str('Checking every point by online'))
             gw_url = 'http://localhost:8887/graphwalker'
 
+            t = Timer(int(timeout), self.timeout_CG)
+            t.start()
+            
             while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' :
         
                 step = requests.get(gw_url+'/getNext').json()['CurrentElementName']
 
                 if step != '' :
 
-                    result = eval( "RunFun."+ step + "()" )
+                    print step
+                    if step in func_list:
                     
-                    len_before = len(func_list)
-
-                    if result in func_list:
-                    
-                        func_list.remove(result)
+                        func_list.remove(step)
                         
                     error_file = open(current_locate+'/Not_visited_points.txt', 'w')
                     error_file.write(str(func_list))
                     error_file.close()
 
-                    len_after = len(func_list)
-
-                    if len_before == len_after:
-                        count+=1
-                    else:
-                        count=0
-                    if count == fun_list_len * fun_list_len:
+                    
+                    if timer == 'stop':
                         logger.info(str('===============Result==================='))
                         logger.info(str('Visited incomplete graphics'))
-                        logger.info(str('Stop Condition is (length * length) Step'))
+                        logger.info(str('Timeout: ')+str(timeout)+str(' seconds'))
                         logger.info(str('========================================'))
                         break
             
-            if count < fun_list_len * fun_list_len:
+            if len(func_list) == 0:
 
                 logger.info(str('===========Result============='))
                 logger.info(str('Visited complete graphics'))
                 logger.info(str('=============================='))
 
-                        
             if func_list:
                 logger.info(str('Not visited points : '))
                 logger.info(func_list)
@@ -723,22 +696,19 @@ class GraphFun(object):
                 error_file.write(str(func_list))
                 error_file.close()
             else:
-        
-                p = Popen(['rm',current_locate+'/Not_visited_points.txt'], stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
-                output, error = p.communicate()
-                if p.returncode == 0:
-                    if output:
-                        if output_file:
-                            with open(output_file, 'w') as outfile:
-                                outfile.write(str(output))
-                        else:
-                            logger.info(output)
-                else:
-                    logger.error(str(error))          
+                
+                os.popen('rm '+current_locate+'/Not_visited_points.txt').read()
+     
+            t.cancel()
 
-            # os.popen('rm /usr/local/GraphwalkerRunner/lib/script_test.py /usr/local/GraphwalkerRunner/lib/script_test.pyc')
-            
             return func_list if func_list else True
+
+        except KeyboardInterrupt as e:
+            logger.error(str('[KeyboardInterrupt] : CheckGraphicalIntegrity'))
+            print 'KeyboardInterrupt'
+            print '\n-------------------------\nPlease click enter to end...\n-------------------------\n'
+            self.kill_Process('Runner.py')
+            self.kill_Process('')
 
         except Exception as e:
             logger.error(str(e))
