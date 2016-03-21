@@ -229,11 +229,11 @@
     -   Fail -> 回饋訊息：Visited incomplete graphics 與 Not visited points : xx,xx,xx,xx,....
 
 ##### Syntax：
-    `Graphwalker_Runner -c 'timeout'`
+    `Graphwalker_Runner -r -c 'timeout'`
 
 ##### Example:
 
-    $ Graphwalker_Runner -c '60'
+    $ Graphwalker_Runner -r -c '60'
     INFO : Check graphical integrity
     INFO : Run Websocket...
         二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
