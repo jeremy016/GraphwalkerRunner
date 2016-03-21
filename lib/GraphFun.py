@@ -353,7 +353,7 @@ class GraphFun(object):
 
             p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m','/usr/local/GraphwalkerRunner/lib/merged_mark.graphml','"'+stop_condition+'"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
             output, error = p.communicate()
-
+            logger.debug(str(output))
             if p.returncode == 0:
                 ok=True if output else False        
             else:
@@ -414,18 +414,26 @@ class GraphFun(object):
         step_count_list=[]
 
         for i in range(10):
+            
+            time_str=''
+    
+            if i==0:
+                time_str = 'The '+str(i+1)+'st times step'
+            elif i==1:
+                time_str = 'The '+str(i+1)+'nd times step'
+            elif i==2:
+                time_str = 'The '+str(i+1)+'rd times step'
+            else:
+                time_str = 'The '+str(i+1)+'th times step'
+
+            logger.debug(str(time_str))
+
             result = self.timeout('Count_Walked',c_locate,timeout)
             if result:
                 step = result.count('CurrentElementName')
                 step_count_list.append(int(step))
-                if i==0:
-                    print 'The '+str(i+1)+'st times step:'+str(step)
-                elif i==1:
-                    print 'The '+str(i+1)+'nd times step:'+str(step)
-                elif i==2:
-                    print 'The '+str(i+1)+'rd times step:'+str(step)
-                else:
-                    print 'The '+str(i+1)+'th times step:'+str(step)
+                print time_str+':'+str(step)
+
             else:
                 break
 

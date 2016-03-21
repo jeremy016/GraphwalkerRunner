@@ -12,7 +12,7 @@ from lib.Set_Resource import *
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.9'
+runner_version='1.0.10'
 # logger setting
 
 try:
@@ -351,7 +351,7 @@ elif args.run:
 		
 		#Stop Condition [-S]
 		args.Stop = args.Stop.replace('(','\\(').replace(')','\\)')
-		command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop) 
+		command = 'python -W ignore /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop) 
 		# command = 'python /usr/local/GraphwalkerRunner/lib/Runner.py '+current_locate+' '+str(args.Stop)
 
 		
