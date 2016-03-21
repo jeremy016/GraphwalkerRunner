@@ -57,13 +57,14 @@
         -i, --init            Rebuild graphwalker environment ,syntax：Graphwalker_Runner -i
         -u, --update          Pull graphwalker source code from github,syntax：Graphwalker_Runner -u
         -m, --model           MODEL Merge graphml files in folder ,folderpattern: graphml folder path,syntax：Graphwalker_Runner -m <folderpattern>
-        -c, --check           Check graphical integrity, output Not visited points file (Not_visited_points.txt),syntax：Graphwalker_Runner -c
+        -c, --check           Check graphical integrity, output Not visited points file (Not_visited_points.txt) , syntax：Graphwalker_Runner -c 'timeout' , timeout: nput timeout (seconds)
         -r, --run             Running graphwalker, syntax：Graphwalker_Runner -r
         -s, --shot SHOT       Screenshot when graphwalker running, TestDevice: 'pc' or 'mobile' , syntax: Graphwalker_Runner -r -s <TestDevice>
         -S, --Stop STOP       Set stop condition, default StopCondition:'random(edge_coverage(100))' , syntax:Graphwalker_Runner -r -S <StopCondition>
         -v, --version         Show current version number and change notes
         -vv, --ChangeNotes    Show all version number and change notes
         -p , --path PATH      Visits specific path , syntax: Graphwalker_Runner -p 'path' , path syntax :'point(0)->point(2)->point(3)'
+        -d  --devices DEVICES Setting mobile devices , syntax: Graphwalker_Runner -r -d 'devices number' or 'list' , input 'list' can select
 
 
 ### 建立初始環境
