@@ -218,24 +218,22 @@
     INFO : successful
 
 ### 確認圖形完整性
-以線上Graphwalker的方式去走訪合併後的圖形，如失敗，則列出所有沒走訪的點。
-
-*   註:因圖形有可能繪製成無窮回圈的狀況，故另外加一條停止條件機制(當執行到指定步數時時也會停止，並列出未走訪的點和邊)
+以線上Graphwalker的方式去走訪合併後的圖形，如失敗，則列出所有沒走訪的點。設置timeout機制，請自行輸入預計驗證時間(時間單位：秒)
 
 ##### 流程說明：
 1. 確認socket server port是否被佔用
 2. 啟動Web socket server
-3. 以"random(edge_coverage(100))"或"步驟等於(edge+vertex)^2)"作為"停止條件"，以隨機的方式執行script.py內的所有function。
+3. 以"random(edge_coverage(100))"或"達到timeout時間 "作為"停止條件"，以隨機的方式執行script.py內的所有function。
 4. 結果：
     -   Pass -> 回饋訊息：Visited complete graphics
     -   Fail -> 回饋訊息：Visited incomplete graphics 與 Not visited points : xx,xx,xx,xx,....
 
 ##### Syntax：
-    `Graphwalker_Runner -c`
+    `Graphwalker_Runner -c 'timeout'`
 
 ##### Example:
 
-    $ Graphwalker_Runner -c
+    $ Graphwalker_Runner -c '60'
     INFO : Check graphical integrity
     INFO : Run Websocket...
         二月 03, 2016 5:48:26 下午 com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
