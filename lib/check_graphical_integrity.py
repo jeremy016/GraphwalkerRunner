@@ -18,7 +18,8 @@ logger = logging.getLogger("example01")
 GF = GraphFun.GraphFun()
 
 try:
-	result = GF.timeout('CheckGraphicalIntegrity',sys.argv[1])
+	# result = GF.timeout('CheckGraphicalIntegrity',sys.argv[1])
+	result = GF.CheckGraphicalIntegrity(sys.argv[1],sys.argv[2])
 	assert result==True,'Graphics incomplete'
 
 except Exception as error:

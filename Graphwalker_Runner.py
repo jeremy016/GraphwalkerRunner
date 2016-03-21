@@ -8,7 +8,7 @@ import logging.config
 sys.path.append('/usr/local/GraphwalkerRunner')
 
 from lib.Set_Resource import *
-from lib.GraphFun import *
+# from lib.check_graphical_integrity import *
 from subprocess import Popen, PIPE
 
 
@@ -302,11 +302,12 @@ elif args.model:
 elif args.check:
 
 	logger.info('Check graphical integrity')
-	#os.popen('python /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+ current_locate).read()
-	#call(['python','/usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py',current_locate])
-	GF = GraphFun()
-	timeout=int(args.check)
-	GF.CheckGraphicalIntegrity(current_locate,timeout)
+
+	os.popen('python -W ignore /usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py '+ current_locate+' '+args.check).read()
+	# call(['python','/usr/local/GraphwalkerRunner/lib/check_graphical_integrity.py',current_locate,args.check])
+	# GF = check_graphical_integrity()
+	# timeout=int(args.check)
+	# GF.CheckGraphicalIntegrity(current_locate,timeout)
 
 #running graphwalker [-r]
 elif args.run:

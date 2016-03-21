@@ -3,7 +3,6 @@ import json,os,time,sys,shlex, subprocess,requests,re,thread,signal,imp
 from threading import Timer
 import xml.etree.ElementTree as ET
 import traceback
-import numpy as np
 
 import logging
 import logging.config
@@ -432,8 +431,8 @@ class GraphFun(object):
 
         assert step_count_list,'Stop_Condition all timeout'
 
-        Average = np.mean(step_count_list)
-        Std = np.std(step_count_list)
+        # Average = np.mean(step_count_list)
+        # Std = np.std(step_count_list)
         Max = max(step_count_list)
         Min = min(step_count_list)
         Stop = Max + Min * 2
@@ -614,6 +613,7 @@ class GraphFun(object):
     def CheckGraphicalIntegrity(self,current_locate,timeout):
 
         global timer
+
         # read file & get fun name & write to file
         timer=None
         try:
@@ -622,7 +622,9 @@ class GraphFun(object):
 
             func_list = []
 
-            from script import *
+            from script import * 
+            
+            logger.info(current_locate+'/script.py')
 
             #Get all function
             for i in dir():
@@ -635,7 +637,7 @@ class GraphFun(object):
  
             logger.info(str('Run Websocket...'))
 
-            command = 'sudo fuser 8887/tcp > port_used_list.txt'
+            command = 'fuser 8887/tcp > port_used_list.txt'
 
             os.popen(command)
             time.sleep(1)
@@ -713,6 +715,7 @@ class GraphFun(object):
         except Exception as e:
             logger.error(str(e))
 
+            return False
             # print '\n-------------------------\nException\n-------------------------\n'
             self.kill_Process()
             return e 
