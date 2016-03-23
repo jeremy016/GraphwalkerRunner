@@ -27,7 +27,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.9","Change log":["新增前十次count的走訪路徑"]}
+			{"Version":"1.0.10","Change log":["新增前十次count的走訪路徑"]}
 	}
 		
 	
