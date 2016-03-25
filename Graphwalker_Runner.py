@@ -7,12 +7,15 @@ import logging.config
 
 sys.path.append('/usr/local/GraphwalkerRunner')
 
-from lib.Set_Resource import *
+try:
+	from lib.Set_Resource import *
+except ImportError:
+	pass
 # from lib.check_graphical_integrity import *
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.10'
+runner_version='1.0.11'
 # logger setting
 
 try:
@@ -322,7 +325,7 @@ elif args.run:
 
 		#Set Devices [-d]
 		if args.devices :
-
+			from lib.Set_Resource import *
 			resource = Set_Resource(current_locate)
 
 			# select one
