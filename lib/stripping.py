@@ -95,9 +95,8 @@ if del_function:
 
 	for script_content_item in script_content_list:
 		for del_item in del_function:
-
 			if re.match(del_item,script_content_item):
-	        	deleted_function_list.append(script_content_item)
+				deleted_function_list.append(script_content_item)
 			# if str(del_item) in str(script_content_item):
 			# 	# print 'del_item:\n',del_item
 			# 	# print 'script_content_item:\n',script_content_item
