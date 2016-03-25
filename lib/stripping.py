@@ -24,11 +24,11 @@ if os.path.exists(current_locate+'/script.py'):
 
 	#Get all function(script.py)
 	from script import * 
-	for i in dir():
-	    if re.match('^e_',i) or re.match('^v_',i) or re.match('^V_',i) or re.match('^e_',i):
-	        fun_list.append(i)
 
-	#print fun_list
+	for i in dir():	
+	    if re.match('^e_|^v_|^V_',i):
+
+	        fun_list.append(i)
 
 
 	#Get del area
@@ -37,13 +37,13 @@ if os.path.exists(current_locate+'/script.py'):
 		old_contents = f.read()
 
 	if del_area_start in old_contents:
-
 		find_area = re.findall(r'\n==================\[Deleted functions, please check this]==================\n([\s\S]*)\n=============================\[Deleted functions]==========================\n', old_contents)
 		del_area = del_area_start+find_area[0]
 		#print 'del area\n',del_area
 
 	else:
 		del_area = del_area_start
+
 
 if os.path.exists(current_locate+'/merged.py'):
 
@@ -61,14 +61,13 @@ merged_func_list = []
 
 for i in merged_content_list:
 	merged_func_list.append(i[:i.find('() :')]) 
-	
-#print merged_func_list
 
 intersection = list(set(fun_list) & set(merged_func_list))
 
 del_function = list(set(fun_list) ^ set(intersection))
 
 new_function = list(set(merged_func_list) ^ set(intersection))
+
 
 
 if os.path.exists(current_locate+'/script.py'):
@@ -85,10 +84,7 @@ if os.path.exists(current_locate+'/script.py'):
 	script_content_list[-1]=script_content_list[-1]+'\n    return "'+script_content_list[-1][:script_content_list[-1].index('()')]+'"'
 
 for i in script_content_list:
-	script_content_list[script_content_list.index(i)] = 'def '+i
-
-#script_content_list
-# print script_content_list
+	script_content_list[script_content_list.index(i)] = '\ndef '+i
 
 #del not exist func
 deleted_function_list = []
@@ -100,6 +96,8 @@ if del_function:
 	for script_content_item in script_content_list:
 		for del_item in del_function:
 			if str(del_item) in str(script_content_item):
+				# print 'del_item:\n',del_item
+				# print 'script_content_item:\n',script_content_item
 				deleted_function_list.append(script_content_item)
 
 #目前現存的script function
@@ -130,8 +128,7 @@ if del_function:
 	if deleted_function_list:
 		for i in deleted_function_list:
 			Final_script+=i	
-
-	Final_script+='****ddd*****'+del_area_end
+	Final_script+=del_area_end
 
 
 #Write to script.py
