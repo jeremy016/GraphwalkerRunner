@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+sys.path.append(sys.argv[2])
 import script as Script
 
 import logging

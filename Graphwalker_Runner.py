@@ -193,11 +193,11 @@ elif args.path:
 	try:
 
 		#copy script to tool
-		call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
+		#call(['cp',current_locate+'/script.py','/usr/local/GraphwalkerRunner/lib/script.py'])
 
 		#run script by specific path
 		logger.info('run script by specific path...')
-		print os.popen('python /usr/local/GraphwalkerRunner/lib/Run_Specified_Path.py \''+str(args.path)+'\'').read()
+		print os.popen('python /usr/local/GraphwalkerRunner/lib/Run_Specified_Path.py \''+str(args.path)+'\' '+current_locate ).read()
 
 
 
