@@ -25,7 +25,7 @@ if os.path.exists(current_locate+'/script.py'):
 	#Get all function(script.py)
 	from script import * 
 	for i in dir():
-	    if re.match('^e_',i) or re.match('^v_',i):
+	    if re.match('^e_',i) or re.match('^v_',i) or re.match('^V_',i) or re.match('^e_',i):
 	        fun_list.append(i)
 
 	#print fun_list
@@ -131,7 +131,7 @@ if del_function:
 		for i in deleted_function_list:
 			Final_script+=i	
 
-	Final_script+=del_area_end
+	Final_script+='****ddd*****'+del_area_end
 
 
 #Write to script.py
