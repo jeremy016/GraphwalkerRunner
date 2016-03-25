@@ -12,121 +12,132 @@ merged_str=''
 del_area_start = '\'\'\'\n==================[Deleted functions, please check this]==================\n'
 del_area_end = '\n=============================[Deleted functions]==========================\n\'\'\''
 
+
 #read graphml function
-with open(sys.argv[1]+'/merged.py', 'r') as file:
 
-    for line in file:
+current_locate=sys.argv[1]
 
-        if 'def ' in line:
+sys.path.append(current_locate)
 
-        	fun_list.append(line[4:line.find('()')])
 
-#read script function
-if os.path.exists(sys.argv[1]+'/script.py'):
+if os.path.exists(current_locate+'/script.py'):
 
-	with open(sys.argv[1]+'/script.py', 'r') as file:
+	#Get all function(script.py)
+	from script import * 
+	for i in dir():
+	    if re.match('^e_',i) or re.match('^v_',i):
+	        fun_list.append(i)
 
-	    for line in file:
+	#print fun_list
 
-	    	if '[Deleted functions, please check this]' in line:
-    			skip_value = False
-	    	if '[Deleted functions]' in line:
-	    		skip_value = True
+
+	#Get del area
+	with open(current_locate+'/script.py', 'r') as f:
+
+		old_contents = f.read()
+
+	if del_area_start in old_contents:
+
+		find_area = re.findall(r'\n==================\[Deleted functions, please check this]==================\n([\s\S]*)\n=============================\[Deleted functions]==========================\n', old_contents)
+		del_area = del_area_start+find_area[0]
+		#print 'del area\n',del_area
+
+	else:
+		del_area = del_area_start
+
+if os.path.exists(current_locate+'/merged.py'):
+
+	#Get all function(merged.py)
+	with open(current_locate+'/merged.py', 'r') as f:
+
+		merged_contents = f.read()
+
+	find_area = re.findall(r'def ([\s\S]*)\n    return', merged_contents)
+
+	merged_content_list = find_area[0].split('def ')
+
+
+merged_func_list = []
+
+for i in merged_content_list:
+	merged_func_list.append(i[:i.find('() :')]) 
 	
-	        if 'def ' in line and skip_value:
-	        	
-	        	script_fun_list.append(line[4:line.find('()')])
+#print merged_func_list
+
+intersection = list(set(fun_list) & set(merged_func_list))
+
+del_function = list(set(fun_list) ^ set(intersection))
+
+new_function = list(set(merged_func_list) ^ set(intersection))
 
 
-	all_fun_str = '\n\n'
-else:
+if os.path.exists(current_locate+'/script.py'):
 
-	all_fun_str = '# -*- coding: utf-8 -*- \n\nglobal temp\ntemp={}\n\n\n'
+	#Get all function(merged.py)
+	with open(current_locate+'/script.py', 'r') as f:
 
+		script_contents = f.read()
 
+	find_area = re.findall(r'def ([\s\S]*)\n    return', script_contents)
 
-difference_sets =  list(set(fun_list) ^ set(script_fun_list))
-intersection = list(set(fun_list) & set(script_fun_list))
+	script_content_list = find_area[0].split('def ')
 
-new_function = list(set(fun_list) ^ set(intersection))
+	script_content_list[-1]=script_content_list[-1]+'\n    return "'+script_content_list[-1][:script_content_list[-1].index('()')]+'"'
 
-del_function = list(set(script_fun_list) ^ set(intersection))
+for i in script_content_list:
+	script_content_list[script_content_list.index(i)] = 'def '+i
 
+#script_content_list
+# print script_content_list
 
-#del func
-
-if os.path.exists(sys.argv[1]+'/script.py'):
-	removed_func_str = ''
-	with open(sys.argv[1]+'/script.py', 'r') as file:
-		read_all = file.read()
-		if del_area_start in read_all:
-			
-			ttt=True
-			del_area = read_all[read_all.find(del_area_start):read_all.find(del_area_end)+82]
-			del_area_not_end = del_area.replace(del_area_end,'')
-			read_all = read_all.replace(del_area,'')
-
-		temp = re.split('^def', read_all)
-		
-		for i in temp:
-			
-			if i[1:i.find('()')] in del_function:
-				
-				temp.remove(i)
-				del_func_list.append(i)
-
-		removed_func_str =  'def'.join(temp)
-
-else:
+#del not exist func
+deleted_function_list = []
+script_content_list_final =[]
 
 
-	removed_func_str = ''
+if del_function:
+
+	for script_content_item in script_content_list:
+		for del_item in del_function:
+			if str(del_item) in str(script_content_item):
+				deleted_function_list.append(script_content_item)
+
+#目前現存的script function
+script_content_list_final = list(set(script_content_list) ^ set(deleted_function_list))
+
+
+pre_script_content =re.split('def ', old_contents)[0]
+
+#Add pre_script_content
+Final_script = pre_script_content
+
+#Add 現存的script function
+for i in script_content_list_final:
+	Final_script+=i
+
+#Add New function
+
+if new_function:
+	for i in new_function:
+		new_str = 'def '+str(i)+'() :\n    print "'+str(i)+'"\n    global temp\n\n    return "'+str(i)+'"\n\n\n'
+
+		Final_script+=new_str
+
+#Add del function
+if del_function:
+	Final_script+=del_area
+
+	if deleted_function_list:
+		for i in deleted_function_list:
+			Final_script+=i	
+
+	Final_script+=del_area_end
+
+
+#Write to script.py
+with open(current_locate+'/script.py', 'w') as f:
+	f.write(str(Final_script))
 	
-#write fun file
-write_file = open(sys.argv[1]+'/script.py','w')
-
-write_file.write(removed_func_str)
-write_file.close()		
-
-
-#add new func
-for i in new_function:
-	
-	fun_str = Template('def $LABEL() :\n    print "$LABEL"\n    global temp\n    return "$LABEL"\n\n\n\n')
-	
-	all_fun_str += fun_str.substitute(LABEL=i)
-
-#write fun file
-write_file = open(sys.argv[1]+'/script.py','a')
-
-write_file.write(all_fun_str)
-
-write_file.close()
-
-
-#add del func
-write_file = open(sys.argv[1]+'/script.py','a')
-
-
-if ttt:
-	write_file.write(del_area_not_end)
-
-if del_func_list:
-
-	if not ttt:
-		write_file.write(del_area_start)
-
-	for i in del_func_list:
-		write_file.write(str('def')+i)
-
-	if not ttt:
-		write_file.write(del_area_end)
-if ttt:
-	write_file.write(del_area_end)
-
-
-write_file.close()
-
 
 
 #open merged.py
