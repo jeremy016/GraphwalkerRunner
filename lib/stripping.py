@@ -4,6 +4,7 @@ from string import Template
 
 ttt=False
 skip_value = True
+old_contents=None
 fun_list = []
 script_fun_list = []
 del_func_list = []
@@ -56,11 +57,13 @@ if os.path.exists(current_locate+'/merged.py'):
 
 	merged_content_list = find_area[0].split('def ')
 
-
+# print '\n\nmerged_content_list ',merged_content_list
 merged_func_list = []
 
 for i in merged_content_list:
 	merged_func_list.append(i[:i.find('() :')]) 
+
+# print '\n\nmerged_func_list ',merged_func_list
 
 intersection = list(set(fun_list) & set(merged_func_list))
 
@@ -68,7 +71,9 @@ del_function = list(set(fun_list) ^ set(intersection))
 
 new_function = list(set(merged_func_list) ^ set(intersection))
 
+# print '\n\nintersection ',intersection
 
+# print '\n\nnew_function ', new_function
 
 if os.path.exists(current_locate+'/script.py'):
 
@@ -79,12 +84,12 @@ if os.path.exists(current_locate+'/script.py'):
 
 	find_area = re.findall(r'def ([\s\S]*)\n    return', script_contents)
 
-	script_content_list = find_area[0].split('def ')
+	script_content_list = find_area[0].split('\ndef ')
 
 	script_content_list[-1]=script_content_list[-1]+'\n    return "'+script_content_list[-1][:script_content_list[-1].index('()')]+'"'
 
-for i in script_content_list:
-	script_content_list[script_content_list.index(i)] = '\ndef '+i
+	for i in script_content_list:
+		script_content_list[script_content_list.index(i)] = '\ndef '+i
 
 #del not exist func
 deleted_function_list = []
@@ -95,21 +100,27 @@ if del_function:
 
 	for script_content_item in script_content_list:
 		for del_item in del_function:
-			if re.match(del_item,script_content_item):
+			if str(del_item) in str(script_content_item):
+				# print 'del_item:\n',del_item
+				# print 'script_content_item:\n',script_content_item
 				deleted_function_list.append(script_content_item)
-			# if str(del_item) in str(script_content_item):
-			# 	# print 'del_item:\n',del_item
-			# 	# print 'script_content_item:\n',script_content_item
-			# 	deleted_function_list.append(script_content_item)
 
 #目前現存的script function
-script_content_list_final = list(set(script_content_list) ^ set(deleted_function_list))
+if old_contents:
+	script_content_list_final = list(set(script_content_list) ^ set(deleted_function_list))
 
 
-pre_script_content =re.split('def ', old_contents)[0]
+#input old data
+if old_contents:
+	pre_script_content =re.split('def ', old_contents)[0]
+
+else:
+	pre_script_content ="# -*- coding: utf-8 -*-\n\n\nglobal temp\ntemp={}\n\n\n\n"
+
 
 #Add pre_script_content
 Final_script = pre_script_content
+
 
 #Add 現存的script function
 for i in script_content_list_final:
@@ -137,7 +148,6 @@ if del_function:
 with open(current_locate+'/script.py', 'w') as f:
 	f.write(str(Final_script))
 	
-
 
 #open merged.py
 write_file = open(sys.argv[1]+'/merged.py','r')
