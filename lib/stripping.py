@@ -5,6 +5,7 @@ from string import Template
 ttt=False
 skip_value = True
 old_contents=None
+del_area=None
 fun_list = []
 script_fun_list = []
 del_func_list = []
@@ -40,11 +41,11 @@ if os.path.exists(current_locate+'/script.py'):
 	if del_area_start in old_contents:
 		find_area = re.findall(r'\n==================\[Deleted functions, please check this]==================\n([\s\S]*)\n=============================\[Deleted functions]==========================\n', old_contents)
 		del_area = del_area_start+find_area[0]
-		#print 'del area\n',del_area
+		
 
-	else:
-		del_area = del_area_start
-
+	# else:
+	# 	del_area = del_area_start
+# print 'del area\n',del_area
 
 if os.path.exists(current_locate+'/merged.py'):
 
@@ -64,13 +65,13 @@ for i in merged_content_list:
 	merged_func_list.append(i[:i.find('() :')]) 
 
 # print '\n\nmerged_func_list ',merged_func_list
-
+# print fun_list
 intersection = list(set(fun_list) & set(merged_func_list))
-
+# print intersection
 del_function = list(set(fun_list) ^ set(intersection))
-
+# print del_function
 new_function = list(set(merged_func_list) ^ set(intersection))
-
+# print new_function
 # print '\n\nintersection ',intersection
 
 # print '\n\nnew_function ', new_function
@@ -81,6 +82,8 @@ if os.path.exists(current_locate+'/script.py'):
 	with open(current_locate+'/script.py', 'r') as f:
 
 		script_contents = f.read()
+		if del_area_start in script_contents:
+			script_contents = script_contents[:script_contents.index(del_area_start)]
 
 	find_area = re.findall(r'def ([\s\S]*)\n    return', script_contents)
 
@@ -89,7 +92,15 @@ if os.path.exists(current_locate+'/script.py'):
 	script_content_list[-1]=script_content_list[-1]+'\n    return "'+script_content_list[-1][:script_content_list[-1].index('()')]+'"'
 
 	for i in script_content_list:
-		script_content_list[script_content_list.index(i)] = '\ndef '+i
+
+		if del_area_start in i :
+			script_content_temp= i[:i.index(del_area_start)]
+			# print script_content_temp
+		else:
+			script_content_temp = i
+
+		script_content_list[script_content_list.index(i)] = '\ndef '+script_content_temp
+
 
 #del not exist func
 deleted_function_list = []
@@ -135,13 +146,30 @@ if new_function:
 		Final_script+=new_str
 
 #Add del function
-if del_function:
-	Final_script+=del_area
 
-	if deleted_function_list:
-		for i in deleted_function_list:
-			Final_script+=i	
+#存在舊的刪除區與新刪除的function
+if del_area and deleted_function_list:
+
+	Final_script+='\n\n'+del_area
+
+	# print deleted_function_list
+	for i in deleted_function_list:
+		Final_script+=i	
+
 	Final_script+=del_area_end
+
+#只存在新刪除的function
+elif deleted_function_list:
+	Final_script+='\n\n'+del_area_start
+	for i in deleted_function_list:
+		Final_script+=i	
+	Final_script+=del_area_end
+
+#只存在舊的刪除區
+elif del_area:
+	Final_script+='\n\n'+del_area
+	Final_script+=del_area_end
+
 
 
 #Write to script.py
