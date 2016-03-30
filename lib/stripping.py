@@ -43,9 +43,6 @@ if os.path.exists(current_locate+'/script.py'):
 		del_area = del_area_start+find_area[0]
 		
 
-	# else:
-	# 	del_area = del_area_start
-# print 'del area\n',del_area
 
 if os.path.exists(current_locate+'/merged.py'):
 
@@ -53,28 +50,23 @@ if os.path.exists(current_locate+'/merged.py'):
 	with open(current_locate+'/merged.py', 'r') as f:
 
 		merged_contents = f.read()
+		
 
 	find_area = re.findall(r'def ([\s\S]*)\n    return', merged_contents)
 
 	merged_content_list = find_area[0].split('def ')
 
-# print '\n\nmerged_content_list ',merged_content_list
 merged_func_list = []
 
 for i in merged_content_list:
 	merged_func_list.append(i[:i.find('() :')]) 
 
-# print '\n\nmerged_func_list ',merged_func_list
-# print fun_list
 intersection = list(set(fun_list) & set(merged_func_list))
-# print intersection
-del_function = list(set(fun_list) ^ set(intersection))
-# print del_function
-new_function = list(set(merged_func_list) ^ set(intersection))
-# print new_function
-# print '\n\nintersection ',intersection
 
-# print '\n\nnew_function ', new_function
+del_function = list(set(fun_list) ^ set(intersection))
+
+new_function = list(set(merged_func_list) ^ set(intersection))
+
 
 if os.path.exists(current_locate+'/script.py'):
 
@@ -118,7 +110,9 @@ if del_function:
 
 #目前現存的script function
 if old_contents:
+
 	script_content_list_final = list(set(script_content_list) ^ set(deleted_function_list))
+
 
 
 #input old data
@@ -137,16 +131,17 @@ Final_script = pre_script_content
 for i in script_content_list_final:
 	Final_script+=i
 
-#Add New function
 
+#Add New function
 if new_function:
+	new_str = '\n\n'
 	for i in new_function:
-		new_str = 'def '+str(i)+'() :\n    print "'+str(i)+'"\n    global temp\n\n    return "'+str(i)+'"\n\n\n'
+		new_str += 'def '+str(i)+'() :\n    print "'+str(i)+'"\n    global temp\n\n    return "'+str(i)+'"\n\n\n'
 
 		Final_script+=new_str
 
-#Add del function
 
+#Add del function
 #存在舊的刪除區與新刪除的function
 if del_area and deleted_function_list:
 
