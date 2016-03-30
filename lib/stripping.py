@@ -62,15 +62,15 @@ for i in merged_content_list:
 	merged_func_list.append(i[:i.find('() :')]) 
 
 intersection = list(set(fun_list) & set(merged_func_list))
-
+# print intersection.index('e_btn_Home_FROM_Drink_Page')
 del_function = list(set(fun_list) ^ set(intersection))
-
+# print del_function.index('e_btn_Home_FROM_Drink_Page')
 new_function = list(set(merged_func_list) ^ set(intersection))
-
+# print new_function.index('e_btn_Home_FROM_Drink_Page')
 
 if os.path.exists(current_locate+'/script.py'):
 
-	#Get all function(merged.py)
+	#Get all function(script.py)
 	with open(current_locate+'/script.py', 'r') as f:
 
 		script_contents = f.read()
@@ -93,7 +93,6 @@ if os.path.exists(current_locate+'/script.py'):
 
 		script_content_list[script_content_list.index(i)] = '\ndef '+script_content_temp
 
-
 #del not exist func
 deleted_function_list = []
 script_content_list_final =[]
@@ -103,18 +102,25 @@ if del_function:
 
 	for script_content_item in script_content_list:
 		for del_item in del_function:
-			if str(del_item) in str(script_content_item):
+			pattern_temp = str(script_content_item[script_content_item.index('def ')+4:script_content_item.index('()')])
+			if str(del_item) == pattern_temp:
+				print 'start:'
+				print del_item
+				print 'OK'
+				print pattern_temp
+				print '-------------'
 				# print 'del_item:\n',del_item
 				# print 'script_content_item:\n',script_content_item
 				deleted_function_list.append(script_content_item)
 
+# print deleted_function_list
 #目前現存的script function
 if old_contents:
 
 	script_content_list_final = list(set(script_content_list) ^ set(deleted_function_list))
 
 
-
+# print script_content_list_final
 #input old data
 if old_contents:
 	pre_script_content =re.split('def ', old_contents)[0]
