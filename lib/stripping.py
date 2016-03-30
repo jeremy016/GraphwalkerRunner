@@ -85,7 +85,7 @@ if os.path.exists(current_locate+'/script.py'):
 		if del_area_start in script_contents:
 			script_contents = script_contents[:script_contents.index(del_area_start)]
 
-	find_area = re.findall(r'def ([\s\S]*)\n    return', script_contents)
+	find_area = re.findall(r'\ndef ([\s\S]*)\n    return', script_contents)
 
 	script_content_list = find_area[0].split('\ndef ')
 
