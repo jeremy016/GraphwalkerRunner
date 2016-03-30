@@ -104,11 +104,6 @@ if del_function:
 		for del_item in del_function:
 			pattern_temp = str(script_content_item[script_content_item.index('def ')+4:script_content_item.index('()')])
 			if str(del_item) == pattern_temp:
-				print 'start:'
-				print del_item
-				print 'OK'
-				print pattern_temp
-				print '-------------'
 				# print 'del_item:\n',del_item
 				# print 'script_content_item:\n',script_content_item
 				deleted_function_list.append(script_content_item)
