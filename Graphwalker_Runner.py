@@ -15,7 +15,7 @@ except ImportError:
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.11'
+runner_version='1.0.12'
 # logger setting
 
 try:
@@ -270,7 +270,7 @@ elif args.model:
 	try:
 
 		logger.info('merge graph...')
-		call(['python','/usr/local/GraphwalkerRunner/lib/graph_merge.py',args.model,current_locate])
+		call(['python','-W','ignore','/usr/local/GraphwalkerRunner/lib/graph_merge.py',args.model,current_locate])
 
 		
 		#graphml -> dot
@@ -291,7 +291,7 @@ elif args.model:
 
 		#stripping function
 		logger.info('Generate python stub source code & graphwalker Runner ... (script.py)')
-		call(['python', '/usr/local/GraphwalkerRunner/lib/stripping.py',current_locate])
+		call(['sudo','python', '/usr/local/GraphwalkerRunner/lib/stripping.py',current_locate])
 
 		#del dot
 		logger.info('del dot')

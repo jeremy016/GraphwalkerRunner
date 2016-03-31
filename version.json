@@ -3,10 +3,11 @@
 
 		"latest":
 
-			{"Version":"1.0.16","Change log":["修復合併script問題"]},
+			{"Version":"1.0.17","Change log":["Add count stop condition error message"]},
 
 		"old":
 		[	
+			{"Version":"1.0.16","Change log":["修復合併script問題"]},
 			{"Version":"1.0.15","Change log":["新增前十次count的走訪路徑"]},
 			{"Version":"1.0.14","Change log":["新增驗證timeout機制"]},
 			{"Version":"1.0.13","Change log":["解決more than one device bug"]},
@@ -28,7 +29,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.11","Change log":["新增前十次count的走訪路徑","Add Except error when init."]}
+			{"Version":"1.0.12","Change log":["Fixed permission denied issue"]}
 	}
 		
 	

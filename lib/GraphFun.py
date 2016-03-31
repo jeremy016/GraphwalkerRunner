@@ -354,10 +354,12 @@ class GraphFun(object):
             p = Popen(['java','-jar','/usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar','offline','--json','-m','/usr/local/GraphwalkerRunner/lib/merged_mark.graphml','"'+stop_condition+'"'],stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
             output, error = p.communicate()
             logger.debug(str(output))
+
             if p.returncode == 0:
-                ok=True if output else False        
+                if error:
+                    ok = False
             else:
-                ok=False
+                ok=False if error else True
 
             assert ok==True,error
 
@@ -629,7 +631,8 @@ class GraphFun(object):
             sys.path.append(current_locate)
 
             func_list = []
-
+            logger.info(current_locate+'/script.py')
+            
             from script import * 
             
             logger.info(current_locate+'/script.py')
