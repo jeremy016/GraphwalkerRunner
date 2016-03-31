@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-import sys,os,re
+import sys,os,re,stat
 from string import Template
 
 ttt=False
@@ -129,18 +129,20 @@ Final_script = pre_script_content
 
 
 #Add 現存的script function
-for i in script_content_list_final:
-	Final_script+=i
+all_script_content_list = script_content_list_final
 
 
 #Add New function
 if new_function:
-	new_str = '\n\n'
 	for i in new_function:
-		new_str += 'def '+str(i)+'() :\n    print "'+str(i)+'"\n    global temp\n\n    return "'+str(i)+'"\n\n\n'
+		new_str = '\ndef '+str(i)+'() :\n    print "'+str(i)+'"\n    global temp\n\n    return "'+str(i)+'"\n\n\n'
 
-		Final_script+=new_str
+		all_script_content_list.append(new_str)
 
+all_script_content_list = sorted(all_script_content_list,key = str.lower)  
+
+for i in all_script_content_list:
+	Final_script+=i
 
 #Add del function
 #存在舊的刪除區與新刪除的function
@@ -171,7 +173,8 @@ elif del_area:
 #Write to script.py
 with open(current_locate+'/script.py', 'w') as f:
 	f.write(str(Final_script))
-	
+
+os.chmod(current_locate+'/script.py', stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)	
 
 #open merged.py
 write_file = open(sys.argv[1]+'/merged.py','r')
