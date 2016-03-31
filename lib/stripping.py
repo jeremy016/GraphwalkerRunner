@@ -134,6 +134,7 @@ all_script_content_list = script_content_list_final
 
 #Add New function
 if new_function:
+	new_function = list(set(new_function))
 	for i in new_function:
 		new_str = '\ndef '+str(i)+'() :\n    print "'+str(i)+'"\n    global temp\n\n    return "'+str(i)+'"\n\n\n'
 
