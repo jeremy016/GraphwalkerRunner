@@ -15,7 +15,7 @@ except ImportError:
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.12'
+runner_version='1.0.13'
 # logger setting
 
 try:
@@ -113,6 +113,8 @@ parser.add_argument("-p", "--path", help="Visits specific path , syntax: Graphwa
 parser.add_argument("-l", "--logcat", help="Saving android logcat information , syntax: Graphwalker_Runner -r -l ",action="store_true") 
 # Set Devices 
 parser.add_argument("-d", "--devices", help="Setting mobile devices , syntax: Graphwalker_Runner -r -d 'devices number' or 'list' , input 'list' can select ") 
+# Set Timeout
+parser.add_argument("-t", "--timeout", help="Setting count steps timeout , syntax: Graphwalker_Runner -r -t 'timeout number' ") 
 
 
 # 解析參數
@@ -376,6 +378,12 @@ elif args.run:
 			command += ' '+args_devices
 		else:
 			command += ' False'
+
+		#Timeout [-t]
+		if args.timeout:
+			command += ' '+args.timeout
+		else:
+			command += ' False'		
 		
 		#Running GraphwalkerRunner
 		p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)

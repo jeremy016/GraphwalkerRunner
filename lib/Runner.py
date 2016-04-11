@@ -55,7 +55,9 @@ try:
 
 #Get average count
     logger.info('Get average count...')
-    Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
+    argv_6 = sys.argv[6] if sys.argv[6] != 'False' else 300
+
+    Max,Min,Stop = GF.Stop_Condition(sys.argv[1],argv_6)
   
     test_count=0
 

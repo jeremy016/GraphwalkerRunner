@@ -20,9 +20,12 @@ logger = logging.getLogger("example01")
 
 class GraphFun(object):
 
-    global Interrupt_value,current_locate,temp
+    global Interrupt_value,current_locate,temp,ok
+    ok=True
+
     Interrupt_value=True
     temp={}
+
     def make_fun(self,merge_grapg):
 
         all_fun=[]
@@ -346,6 +349,7 @@ class GraphFun(object):
         return graph_all
 
     def Count_Walked(self, stop_condition="random(edge_coverage(100))"):
+        global ok
         Walked_list = []
 
         #path_result = os.popen("java -jar /usr/local/GraphwalkerRunne/lib/graphwalker-cli-SNAPSHOT.jar offline --json -m /usr/local/GraphwalkerRunner/lib/merged_mark.graphml \""+stop_condition+"\"").read()
@@ -359,7 +363,12 @@ class GraphFun(object):
                 if error:
                     ok = False
             else:
-                ok=False if error else True
+                # ok=False if error else True
+                ok=True
+                # if error:
+                #     ok = False
+                # else:
+                #     ok=True
 
             assert ok==True,error
 
