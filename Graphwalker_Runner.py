@@ -15,7 +15,7 @@ except ImportError:
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.14'
+runner_version='1.0.15'
 # logger setting
 
 try:
