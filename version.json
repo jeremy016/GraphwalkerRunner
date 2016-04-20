@@ -7,7 +7,7 @@
 
 		"old":
 		[	
-			{"Version":"1.0.20","Change log":["Add count steps timeout"]}
+			{"Version":"1.0.20","Change log":["Add count steps timeout"]},
 			{"Version":"1.0.19","Change log":["Fixed double function."]},
 			{"Version":"1.0.18","Change log":["Add function sorting"]},
 			{"Version":"1.0.17","Change log":["Add count stop condition error message"]},
