@@ -33,7 +33,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.14","Change log":["Add check graph offline and debug"]}
+			{"Version":"1.0.14","Change log":["Add check graph offline and debug"]},
 	}
 		
 	
