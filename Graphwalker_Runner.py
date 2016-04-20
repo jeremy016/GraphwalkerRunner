@@ -396,9 +396,12 @@ elif args.run:
 	
 
 elif args.debug:
-	logger.info('Check graph offline')
+	try:
+		logger.info('Check graph offline')
+		call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
 
-	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
+	except Exception,e:
+		logger.error(str(e))
  
 
 
