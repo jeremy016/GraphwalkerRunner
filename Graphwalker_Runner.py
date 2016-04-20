@@ -15,7 +15,7 @@ except ImportError:
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.13'
+runner_version='1.0.14'
 # logger setting
 
 try:
@@ -115,7 +115,8 @@ parser.add_argument("-l", "--logcat", help="Saving android logcat information , 
 parser.add_argument("-d", "--devices", help="Setting mobile devices , syntax: Graphwalker_Runner -r -d 'devices number' or 'list' , input 'list' can select ") 
 # Set Timeout
 parser.add_argument("-t", "--timeout", help="Setting count steps timeout , syntax: Graphwalker_Runner -r -t 'timeout number' ") 
-
+# Set Debug
+parser.add_argument("-D", "--debug", help="check offline , syntax: Graphwalker_Runner -D ",action="store_true")
 
 # 解析參數
 args = parser.parse_args()
@@ -389,14 +390,16 @@ elif args.run:
 		p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
 		output_immediately()
 
-	
-	except Exception, e:
-		print e
+	except Exception,e:
+
 		logger.error(str(e))
-
-
 	
 
+elif args.debug:
+	logger.info('Check graph offline')
+
+	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
+ 
 
 
 

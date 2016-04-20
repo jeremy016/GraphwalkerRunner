@@ -69,7 +69,14 @@ class GraphFun(object):
         edgestr = './/' + ns + 'edge'
 
         doc = ET.fromstring(d)
+        # print "***"
+        # print doc
+
         verts, edges = [], []
+
+        # print "333"
+        # print doc.findall('.//' + ns + 'node')
+        # print "333"
 
         for n in doc.findall('.//' + ns + 'node'):
             l = n.find('.//' + y + 'NodeLabel')
@@ -77,11 +84,14 @@ class GraphFun(object):
                 continue
 
             verts.append([n.attrib['id'], l.text.strip()])
-
+            # print "888"
+            # print verts
         for n in doc.findall('.//' + ns + 'edge'):
             l = n.find('.//' + y + 'EdgeLabel')
             e_id = n.attrib['id']
             e_name = l.text.strip() if l is not None else None
+            # a = l.text.split("\n")
+            # print a
             e_src = n.attrib['source']
             e_tgt = n.attrib['target']
             edges.append([e_id, e_name, e_src, e_tgt])
@@ -240,7 +250,7 @@ class GraphFun(object):
     def find_pre_replace(self,temp_list): 
     
         #find all target
-             
+
         for i in temp_list:
             
             if type(i).__name__ == 'list':
@@ -682,6 +692,8 @@ class GraphFun(object):
             while requests.get(gw_url+'/hasNext').json()['HasNext'] == 'true' :
         
                 step = requests.get(gw_url+'/getNext').json()['CurrentElementName']
+                # print step
+                # logger.info(str(step))
 
                 if step != '' :
 
@@ -863,3 +875,25 @@ class GraphFun(object):
 
         except Exception as e:
             logger.error(str(e))
+
+    def edge_info(self, d):
+    
+        y = '{http://www.yworks.com/xml/graphml}'
+        ns = '{http://graphml.graphdrawing.org/xmlns}'
+        nodestr = './/' + ns + 'node'
+        edgestr = './/' + ns + 'edge'
+
+        doc = ET.fromstring(d)
+        verts, edges = [], []
+        
+        for n in doc.findall('.//' + ns + 'edge'):
+            l = n.find('.//' + y + 'EdgeLabel')
+            a = l.text.split("\n")
+            edges.append(a)
+        return edges
+
+    def check_offline(self,current_locate):
+        p = os.popen("java -jar  /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar -d DEBUG offline --json -m "+current_locate+ '/merged.graphml'+' \"random(edge_coverage(100))\" &')
+        r = p.read()
+        logger.debug(str(r))
+
