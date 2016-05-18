@@ -15,12 +15,6 @@ temp={}
 
 
 
-
-
-
-
-
-
 #init parameter
 NoneError = True
 Pid_exist = True
@@ -54,15 +48,15 @@ try:
     assert ok==True,error
 
 #Get average count
-    logger.info('Get average count...')
-    Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
+    # logger.info('Get average count...')
+    # Max,Min,Stop = GF.Stop_Condition(sys.argv[1])
   
     test_count=0
 
     argv_3 = sys.argv[3] if sys.argv[3] != 'False' else False
     argv_4 = True if sys.argv[4] != 'False' else False
     argv_5 = sys.argv[5] if sys.argv[5] != 'False' else False
-    
+    Stop = int(sys.argv[7])
     if argv_3:
 
         if not os.path.exists(sys.argv[1]+'/Screenshot'):
@@ -122,7 +116,9 @@ try:
                 except Exception as e:
                     logger.debug('[CurrentElementName error] : '+str(e))
                     # BLOCKED Error Handling 
-                    BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action('getNext', e, BLOCKED, Max, Min, step, NoneError,Test_result)
+                    # BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action('getNext', e, BLOCKED, Max, Min, step, NoneError,Test_result)
+                    BLOCKED,NoneError,Test_result = GF.BLOCKED_Exception_Action('getNext', e, BLOCKED, step, NoneError,Test_result)
+
                     break
 
                 step_list.append(str(step))
@@ -132,6 +128,7 @@ try:
                     try:
                         eval( "RunFun."+step + "()" )
                         Stop-=1
+                        print "Steps left: "+str(Stop)
 
                         GF.screen_shot(argv_3,sys.argv[1],command,str(step_count),step,argv_5)
             
@@ -140,7 +137,8 @@ try:
                     #Fun error
                     except Exception as e:
                         #Fun error Handling
-                        Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list,sys.argv[1],argv_4)
+                        # Stop,NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, Max, Min, step, NoneError,Test_result,step_list,error_list,sys.argv[1],argv_4)
+                        NoneError,Test_result,error_list = GF.Fun_Exception_Action(e, step, NoneError,Test_result,step_list,error_list,sys.argv[1],argv_4)
                         logger.debug('[Function error] : '+str(Test_result))
                      
                         break
@@ -166,7 +164,8 @@ try:
 
             print '----------'
             # BLOCKED Error Handling
-            BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action(root_cause, e, BLOCKED, Max, Min, step, NoneError,Test_result)
+            # BLOCKED,Stop,NoneError,Test_result = GF.BLOCKED_Exception_Action(root_cause, e, BLOCKED, Max, Min, step, NoneError,Test_result)
+            BLOCKED,NoneError,Test_result = GF.BLOCKED_Exception_Action(root_cause, e, BLOCKED, step, NoneError,Test_result)
 
 
         if(not NoneError):

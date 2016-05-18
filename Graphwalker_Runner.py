@@ -115,8 +115,11 @@ parser.add_argument("-l", "--logcat", help="Saving android logcat information , 
 parser.add_argument("-d", "--devices", help="Setting mobile devices , syntax: Graphwalker_Runner -r -d 'devices number' or 'list' , input 'list' can select ") 
 # Set Timeout
 parser.add_argument("-t", "--timeout", help="Setting count steps timeout , syntax: Graphwalker_Runner -r -t 'timeout number' ") 
+# Set Maximum run steps 
+parser.add_argument("-step", "--step", help="Setting maximum run steps , syntax: Graphwalker_Runner -r -step 'step number' ") 
 # Set Debug
 parser.add_argument("-D", "--debug", help="check offline , syntax: Graphwalker_Runner -D ",action="store_true")
+
 
 # 解析參數
 args = parser.parse_args()
@@ -385,7 +388,13 @@ elif args.run:
 			command += ' '+args.timeout
 		else:
 			command += ' False'		
-		
+
+		#Maximum run steps [-step]
+		if args.step:
+			command += ' '+args.step
+		else:
+			command += ' False'
+
 		#Running GraphwalkerRunner
 		p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
 		output_immediately()
@@ -396,12 +405,14 @@ elif args.run:
 	
 
 elif args.debug:
-	try:
-		logger.info('Check graph offline')
-		call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
+	logger.info('Check graph offline')
+	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
+	# try:
+	# 	logger.info('Check graph offline')
+	# 	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
 
-	except Exception,e:
-		logger.error(str(e))
+	# except Exception,e:
+	# 	logger.error(str(e))
  
 
 

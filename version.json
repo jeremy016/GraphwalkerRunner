@@ -3,10 +3,11 @@
 
 		"latest":
 
-			{"Version":"1.0.21","Change log":["Add check graph offline and debug"]},
+			{"Version":"1.0.22","Change log":["Add run with steps stop condition"]},
 
 		"old":
 		[	
+			{"Version":"1.0.21","Change log":["Add check graph offline and debug"]},
 			{"Version":"1.0.20","Change log":["Add count steps timeout"]},
 			{"Version":"1.0.19","Change log":["Fixed double function."]},
 			{"Version":"1.0.18","Change log":["Add function sorting"]},
@@ -33,7 +34,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.14","Change log":["Add check graph offline and debug"]}
+			{"Version":"1.0.15","Change log":["Add run with steps stop condition"]}
 	}
 		
 	

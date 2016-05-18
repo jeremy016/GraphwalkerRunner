@@ -480,7 +480,8 @@ class GraphFun(object):
         os.popen('import -display :'+str(display_num)+' -window root '+c_locate+'/Screenshot/'+step+'.png') 
 
 
-    def BLOCKED_Exception_Action(self, Error_Type, e, BLOCKED, Max, Min,step, NoneError ,Test_result):
+    # def BLOCKED_Exception_Action(self, Error_Type, e, BLOCKED, Max, Min,step, NoneError ,Test_result):
+    def BLOCKED_Exception_Action(self, Error_Type, e, BLOCKED, step, NoneError ,Test_result):
 
         print '\nStep('+Error_Type+') occured error:\n'+str(e)+'\n'
 
@@ -492,15 +493,16 @@ class GraphFun(object):
 
         BLOCKED[Error_Type].append(str(step))
 
-        Stop = Max + Min * 2
+        # Stop = Max + Min * 2
 
         NoneError = not NoneError
 
         Test_result['Fail_Fun'] = str(step)
 
-        return BLOCKED, Stop, NoneError, Test_result
+        return BLOCKED, NoneError, Test_result
 
-    def Fun_Exception_Action(self, e, Max, Min, step, NoneError,Test_result,step_list,error_list,current_locate,argv_4):
+    # def Fun_Exception_Action(self, e, Max, Min, step, NoneError,Test_result,step_list,error_list,current_locate,argv_4):
+    def Fun_Exception_Action(self, e, step, NoneError,Test_result,step_list,error_list,current_locate,argv_4):
 
         _, _, tb = sys.exc_info()
         traceback.print_tb(tb) # Fixed format
@@ -512,7 +514,7 @@ class GraphFun(object):
         
         #self.Screenshot(0,step)
 
-        Stop = Max + Min * 2
+        # Stop = Max + Min * 2
         NoneError = not NoneError
         Test_result['Fail_Fun'] = str(step)
         Test_result['Error_Message'] = error_msg
@@ -528,7 +530,8 @@ class GraphFun(object):
             if result_log:
                 Test_result['Android_Log'] = result_log
 
-        return Stop,NoneError,Test_result,error_list
+        # return Stop,NoneError,Test_result,error_list
+        return NoneError,Test_result,error_list
 
     def Connection_Aborted(self,e,stop_condition='random(edge_coverage(100))'):
 
@@ -896,4 +899,3 @@ class GraphFun(object):
         p = os.popen("java -jar  /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar -d DEBUG offline --json -m "+current_locate+ '/merged.graphml'+' \"random(edge_coverage(100))\" &')
         r = p.read()
         logger.debug(str(r))
-
