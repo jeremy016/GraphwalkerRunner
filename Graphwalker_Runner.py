@@ -121,6 +121,7 @@ parser.add_argument("-step", "--step", help="Setting maximum run steps , syntax:
 parser.add_argument("-D", "--debug", help="check offline , syntax: Graphwalker_Runner -D ",action="store_true")
 
 
+
 # 解析參數
 args = parser.parse_args()
 
@@ -394,6 +395,7 @@ elif args.run:
 			command += ' '+args.step
 		else:
 			command += ' False'
+
 
 		#Running GraphwalkerRunner
 		p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
