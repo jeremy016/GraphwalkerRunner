@@ -119,6 +119,8 @@ parser.add_argument("-t", "--timeout", help="Setting count steps timeout , synta
 parser.add_argument("-step", "--step", help="Setting maximum run steps , syntax: Graphwalker_Runner -r -step 'step number' ") 
 # Set Debug
 parser.add_argument("-D", "--debug", help="check offline , syntax: Graphwalker_Runner -D ",action="store_true")
+# check all variables
+parser.add_argument("-var", "--variable", help="check all variables , syntax: Graphwalker_Runner -var ",action="store_true")
 
 
 
@@ -409,12 +411,10 @@ elif args.run:
 elif args.debug:
 	logger.info('Check graph offline')
 	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
-	# try:
-	# 	logger.info('Check graph offline')
-	# 	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
 
-	# except Exception,e:
-	# 	logger.error(str(e))
+elif args.variable:
+	logger.info('Check graph all variables')
+	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_all_variable.py',current_locate])
  
 
 

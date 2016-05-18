@@ -498,7 +498,8 @@ class GraphFun(object):
         NoneError = not NoneError
 
         Test_result['Fail_Fun'] = str(step)
-
+        
+        # return BLOCKED, Stop, NoneError, Test_result
         return BLOCKED, NoneError, Test_result
 
     # def Fun_Exception_Action(self, e, Max, Min, step, NoneError,Test_result,step_list,error_list,current_locate,argv_4):
@@ -896,6 +897,11 @@ class GraphFun(object):
         return edges
 
     def check_offline(self,current_locate):
-        p = os.popen("java -jar  /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar -d DEBUG offline --json -m "+current_locate+ '/merged.graphml'+' \"random(edge_coverage(100))\" &')
+        p = os.popen("java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar -d DEBUG offline --json -m "+current_locate+ '/merged.graphml'+' \"random(edge_coverage(100))\" &')
+        r = p.read()
+        logger.debug(str(r))
+
+    def check_all_variable(self,current_locate):
+        p = os.popen("java -jar  /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar -d DEBUG offline --json -o -m "+current_locate+ '/merged.graphml'+' \"random(edge_coverage(100))\" &')
         r = p.read()
         logger.debug(str(r))
