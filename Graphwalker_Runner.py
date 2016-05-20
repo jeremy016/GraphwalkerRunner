@@ -15,7 +15,7 @@ except ImportError:
 from subprocess import Popen, PIPE
 
 
-runner_version='1.0.15'
+runner_version='1.0.17'
 # logger setting
 
 try:
@@ -121,6 +121,8 @@ parser.add_argument("-step", "--step", help="Setting maximum run steps , syntax:
 parser.add_argument("-D", "--debug", help="check offline , syntax: Graphwalker_Runner -D ",action="store_true")
 # check all variables
 parser.add_argument("-var", "--variable", help="check all variables , syntax: Graphwalker_Runner -var ",action="store_true")
+# check unvisit point
+parser.add_argument("-unvisit", "--unvisit", help="check unvisit point , syntax: Graphwalker_Runner -D -unvisit ",action="store_true")
 
 
 
@@ -409,15 +411,22 @@ elif args.run:
 	
 
 elif args.debug:
-	logger.info('Check graph offline')
-	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_offline.py',current_locate])
+	logger.info('Running debug mode...')
+	args_1 = ''
+	try:
+		if args.variable:
+			args_1+='-o'
+		if args.unvisit:
+			args_1+=' -u'
 
-elif args.variable:
-	logger.info('Check graph all variables')
-	call(['sudo','python','/usr/local/GraphwalkerRunner/lib/check_all_variable.py',current_locate])
- 
+		command_debug = "java -jar /usr/local/GraphwalkerRunner/lib/graphwalker-cli-SNAPSHOT.jar -d DEBUG offline --json "+args_1+" -m "+current_locate+'/merged.graphml'+' \"random(edge_coverage(100))\" &'
+		p = os.popen(command_debug)
+		r = p.read()
+		logger.debug(str(r))
 
+	except Exception,e:
 
+		logger.error(str(e))	 
 
 else:
 	parser.print_help()

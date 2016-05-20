@@ -3,10 +3,11 @@
 
 		"latest":
 
-			{"Version":"1.0.23","Change log":["Add check all variable"]},
+			{"Version":"1.0.24","Change log":["Add check unvisit point"]},
 
 		"old":
 		[	
+			{"Version":"1.0.23","Change log":["Add check all variable"]},
 			{"Version":"1.0.22","Change log":["Add run with steps stop condition"]},
 			{"Version":"1.0.21","Change log":["Add check graph offline and debug"]},
 			{"Version":"1.0.20","Change log":["Add count steps timeout"]},
@@ -35,7 +36,7 @@
 	},
 	"runner":{
 		"latest":
-			{"Version":"1.0.16","Change log":["Add check all variable"]}
+			{"Version":"1.0.17","Change log":["Add check unvisit point"]}
 	}
 		
 	
